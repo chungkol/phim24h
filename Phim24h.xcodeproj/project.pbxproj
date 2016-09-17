@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0119C09AE75DEFAF7D3F0029 /* Pods_Phim24h.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006561D6344AF607B6604A53 /* Pods_Phim24h.framework */; };
 		54555D081D8BF1D400048AAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54555D071D8BF1D400048AAC /* AppDelegate.swift */; };
 		54555D0A1D8BF1D400048AAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54555D091D8BF1D400048AAC /* ViewController.swift */; };
 		54555D0D1D8BF1D400048AAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54555D0B1D8BF1D400048AAC /* Main.storyboard */; };
 		54555D0F1D8BF1D400048AAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54555D0E1D8BF1D400048AAC /* Assets.xcassets */; };
 		54555D121D8BF1D400048AAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54555D101D8BF1D400048AAC /* LaunchScreen.storyboard */; };
+		54555D1A1D8BF21000048AAC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54555D191D8BF21000048AAC /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		006561D6344AF607B6604A53 /* Pods_Phim24h.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phim24h.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E3D9D26625080824DEBADFE /* Pods-Phim24h.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phim24h.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phim24h/Pods-Phim24h.release.xcconfig"; sourceTree = "<group>"; };
+		301DF1A3D2094B9E3815E945 /* Pods-Phim24h.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phim24h.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phim24h/Pods-Phim24h.debug.xcconfig"; sourceTree = "<group>"; };
 		54555D041D8BF1D400048AAC /* Phim24h.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phim24h.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54555D071D8BF1D400048AAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54555D091D8BF1D400048AAC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +27,7 @@
 		54555D0E1D8BF1D400048AAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54555D111D8BF1D400048AAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		54555D131D8BF1D400048AAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54555D191D8BF21000048AAC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0119C09AE75DEFAF7D3F0029 /* Pods_Phim24h.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		107449F66FDE2FC2050D767C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				006561D6344AF607B6604A53 /* Pods_Phim24h.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		54555CFB1D8BF1D400048AAC = {
 			isa = PBXGroup;
 			children = (
 				54555D061D8BF1D400048AAC /* Phim24h */,
 				54555D051D8BF1D400048AAC /* Products */,
+				CB442EF0AA8B5A0CB7ECE18A /* Pods */,
+				107449F66FDE2FC2050D767C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +71,7 @@
 		54555D061D8BF1D400048AAC /* Phim24h */ = {
 			isa = PBXGroup;
 			children = (
+				54555D191D8BF21000048AAC /* GoogleService-Info.plist */,
 				54555D071D8BF1D400048AAC /* AppDelegate.swift */,
 				54555D091D8BF1D400048AAC /* ViewController.swift */,
 				54555D0B1D8BF1D400048AAC /* Main.storyboard */,
@@ -64,6 +82,15 @@
 			path = Phim24h;
 			sourceTree = "<group>";
 		};
+		CB442EF0AA8B5A0CB7ECE18A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				301DF1A3D2094B9E3815E945 /* Pods-Phim24h.debug.xcconfig */,
+				0E3D9D26625080824DEBADFE /* Pods-Phim24h.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +98,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54555D161D8BF1D400048AAC /* Build configuration list for PBXNativeTarget "Phim24h" */;
 			buildPhases = (
+				16B465973A53B4B34FC2D34C /* [CP] Check Pods Manifest.lock */,
 				54555D001D8BF1D400048AAC /* Sources */,
 				54555D011D8BF1D400048AAC /* Frameworks */,
 				54555D021D8BF1D400048AAC /* Resources */,
+				D16A075D09D95B2E7CF17874 /* [CP] Embed Pods Frameworks */,
+				CC682ED29E759D716089D345 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -124,12 +154,61 @@
 			buildActionMask = 2147483647;
 			files = (
 				54555D121D8BF1D400048AAC /* LaunchScreen.storyboard in Resources */,
+				54555D1A1D8BF21000048AAC /* GoogleService-Info.plist in Resources */,
 				54555D0F1D8BF1D400048AAC /* Assets.xcassets in Resources */,
 				54555D0D1D8BF1D400048AAC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16B465973A53B4B34FC2D34C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CC682ED29E759D716089D345 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Phim24h/Pods-Phim24h-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D16A075D09D95B2E7CF17874 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Phim24h/Pods-Phim24h-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		54555D001D8BF1D400048AAC /* Sources */ = {
@@ -258,6 +337,7 @@
 		};
 		54555D171D8BF1D400048AAC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 301DF1A3D2094B9E3815E945 /* Pods-Phim24h.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Phim24h/Info.plist;
@@ -270,6 +350,7 @@
 		};
 		54555D181D8BF1D400048AAC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E3D9D26625080824DEBADFE /* Pods-Phim24h.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Phim24h/Info.plist;
@@ -299,6 +380,7 @@
 				54555D181D8BF1D400048AAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

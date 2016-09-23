@@ -11,18 +11,21 @@ import Alamofire
 import Kingfisher
 class HomeViewController: BaseViewController  {
     
-    @IBOutlet weak var collectionTopRated: UICollectionView!
     
-    @IBOutlet weak var imageInSlide: UIImageView!
     
     @IBOutlet weak var scrollviewSlide: UIScrollView!
     
     @IBOutlet weak var pageSilde: UIPageControl!
+    
+    @IBOutlet weak var myTable: UITableView!
+    
+    
     var first = false
     var currentPage = 0
     
-    var topRated: [Film] = []
-    
+    var datas = NSMutableDictionary()
+    var dataKey : [String] = []
+    var dataForSlide: [Film] = []
     var photo: [UIImageView] = []
     
     var frontScrollViews: [UIScrollView] = []
@@ -33,27 +36,61 @@ class HomeViewController: BaseViewController  {
         super.viewDidLoad()
         pageSilde.currentPage = currentPage
         pageSilde.numberOfPages = 5
-        scrollviewSlide.delegate = self
-        collectionTopRated.delegate = self
-        collectionTopRated.dataSource = self
-        collectionTopRated.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
-        ManagerData.instance.getListFilm(page: 1 , type: ManagerData.TOP_RATED) {[unowned self] (films) in
-            self.topRated = films
-            self.addImgaeForSlide()
-            self.collectionTopRated.reloadData()
-             self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
+        
+        
+        
+        myTable.delegate = self
+        myTable.dataSource = self
+        myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
+        initData()
+    }
+    func initData(){
+        ManagerData.instance.getUpComing(page: 1 , type: ManagerData.UPCOMING) {[unowned self] (films) in
+            self.dataForSlide = films
+            self.datas.setObject(films as! [Film], forKey: "Up coming" as NSCopying)
+            
+            
+            
+            ManagerData.instance.getTopRated(page: 1 , type: ManagerData.TOP_RATED) {[unowned self] (films) in
+                self.datas.setObject(films as! [Film], forKey: "Top rated" as NSCopying)
+                
+                
+                ManagerData.instance.getPopular(page: 1 , type: ManagerData.POPULAR) {[unowned self] (films) in
+                    self.datas.setObject(films as! [Film], forKey: "Popular" as NSCopying)
+                    
+                    
+                    ManagerData.instance.getNowPlaying(page: 1 , type: ManagerData.NOW_PLAYING) {[unowned self] (films) in
+                        self.datas.setObject(films as! [Film], forKey: "Now Playing" as NSCopying)
+                        print(self.datas.count)
+                        
+                        self.addImgaeForSlide()
+                        self.scrollviewSlide.delegate = self
+                        
+                        self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
+                        RunLoop.main.add(self.timer, forMode: .commonModes)
+                        
+                        self.dataKey = self.datas.allKeys as! [String]
+                        self.myTable.reloadData()
+                        
+                        
+                    }
+                    
+                }
+            }
+            
         }
+        
+        
+        
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.setTitForView("Phim24h")
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
     }
     
     
@@ -69,8 +106,7 @@ class HomeViewController: BaseViewController  {
             for i in 0..<5
             {
                 let imgView = UIImageView()
-                let pathImage = "https://image.tmdb.org/t/p/original\(topRated[i].backdrop_path!)"
-                print(pathImage)
+                let pathImage = "https://image.tmdb.org/t/p/original\(dataForSlide[i].backdrop_path!)"
                 imgView.kf.setImage(with: URL(string: pathImage))
                 imgView.frame = CGRect(x: 0, y: 0, width: scrollviewSlide.frame.size.width, height: scrollviewSlide.frame.size.height)
                 imgView.contentMode = .scaleAspectFill
@@ -95,11 +131,12 @@ class HomeViewController: BaseViewController  {
                 self.scrollviewSlide.backgroundColor =  UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
                 
                 self.scrollviewSlide.addSubview(frontScrollView)
-                currentPage = 0
-               
+                pageSilde.currentPage = 0
+                
                 
                 
             }
+            
             
         }
         
@@ -107,11 +144,10 @@ class HomeViewController: BaseViewController  {
     }
     func tapImg(_ gesture: UITapGestureRecognizer){
         print("tap image")
-        print("aaa \(topRated.count)")
+        
     }
     func updateSlide(_ sender: AnyObject){
         var current = pageSilde.currentPage
-         print("trước \(current)")
         current = current + 1
         if current < 5 {
             
@@ -121,19 +157,14 @@ class HomeViewController: BaseViewController  {
         else{
             current = 0
             scrollviewSlide.contentOffset = CGPoint(x: CGFloat(current) * scrollviewSlide.frame.size.width,y: 0)
-
+            
         }
         pageSilde.currentPage = current
         
-        
-        
-
-        
-        
     }
     @IBAction func pageChange(_ sender: UIPageControl) {
-        print( pageSilde.currentPage)
         scrollviewSlide.contentOffset = CGPoint(x: CGFloat(pageSilde.currentPage) * scrollviewSlide.frame.size.width, y: 0)
+        
         
     }
     
@@ -146,26 +177,30 @@ extension HomeViewController: UIScrollViewDelegate {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate {
-  
-}
-
-extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        return topRated.count
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 210
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
+}
+extension HomeViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return datas.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! TableViewCell
+        if let nameCell: String = dataKey[indexPath.row]
+        {
+            cell.title = nameCell
+            if let datas = datas.value(forKey: nameCell) as? [Film]
+            {
+                cell.datas = datas
+            }
+            
+        }
         
-        let item: Film = topRated[(indexPath as NSIndexPath).row]
-        
-        let pathImage = "https://image.tmdb.org/t/p/original\(item.poster_path!)"
-        
-        cell.imageCell.kf.setImage(with: URL(string: pathImage))
-        cell.nameCell.text = item.title
         return cell
         
     }
-    
 }
+
+

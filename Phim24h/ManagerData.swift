@@ -30,8 +30,8 @@ class ManagerData {
     private init() {
     
     }
-    
-    func getListFilm(page: Int,type: String,
+    //get list film top rated
+    func getTopRated(page: Int,type: String,
                          completetion:@escaping ([Film])->())
     {
         if (list_Top_Rated.count == 0)
@@ -46,6 +46,58 @@ class ManagerData {
             completetion(list_Top_Rated)
         }
     }
+    
+    //get lish film popular
+    func getPopular(page: Int,type: String,
+                     completetion:@escaping ([Film])->())
+    {
+        if (list_Popular.count == 0)
+        {
+            getFilms(page: page, type: type, completetion: { [unowned self] films in
+                self.list_Popular = films
+                completetion(films)
+                })
+        }
+        else
+        {
+            completetion(list_Popular)
+        }
+    }
+    
+    //get list film up coming
+    func getUpComing(page: Int,type: String,
+                    completetion:@escaping ([Film])->())
+    {
+        if (list_Up_Coming.count == 0)
+        {
+            getFilms(page: page, type: type, completetion: { [unowned self] films in
+                self.list_Up_Coming = films
+                completetion(films)
+                })
+        }
+        else
+        {
+            completetion(list_Up_Coming)
+        }
+    }
+    
+    //get lish film now playing
+    func getNowPlaying(page: Int,type: String,
+                    completetion:@escaping ([Film])->())
+    {
+        if (list_Now_Playing.count == 0)
+        {
+            getFilms(page: page, type: type, completetion: { [unowned self] films in
+                self.list_Now_Playing = films
+                completetion(films)
+                })
+        }
+        else
+        {
+            completetion(list_Now_Playing)
+        }
+    }
+    
     private func getFilms(page: Int, type: String,
                      completetion:@escaping ([Film])->()){
         let parameters: Parameters = ["api_key": ManagerData.API_KEY,

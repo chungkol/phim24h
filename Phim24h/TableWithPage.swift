@@ -21,23 +21,34 @@ class TableWithPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        myTable.delegate = self
+        myTable.dataSource = self
+        myTable.register(UINib(nibName: "TableViewCellWithPage", bundle: nil), forCellReuseIdentifier: "TableCellWithPage")
+        self.title = data_title
+        getData(page: 1)
+
+        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+            self.list_Genre = genres
+            self.myTable.reloadData()
+
+            })
+
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        if let myTable = self.myTable
 //        {
-            myTable.delegate = self
-            myTable.dataSource = self
-            myTable.register(UINib(nibName: "TableViewCellWithPage", bundle: nil), forCellReuseIdentifier: "TableCellWithPage")
-            self.title = data_title
-            ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
-                self.list_Genre = genres
-                self.myTable.reloadData()
-                print(self.list_Genre)
-                })
-            getData(page: 1)
+//            myTable.delegate = self
+//            myTable.dataSource = self
+//            myTable.register(UINib(nibName: "TableViewCellWithPage", bundle: nil), forCellReuseIdentifier: "TableCellWithPage")
+//            self.title = data_title
+//            ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+//                self.list_Genre = genres
+//                self.myTable.reloadData()
+//                print(self.list_Genre)
+//                })
+//            getData(page: 1)
 //        }
     }
     func getData(page: Int) {
@@ -115,13 +126,15 @@ extension TableWithPage: UITableViewDataSource {
         cell.titleCell.text = item.title
         cell.totalViewCell.text = String(item.popularity)
         cell.contentCell.text = item.overview
-        if let _ = list_Genre {
-            
-            if let type: String = self.getNameOfGenre(genres: item.genre_ids as! [Int]) {
-                cell.typeCell.text = type
-                print(type)
-            }
-        }
+        
+        
+//        if let _ = list_Genre {
+            print(" item \(indexPath.row) : \(item.genre_ids)")
+//            if let type: String = self.getNameOfGenre(genres: item.genre_ids as! [Int]) {
+//                cell.typeCell.text = type
+//                print(type)
+//            }
+//        }
         
         
         

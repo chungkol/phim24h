@@ -3,15 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Phim24h" customModuleProvider="target">
             <connections>
-                <outlet property="myTable" destination="yRd-rR-HhL" id="Suz-zj-N9r"/>
-                <outlet property="pageSilde" destination="TJb-dV-5rK" id="y1G-dx-iP9"/>
-                <outlet property="scrollviewSlide" destination="LnZ-MA-sM5" id="jfG-kU-GE7"/>
+                <outlet property="myTable" destination="yRd-rR-HhL" id="8zF-aS-zBL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,60 +17,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rGt-Na-HNO">
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9XH-jr-e6M">
-                            <subviews>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LnZ-MA-sM5"/>
-                                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="TJb-dV-5rK">
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="100" id="SVm-gs-mwH"/>
-                                        <constraint firstAttribute="height" constant="20" id="nsL-O4-wd2"/>
-                                    </constraints>
-                                    <connections>
-                                        <action selector="pageChange:" destination="-1" eventType="valueChanged" id="vSZ-Dg-QS0"/>
-                                    </connections>
-                                </pageControl>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yRd-rR-HhL">
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </tableView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="yRd-rR-HhL" firstAttribute="leading" secondItem="9XH-jr-e6M" secondAttribute="leading" id="0B3-6s-3Dn"/>
-                                <constraint firstItem="yRd-rR-HhL" firstAttribute="top" secondItem="TJb-dV-5rK" secondAttribute="bottom" constant="8" id="Api-KL-ods"/>
-                                <constraint firstItem="LnZ-MA-sM5" firstAttribute="leading" secondItem="9XH-jr-e6M" secondAttribute="leading" id="DIw-Rk-D27"/>
-                                <constraint firstAttribute="trailing" secondItem="yRd-rR-HhL" secondAttribute="trailing" id="Lga-gl-44K"/>
-                                <constraint firstItem="LnZ-MA-sM5" firstAttribute="top" secondItem="9XH-jr-e6M" secondAttribute="top" id="RD9-Ew-OwR"/>
-                                <constraint firstItem="TJb-dV-5rK" firstAttribute="centerX" secondItem="9XH-jr-e6M" secondAttribute="centerX" id="Uro-Rx-5pP"/>
-                                <constraint firstItem="LnZ-MA-sM5" firstAttribute="height" secondItem="9XH-jr-e6M" secondAttribute="width" multiplier="0.6" constant="-21.5" id="Vn0-Pc-aBH"/>
-                                <constraint firstAttribute="bottom" secondItem="yRd-rR-HhL" secondAttribute="bottom" id="WIy-EO-MqO"/>
-                                <constraint firstItem="TJb-dV-5rK" firstAttribute="top" secondItem="LnZ-MA-sM5" secondAttribute="bottom" id="ZND-Pn-5Vl"/>
-                                <constraint firstAttribute="trailing" secondItem="LnZ-MA-sM5" secondAttribute="trailing" id="tbB-Du-xAO"/>
-                            </constraints>
-                        </view>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="9XH-jr-e6M" firstAttribute="leading" secondItem="rGt-Na-HNO" secondAttribute="leading" id="Ezo-PU-r8j"/>
-                        <constraint firstItem="9XH-jr-e6M" firstAttribute="top" secondItem="rGt-Na-HNO" secondAttribute="top" id="UpZ-hs-tMy"/>
-                        <constraint firstAttribute="trailing" secondItem="9XH-jr-e6M" secondAttribute="trailing" id="dqp-dX-CCr"/>
-                        <constraint firstAttribute="bottom" secondItem="9XH-jr-e6M" secondAttribute="bottom" id="itK-KG-Zx9"/>
-                    </constraints>
-                </scrollView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="yRd-rR-HhL">
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </tableView>
             </subviews>
             <constraints>
-                <constraint firstItem="rGt-Na-HNO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4Ua-cJ-1Ea"/>
-                <constraint firstItem="9XH-jr-e6M" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="6OY-0l-Gxe"/>
-                <constraint firstAttribute="bottom" secondItem="rGt-Na-HNO" secondAttribute="bottom" id="BoL-cX-KFx"/>
-                <constraint firstItem="rGt-Na-HNO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Yem-Vq-QWv"/>
-                <constraint firstItem="9XH-jr-e6M" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="lUa-AT-HEY"/>
-                <constraint firstAttribute="trailing" secondItem="rGt-Na-HNO" secondAttribute="trailing" id="mNA-Qo-bMg"/>
+                <constraint firstAttribute="bottom" secondItem="yRd-rR-HhL" secondAttribute="bottom" id="Rbs-jB-mnD"/>
+                <constraint firstItem="yRd-rR-HhL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vfq-lo-kP0"/>
+                <constraint firstItem="yRd-rR-HhL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vnV-mz-SnT"/>
+                <constraint firstAttribute="trailing" secondItem="yRd-rR-HhL" secondAttribute="trailing" id="xOU-9m-DRt"/>
             </constraints>
-            <point key="canvasLocation" x="32.5" y="129.5"/>
+            <point key="canvasLocation" x="31.5" y="128.5"/>
         </view>
-        <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="Vnd-Zs-yMa">
-            <rect key="frame" x="0.0" y="0.0" width="39" height="37"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-        </pageControl>
     </objects>
 </document>

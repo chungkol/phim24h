@@ -17,7 +17,7 @@ class HomeViewController: BaseViewController  {
     @IBOutlet weak var myTable: UITableView!
     
     
-    var testView: UIView!
+    var headerView: UIView!
     var scrollviewSlide: UIScrollView!
     var pageSilde: UIPageControl!
     
@@ -38,7 +38,7 @@ class HomeViewController: BaseViewController  {
         super.viewDidLoad()
         addSlide()
         myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
-        myTable.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
+        myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
         self.automaticallyAdjustsScrollViewInsets = false
         initData()
     }
@@ -46,8 +46,8 @@ class HomeViewController: BaseViewController  {
     //add Subview for slide
     func addSlide(){
         print(self.view.bounds.size.width)
-        testView = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6) + 25))
-        testView.backgroundColor = UIColor.gray
+        headerView = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6) + 25))
+        headerView.backgroundColor = UIColor.gray
         
         scrollviewSlide = UIScrollView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6)))
         
@@ -58,25 +58,24 @@ class HomeViewController: BaseViewController  {
         let tap = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.pageChange(_:)))
         tap.numberOfTapsRequired = 1
         pageSilde.addGestureRecognizer(tap)
-        testView.addSubview(scrollviewSlide)
-        testView.addSubview(pageSilde)
+        headerView.addSubview(scrollviewSlide)
+        headerView.addSubview(pageSilde)
         scrollviewSlide.translatesAutoresizingMaskIntoConstraints = false
         
         //        constraint scroll
         
-        var layouTop = NSLayoutConstraint(item: scrollviewSlide, attribute: .top, relatedBy: .equal, toItem: self.testView, attribute: .top, multiplier: 1.0, constant: 0)
+        var layouTop = NSLayoutConstraint(item: scrollviewSlide, attribute: .top, relatedBy: .equal, toItem: self.headerView, attribute: .top, multiplier: 1.0, constant: 0)
         
-        let layoutBot = NSLayoutConstraint(item: scrollviewSlide, attribute: .bottom, relatedBy: .equal, toItem: self.testView, attribute: .bottom, multiplier: 1.0, constant: -25)
-        
-        
-        let layoutRight = NSLayoutConstraint(item: scrollviewSlide, attribute: .trailing, relatedBy: .equal, toItem: self.testView, attribute: .trailing, multiplier: 1.0, constant: 0)
+        let layoutBot = NSLayoutConstraint(item: scrollviewSlide, attribute: .bottom, relatedBy: .equal, toItem: self.headerView, attribute: .bottom, multiplier: 1.0, constant: -25)
         
         
-        let layoutLeft = NSLayoutConstraint(item: scrollviewSlide, attribute: .leading, relatedBy: .equal, toItem: self.testView, attribute: .leading, multiplier: 1.0, constant: 0)
+        let layoutRight = NSLayoutConstraint(item: scrollviewSlide, attribute: .trailing, relatedBy: .equal, toItem: self.headerView, attribute: .trailing, multiplier: 1.0, constant: 0)
+        
+        
+        let layoutLeft = NSLayoutConstraint(item: scrollviewSlide, attribute: .leading, relatedBy: .equal, toItem: self.headerView, attribute: .leading, multiplier: 1.0, constant: 0)
         
 
         
-        testView.backgroundColor = UIColor.red
         NSLayoutConstraint.activate([layoutRight,layouTop,layoutLeft,layoutBot])
 
         
@@ -87,7 +86,7 @@ class HomeViewController: BaseViewController  {
         layouTop = NSLayoutConstraint(item: pageSilde, attribute: .top, relatedBy: .equal, toItem: self.scrollviewSlide, attribute: .bottom, multiplier: 1.0, constant: 0)
         
         
-        let horizontalConstraint = NSLayoutConstraint(item: pageSilde, attribute: .centerX, relatedBy: .equal, toItem: self.testView, attribute: .centerX, multiplier: 1, constant: 0)
+        let horizontalConstraint = NSLayoutConstraint(item: pageSilde, attribute: .centerX, relatedBy: .equal, toItem: self.headerView, attribute: .centerX, multiplier: 1, constant: 0)
         let heightContraint = NSLayoutConstraint(item: pageSilde, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25)
         
         let widthContraint = NSLayoutConstraint(item: pageSilde, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
@@ -127,9 +126,7 @@ class HomeViewController: BaseViewController  {
                         self.myTable.reloadData()
                         //                        self.loading.isHidden = true
                         //                        self.loading.stopAnimating()
-                        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
-                            
-                            })
+                      
                         
                         
                         
@@ -262,7 +259,7 @@ extension HomeViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return testView
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

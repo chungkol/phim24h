@@ -21,7 +21,7 @@ class LoginAccount: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.gray
         if let mUser = userDefault.object(forKey: LoginAccount.KEY_USER) as? String
         , let mPass = userDefault.object(forKey: LoginAccount.KEY_PASS) as? String {

@@ -1,19 +1,22 @@
 //
-//  PhimBo.swift
+//  Popular.swift
 //  Phim24h
 //
-//  Created by Chung on 9/20/16.
+//  Created by Chung on 9/26/16.
 //  Copyright © 2016 techmaster. All rights reserved.
 //
 
 import UIKit
 
-class PhimBo: BaseViewController {
+class Popular: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let detail = TableWithPage(nibName: "TableWithPage", bundle: nil)
+        detail.data_key = ManagerData.POPULAR
+        detail.data_title = "Popular"
+        self.navigationController?.pushViewController(detail, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

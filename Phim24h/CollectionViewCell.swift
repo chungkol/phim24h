@@ -10,6 +10,7 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var imageCell: UIImageView!
     
     @IBOutlet weak var nameCell: UILabel!

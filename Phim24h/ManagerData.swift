@@ -15,6 +15,7 @@ class ManagerData {
     static let POPULAR = "https://api.themoviedb.org/3/movie/popular?language=en-US"
     static let UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?language=en-US"
     static let NOW_PLAYING = "https://api.themoviedb.org/3/movie/now_playing?language=en-US"
+    static let GENRE = "https://api.themoviedb.org/3/genre/movie/list?language=en-US"
     
     
     static let instance = ManagerData()
@@ -23,23 +24,37 @@ class ManagerData {
     var list_Popular : [Film] = []
     var list_Up_Coming : [Film] = []
     var list_Now_Playing : [Film] = []
+    var list_genres: [Genre] = []
     var pageTopRated = 1
     var pagePopular = 1
     var pageUpComing = 1
     var pageNowPlaying = 1
     private init() {
-    
+        
     }
+    
+    
+    func getAllGenre(completetion: @escaping ([Genre])->()) {
+        if list_genres.count == 0  {
+            getGenres(completetion: { [unowned self] genres in
+                self.list_genres = genres
+                completetion(genres)
+                
+            })
+        }
+    }
+    
+    
     //get list film top rated
     func getTopRated(page: Int,type: String,
-                         completetion:@escaping ([Film])->())
+                     completetion:@escaping ([Film])->())
     {
         if (list_Top_Rated.count == 0)
         {
             getFilms(page: page, type: type, completetion: { [unowned self] films in
                 self.list_Top_Rated = films
                 completetion(films)
-            })
+                })
         }
         else
         {
@@ -49,7 +64,7 @@ class ManagerData {
     
     //get lish film popular
     func getPopular(page: Int,type: String,
-                     completetion:@escaping ([Film])->())
+                    completetion:@escaping ([Film])->())
     {
         if (list_Popular.count == 0)
         {
@@ -66,7 +81,7 @@ class ManagerData {
     
     //get list film up coming
     func getUpComing(page: Int,type: String,
-                    completetion:@escaping ([Film])->())
+                     completetion:@escaping ([Film])->())
     {
         if (list_Up_Coming.count == 0)
         {
@@ -83,7 +98,7 @@ class ManagerData {
     
     //get lish film now playing
     func getNowPlaying(page: Int,type: String,
-                    completetion:@escaping ([Film])->())
+                       completetion:@escaping ([Film])->())
     {
         if (list_Now_Playing.count == 0)
         {
@@ -99,7 +114,7 @@ class ManagerData {
     }
     
     private func getFilms(page: Int, type: String,
-                     completetion:@escaping ([Film])->()){
+                          completetion:@escaping ([Film])->()){
         let parameters: Parameters = ["api_key": ManagerData.API_KEY,
                                       "page": page]
         
@@ -112,7 +127,27 @@ class ManagerData {
                 }
         }
     }
+    
+    //get genre of film
+    private func getGenres(completetion: @escaping ([Genre])->()) {
+        
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        
+        Alamofire.request(ManagerData.GENRE, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["genres"].map(Genre.init)
+                    completetion(results)
+                
+                }
+        }
+        
     }
+    
+    
+    
+}
 
 
 extension DataRequest {

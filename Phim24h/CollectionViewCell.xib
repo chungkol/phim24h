@@ -27,19 +27,29 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S1s-0b-CPz">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Fhc-Tf-GhQ"/>
+                            <constraint firstAttribute="width" constant="20" id="mbR-ZC-Qff"/>
+                        </constraints>
+                        <color key="color" red="0.38726528259999998" green="0.88688899050000003" blue="0.71803659659999997" alpha="1" colorSpace="calibratedRGB"/>
+                    </activityIndicatorView>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="S1s-0b-CPz" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="5uz-ew-6b9"/>
                 <constraint firstItem="PwO-xC-I7N" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="FIe-e0-JQ5"/>
                 <constraint firstItem="TQj-zR-Ezq" firstAttribute="top" secondItem="PwO-xC-I7N" secondAttribute="bottom" id="OD2-A1-BxM"/>
                 <constraint firstItem="TQj-zR-Ezq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PR9-b3-sSK"/>
                 <constraint firstAttribute="bottom" secondItem="TQj-zR-Ezq" secondAttribute="bottom" id="QGk-lI-5PL"/>
                 <constraint firstItem="PwO-xC-I7N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="RzL-yB-2h0"/>
+                <constraint firstItem="S1s-0b-CPz" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="XJH-6S-xGY"/>
                 <constraint firstAttribute="trailing" secondItem="TQj-zR-Ezq" secondAttribute="trailing" id="sga-bh-Kl5"/>
             </constraints>
             <size key="customSize" width="255" height="120"/>
             <connections>
                 <outlet property="imageCell" destination="PwO-xC-I7N" id="r5t-n7-ns5"/>
+                <outlet property="loading" destination="S1s-0b-CPz" id="3EB-hC-Qsu"/>
                 <outlet property="nameCell" destination="TQj-zR-Ezq" id="6uq-ei-930"/>
             </connections>
             <point key="canvasLocation" x="83" y="87"/>

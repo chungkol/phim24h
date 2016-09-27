@@ -36,16 +36,22 @@ class HomeViewController: BaseViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSlide()
+        
         myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
         myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
         self.automaticallyAdjustsScrollViewInsets = false
         initData()
     }
+    override func viewWillLayoutSubviews() {
+        addSlide()
+    }
     
     //add Subview for slide
     func addSlide(){
         print(self.view.bounds.size.width)
+        if headerView == nil {
+            <#code#>
+        }
         headerView = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6) + 25))
         headerView.backgroundColor = UIColor.gray
         
@@ -126,8 +132,7 @@ class HomeViewController: BaseViewController  {
                         self.myTable.reloadData()
                         //                        self.loading.isHidden = true
                         //                        self.loading.stopAnimating()
-                      
-                        
+                        print(self.datas[0].datas)
                         
                         
                     }

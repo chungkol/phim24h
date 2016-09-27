@@ -57,6 +57,7 @@ class TableWithPage: UIViewController {
         case ManagerData.POPULAR:
             ManagerData.instance.getPopular(page: page , type: ManagerData.POPULAR) {[unowned self] (films) in
                 self.datas = films
+
             }
         case ManagerData.TOP_RATED:
             ManagerData.instance.getTopRated(page: page , type: ManagerData.POPULAR) {[unowned self] (films) in
@@ -79,14 +80,15 @@ class TableWithPage: UIViewController {
     }
     
     func getNameOfGenre(genres: [Int]) -> String {
-        var result: String!
+        var result: String = ""
         for item in self.list_Genre {
             for index in 0..<genres.count {
                 if item.id == genres[index] {
-                    result.append("\(item.name), ")
+                    result.append("\(item.name!), ")
                     if( index == genres.count) {
-                        result.append("\(item.name).")
+                        result.append("\(item.name!).")
                     }
+                    print(item.name)
                 }
             }
         }
@@ -128,13 +130,13 @@ extension TableWithPage: UITableViewDataSource {
         cell.contentCell.text = item.overview
         
         
-//        if let _ = list_Genre {
+        if let _ = list_Genre {
             print(" item \(indexPath.row) : \(item.genre_ids)")
-//            if let type: String = self.getNameOfGenre(genres: item.genre_ids as! [Int]) {
-//                cell.typeCell.text = type
-//                print(type)
-//            }
-//        }
+            if let type: String = self.getNameOfGenre(genres: item.genre_ids as! [Int]) {
+                cell.typeCell.text = type 
+                print(type)
+            }
+        }
         
         
         

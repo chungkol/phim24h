@@ -8,28 +8,53 @@
 
 import UIKit
 
-class GenreViewController: UIViewController {
-
+class GenreViewController: BaseViewController {
+    
+    @IBOutlet weak var loading: UIActivityIndicatorView!
+    @IBOutlet weak var myTable: UITableView!
+    var datas: [Genre] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        myTable.delegate = self
+        myTable.dataSource = self
+        loading.startAnimating()
+        myTable.register(UITableViewCell.self, forCellReuseIdentifier: "CellGenre")
+        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+            self.datas = genres
+            self.myTable.reloadData()
+            })
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.view.backgroundColor = UIColor.clear
+        self.myTable.backgroundColor = UIColor.clear
     }
     
+    
+}
+extension GenreViewController: UITableViewDelegate {
+    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension GenreViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return  datas.count
     }
-    */
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "CellGenre", for: indexPath)
+        cell.textLabel?.text = datas[indexPath.row].name
+        cell.textLabel?.textColor = UIColor.black
+        cell.backgroundColor = UIColor.white
+        if(indexPath.row == datas.count-1 ){
+            loading.isHidden = true
+            loading.stopAnimating()
+        }
+        return cell
+    }
+    @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
+        detailVC.genre_id = datas[indexPath.row].id
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }

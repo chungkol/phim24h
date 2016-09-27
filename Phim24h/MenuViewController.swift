@@ -10,6 +10,7 @@ import UIKit
 
 enum LeftMenu: Int {
     case home = 0
+    case genre
     case upComing
     case topRated
     case popular
@@ -35,13 +36,15 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
     var topRated: UIViewController!
     var popular: UIViewController!
     var nowPlaying: UIViewController!
+    var genre: UIViewController!
     
-    var menus = [DataTableViewCellData(imageUrl: "home", text: "Trang chủ"),
+    var menus = [DataTableViewCellData(imageUrl: "home", text: "Home"),
+                 DataTableViewCellData(imageUrl: "film", text: "Genre"),
                  DataTableViewCellData(imageUrl: "film", text: "Up Coming"),
                  DataTableViewCellData(imageUrl: "film", text: "Top Rated"),
                  DataTableViewCellData(imageUrl: "film", text: "Popular"),
                  DataTableViewCellData(imageUrl: "film", text: "Now Playing"),
-                 DataTableViewCellData(imageUrl: "logout", text: "Đăng xuất")]
+                 DataTableViewCellData(imageUrl: "logout", text: "Logout")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,12 +71,16 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         
     }
     func addItemsForMenu(){
-//        let home = HomeViewController(nibName: "HomeViewController", bundle: nil)
-//        self.homeVC = UINavigationController(rootViewController: home)
+        let home = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        self.homeVC = UINavigationController(rootViewController: home)
+        
+        let genre = GenreViewController(nibName: "GenreViewController", bundle: nil)
+        self.genre = UINavigationController(rootViewController: genre)
+        
         
         let upComing = UpComing(nibName: "UpComing", bundle: nil)
         upComing.data_key = ManagerData.UPCOMING
-        upComing.data_title = "aa"
+        upComing.data_title = "Upcomming"
         self.upComing = UINavigationController(rootViewController: upComing)
         
         let topRated = TopRated(nibName: "TopRated", bundle: nil)
@@ -91,13 +98,12 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         switch menu {
         case .home:
             self.slideMenuController()?.changeMainViewController(self.homeVC, close: true)
+        case .genre:
+            self.slideMenuController()?.changeMainViewController(self.genre, close: true)
         case .upComing:
-            let upComing = UpComing(nibName: "UpComing", bundle: nil)
-            upComing.data_key = ManagerData.UPCOMING
-//            if let nav = self.navigationController
-//            {
-//                
-//            }
+            //            let upComing = UpComing(nibName: "UpComing", bundle: nil)
+            //            upComing.data_key = ManagerData.UPCOMING
+            
             self.slideMenuController()?.changeMainViewController(self.upComing, close: true)
         case .topRated:
             self.slideMenuController()?.changeMainViewController(self.topRated, close: true)

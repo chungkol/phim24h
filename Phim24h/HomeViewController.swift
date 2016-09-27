@@ -18,7 +18,7 @@ class HomeViewController: BaseViewController  {
     
     
     var headerView: UIView!
-    var scrollviewSlide: UIScrollView!
+
     var pageSilde: UIPageControl!
     
     var first = false
@@ -34,76 +34,84 @@ class HomeViewController: BaseViewController  {
     
     var timer = Timer()
     
+    var iCa: iCarousel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
+        addIcarousel()
         myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
-        self.automaticallyAdjustsScrollViewInsets = false
+
+        myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
         initData()
+        
     }
     override func viewWillLayoutSubviews() {
-        addSlide()
+      
+        
     }
     
-    //add Subview for slide
-    func addSlide(){
-        print(self.view.bounds.size.width)
+    
+    func addIcarousel(){
         if headerView == nil {
-            <#code#>
+            headerView = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6) + 25))
+            headerView.backgroundColor = UIColor.gray
         }
-        headerView = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6) + 25))
-        headerView.backgroundColor = UIColor.gray
+        if iCa == nil {
+            iCa = iCarousel(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height: (self.view.bounds.size.width * 0.6)))
+            iCa.type = .coverFlow2
+            iCa.dataSource = self
+            iCa.delegate = self
+            headerView.addSubview(iCa)
+            
+            iCa.translatesAutoresizingMaskIntoConstraints = false
+            
+            let layouTop = NSLayoutConstraint(item: iCa, attribute: .top, relatedBy: .equal, toItem: self.headerView, attribute: .top, multiplier: 1.0, constant: 0)
+            
+            let layoutBot = NSLayoutConstraint(item: iCa, attribute: .bottom, relatedBy: .equal, toItem: self.headerView, attribute: .bottom, multiplier: 1.0, constant: -25)
+            
+            
+            let layoutRight = NSLayoutConstraint(item: iCa, attribute: .trailing, relatedBy: .equal, toItem: self.headerView, attribute: .trailing, multiplier: 1.0, constant: 0)
+            
+            
+            let layoutLeft = NSLayoutConstraint(item: iCa, attribute: .leading, relatedBy: .equal, toItem: self.headerView, attribute: .leading, multiplier: 1.0, constant: 0)
+            
+            NSLayoutConstraint.activate([layouTop, layoutBot, layoutLeft, layoutRight])
+            
+        }
+        if pageSilde == nil {
+            
+            pageSilde = UIPageControl(frame: CGRect(x:0, y: 0, width: 100, height: 25))
+            print(pageSilde.bounds)
+            pageSilde.currentPage = currentPage
+            pageSilde.numberOfPages = 5
+            pageSilde.backgroundColor = UIColor.red
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.pageChange(_:)))
+            
+            tap.numberOfTapsRequired = 1
+            pageSilde.addGestureRecognizer(tap)
+            
+            self.pageSilde.translatesAutoresizingMaskIntoConstraints = false
+            self.pageSilde.backgroundColor = UIColor.clear
+            
+//            let layouTop = NSLayoutConstraint(item: pageSilde, attribute: .top, relatedBy: .equal, toItem: self.iCa, attribute: .bottom, multiplier: 1.0, constant: 0)
+//            
+//            
+//            let horizontalConstraint = NSLayoutConstraint(item: pageSilde, attribute: .centerX, relatedBy: .equal, toItem: self.headerView, attribute: .centerX, multiplier: 1, constant: 0)
+//            
+//            let heightContraint = NSLayoutConstraint(item: pageSilde, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25)
+//            
+//            let widthContraint = NSLayoutConstraint(item: pageSilde, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
+//            
+//            NSLayoutConstraint.activate([layouTop, horizontalConstraint, widthContraint, heightContraint])
+        }
         
-        scrollviewSlide = UIScrollView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6)))
-        
-        
-        pageSilde = UIPageControl(frame: CGRect(x:0, y:(scrollviewSlide.bounds.origin.x + scrollviewSlide.bounds.size.height), width: 100, height: 25))
-        pageSilde.currentPage = currentPage
-        pageSilde.numberOfPages = 5
-        let tap = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.pageChange(_:)))
-        tap.numberOfTapsRequired = 1
-        pageSilde.addGestureRecognizer(tap)
-        headerView.addSubview(scrollviewSlide)
-        headerView.addSubview(pageSilde)
-        scrollviewSlide.translatesAutoresizingMaskIntoConstraints = false
-        
-        //        constraint scroll
-        
-        var layouTop = NSLayoutConstraint(item: scrollviewSlide, attribute: .top, relatedBy: .equal, toItem: self.headerView, attribute: .top, multiplier: 1.0, constant: 0)
-        
-        let layoutBot = NSLayoutConstraint(item: scrollviewSlide, attribute: .bottom, relatedBy: .equal, toItem: self.headerView, attribute: .bottom, multiplier: 1.0, constant: -25)
-        
-        
-        let layoutRight = NSLayoutConstraint(item: scrollviewSlide, attribute: .trailing, relatedBy: .equal, toItem: self.headerView, attribute: .trailing, multiplier: 1.0, constant: 0)
-        
-        
-        let layoutLeft = NSLayoutConstraint(item: scrollviewSlide, attribute: .leading, relatedBy: .equal, toItem: self.headerView, attribute: .leading, multiplier: 1.0, constant: 0)
-        
-
-        
-        NSLayoutConstraint.activate([layoutRight,layouTop,layoutLeft,layoutBot])
-
-        
-        //        constraint page
-        self.pageSilde.translatesAutoresizingMaskIntoConstraints = false
-        self.pageSilde.backgroundColor = UIColor.darkGray
-        
-        layouTop = NSLayoutConstraint(item: pageSilde, attribute: .top, relatedBy: .equal, toItem: self.scrollviewSlide, attribute: .bottom, multiplier: 1.0, constant: 0)
-        
-        
-        let horizontalConstraint = NSLayoutConstraint(item: pageSilde, attribute: .centerX, relatedBy: .equal, toItem: self.headerView, attribute: .centerX, multiplier: 1, constant: 0)
-        let heightContraint = NSLayoutConstraint(item: pageSilde, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25)
-        
-        let widthContraint = NSLayoutConstraint(item: pageSilde, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
-        NSLayoutConstraint.activate([layouTop, horizontalConstraint, widthContraint, heightContraint])
     }
     
     
     
     
     func initData(){
-        //        loading.startAnimating()
         ManagerData.instance.getUpComing(page: 1 , type: ManagerData.UPCOMING) {[unowned self] (films) in
             self.datas.append(DataModel(title: "Up Coming", key: ManagerData.UPCOMING, datas: films as [Film]))
             
@@ -120,19 +128,12 @@ class HomeViewController: BaseViewController  {
                         
                         self.datas.append(DataModel(title: "Now Playing", key: ManagerData.NOW_PLAYING, datas: films as [Film]))
                         
-                        
-                        self.addImgaeForSlide()
-                        self.scrollviewSlide.delegate = self
-                        
-                        self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
-                        RunLoop.main.add(self.timer, forMode: .commonModes)
-                        
+                        self.iCa.reloadData()
+                        //                        self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
+                        //                        RunLoop.main.add(self.timer, forMode: .commonModes)
                         self.myTable.delegate = self
                         self.myTable.dataSource = self
                         self.myTable.reloadData()
-                        //                        self.loading.isHidden = true
-                        //                        self.loading.stopAnimating()
-                        print(self.datas[0].datas)
                         
                         
                     }
@@ -150,77 +151,30 @@ class HomeViewController: BaseViewController  {
     }
     
     
-    func addImgaeForSlide(){
-        if (!first) {
-            first = true
-            let pagesScrollViewSize = scrollviewSlide.frame.size
-            
-            scrollviewSlide.contentSize = CGSize(width: pagesScrollViewSize.width * CGFloat(5), height: 0)
-            scrollviewSlide.contentOffset = CGPoint(x: CGFloat(currentPage) * scrollviewSlide.frame.size.width, y: 0)
-            
-            
-            for i in 0..<5
-            {
-                let imgView = UIImageView()
-                let pathImage = "https://image.tmdb.org/t/p/original\(dataForSlide[i].backdrop_path!)"
-                imgView.kf.setImage(with: URL(string: pathImage))
-                imgView.frame = CGRect(x: 0, y: 0, width: scrollviewSlide.frame.size.width, height: scrollviewSlide.frame.size.height)
-                imgView.contentMode = .scaleAspectFill
-                
-                photo.append(imgView)
-                
-                imgView.isUserInteractionEnabled = true
-                imgView.isMultipleTouchEnabled = true
-                
-                //su kien tap
-                let tap = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.tapImg(_:)))
-                tap.numberOfTapsRequired = 1
-                imgView.addGestureRecognizer(tap)
-                
-                
-                let frontScrollView = UIScrollView(frame: CGRect( x: CGFloat(i) * scrollviewSlide.frame.size.width, y: 0, width: scrollviewSlide.frame.size.width, height: scrollviewSlide.frame.size.height))
-                frontScrollView.minimumZoomScale = 1
-                frontScrollView.maximumZoomScale = 2
-                frontScrollView.delegate = self
-                frontScrollView.addSubview(imgView)
-                frontScrollViews.append(frontScrollView)
-//                self.scrollviewSlide.backgroundColor =  UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
-                
-                self.scrollviewSlide.addSubview(frontScrollView)
-                pageSilde.currentPage = 0
-                
-                
-                
-            }
-            
-            
+    //
+    //    func tapImg(_ gesture: UITapGestureRecognizer){
+    //
+    //
+    //    }
+    ////    func updateSlide(_ sender: AnyObject){
+    ////        var current = pageSilde.currentPage
+    ////        current = current + 1
+    ////        if current < 5 {
+    ////
+    ////            scrollviewSlide.contentOffset = CGPoint(x: CGFloat(current) * scrollviewSlide.frame.size.width,y: 0)
+    ////
+    ////        }
+    ////        else{
+    ////            current = 0
+    ////            scrollviewSlide.contentOffset = CGPoint(x: CGFloat(current) * scrollviewSlide.frame.size.width,y: 0)
+    ////
+    ////        }
+    ////        pageSilde.currentPage = current
+    ////
+    ////    }
+        func pageChange(_ sender: AnyObject) {
+//            scrollviewSlide.contentOffset = CGPoint(x: CGFloat(pageSilde.currentPage) * scrollviewSlide.frame.size.width, y: 0)
         }
-        
-        
-    }
-    func tapImg(_ gesture: UITapGestureRecognizer){
-        
-        
-    }
-    func updateSlide(_ sender: AnyObject){
-        var current = pageSilde.currentPage
-        current = current + 1
-        if current < 5 {
-            
-            scrollviewSlide.contentOffset = CGPoint(x: CGFloat(current) * scrollviewSlide.frame.size.width,y: 0)
-            
-        }
-        else{
-            current = 0
-            scrollviewSlide.contentOffset = CGPoint(x: CGFloat(current) * scrollviewSlide.frame.size.width,y: 0)
-            
-        }
-        pageSilde.currentPage = current
-        
-    }
-    func pageChange(_ sender: AnyObject) {
-        scrollviewSlide.contentOffset = CGPoint(x: CGFloat(pageSilde.currentPage) * scrollviewSlide.frame.size.width, y: 0)
-    }
     func seeMore(_ sender: UIButton!) {
         switch sender.tag {
         case 100:
@@ -252,13 +206,7 @@ class HomeViewController: BaseViewController  {
     
 }
 
-extension HomeViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pageSilde.currentPage = Int(pageNumber)
-    }
-    
-}
+
 
 extension HomeViewController: UITableViewDelegate {
     
@@ -278,17 +226,6 @@ extension HomeViewController: UITableViewDelegate {
         print(self.view.bounds.size.width)
         return (self.view.bounds.size.width * 0.6) + 25
     }
-    
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        let tableWithpage = TableWithPage(nibName: "TableWithPage", bundle: nil)
-    //        tableWithpage.data_key = datas[indexPath.row].key
-    //        tableWithpage.data_title = datas[indexPath.row].title
-    //        self.navigationController?.pushViewController(tableWithpage, animated: true)
-    //
-    //    }
-    
-    
     
 }
 
@@ -316,5 +253,92 @@ extension HomeViewController: UITableViewDataSource {
         
     }
 }
+extension HomeViewController: iCarouselDelegate{
+    
+}
+
+extension HomeViewController: iCarouselDataSource{
+    func numberOfItems(in carousel: iCarousel) -> Int {
+        return 10
+    }
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
+        var subView: FXImageView!
+        var loading: UIActivityIndicatorView!
+        
+        
+        subView = FXImageView(frame: CGRect(x: 0, y: 0, width: self.headerView.bounds.width - 50, height: self.headerView.bounds.height - 50))
+        subView.contentMode = .scaleAspectFill
+        subView.isAsynchronous = true
+//        subView.reflectionScale = 0.5
+//        subView.reflectionAlpha = 0.25
+        subView.reflectionGap = 10.0
+        subView.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        subView.shadowBlur = 5.0;
+        subView.cornerRadius = 10.0;
+        
+        
+        loading = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        loading.backgroundColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
+        
+        subView.addSubview(loading)
+        loading.startAnimating()
+        
+        //add cóntraint
+//                            subView.translatesAutoresizingMaskIntoConstraints = false
+//                let horizontalConstraint = NSLayoutConstraint(item: subView, attribute: .centerX, relatedBy: .equal, toItem: self.headerView, attribute: .centerX, multiplier: 1, constant: 0)
+//        
+//                let verticalConstraint = NSLayoutConstraint(item: subView, attribute: .centerY, relatedBy: .equal, toItem: self.headerView, attribute: .centerX, multiplier: 1, constant: 0)
+//        
+//                let heightContraint = NSLayoutConstraint(item: subView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.view.bounds.width - 50)
+//        
+//                let widthContraint = NSLayoutConstraint(item: subView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.view.bounds.width - 50)
+//        
+//                NSLayoutConstraint.activate([horizontalConstraint, verticalConstraint, heightContraint, widthContraint])
+        
+        
+        
+        
+        
+        //add constraints
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        let layouTop = NSLayoutConstraint(item: loading, attribute: .top, relatedBy: .equal, toItem: subView, attribute: .top, multiplier: 1.0, constant: 0)
+        
+        let layoutBot = NSLayoutConstraint(item: loading, attribute: .bottom, relatedBy: .equal, toItem: subView, attribute: .bottom, multiplier: 1.0, constant: 0)
+        
+        
+        let layoutRight = NSLayoutConstraint(item: loading, attribute: .trailing, relatedBy: .equal, toItem: subView, attribute: .trailing, multiplier: 1.0, constant: 0)
+        
+        
+        let layoutLeft = NSLayoutConstraint(item: loading, attribute: .leading, relatedBy: .equal, toItem: subView, attribute: .leading, multiplier: 1.0, constant: 0)
+        
+        NSLayoutConstraint.activate([layouTop, layoutBot, layoutLeft, layoutRight])
+        
+        if let item: Film = dataForSlide[index]  {
+            let pathImage = "https://image.tmdb.org/t/p/original\(item.backdrop_path!)"
+            subView.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
+                loading.isHidden = true
+                loading.stopAnimating()
+            })
+            
+        }
+        
+        
+        
+        
+        return subView!
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    //    - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+    //    {
+    //    // Return YES for supported orientations
+    //    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    //    }
+    
+    
+}
+
 
 

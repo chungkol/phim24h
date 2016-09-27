@@ -10,8 +10,6 @@
 		0119C09AE75DEFAF7D3F0029 /* Pods_Phim24h.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006561D6344AF607B6604A53 /* Pods_Phim24h.framework */; };
 		541305FA1D94CCCB0055B180 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541305F81D94CCCB0055B180 /* TableViewCell.swift */; };
 		541305FB1D94CCCB0055B180 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541305F91D94CCCB0055B180 /* TableViewCell.xib */; };
-		541306081D951B2D0055B180 /* ViewController123123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541306061D951B2D0055B180 /* ViewController123123.swift */; };
-		541306091D951B2D0055B180 /* ViewController123123.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541306071D951B2D0055B180 /* ViewController123123.xib */; };
 		543BB7E11D96231100B348BF /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543BB7E01D96231100B348BF /* DataModel.swift */; };
 		543BB7E61D962AE700B348BF /* TableWithPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543BB7E41D962AE700B348BF /* TableWithPage.swift */; };
 		543BB7E71D962AE700B348BF /* TableWithPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 543BB7E51D962AE700B348BF /* TableWithPage.xib */; };
@@ -65,6 +63,9 @@
 		54DCF3F11D9A181100D23742 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCF3E91D9A181100D23742 /* UIView.swift */; };
 		54DCF3F21D9A181100D23742 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCF3EA1D9A181100D23742 /* UIColor.swift */; };
 		54DCF3F31D9A181100D23742 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCF3EB1D9A181100D23742 /* UIApplication.swift */; };
+		54DCF3FC1D9A60F400D23742 /* FXImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DCF3F91D9A60F400D23742 /* FXImageView.m */; };
+		54DCF3FD1D9A60F400D23742 /* UIImage+FX.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DCF3FB1D9A60F400D23742 /* UIImage+FX.m */; };
+		54DCF4001D9A60FD00D23742 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DCF3FF1D9A60FD00D23742 /* iCarousel.m */; };
 		54FADBBA1D9236A9005F5E0A /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FADBB91D9236A9005F5E0A /* SlideMenuController.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,8 +75,6 @@
 		301DF1A3D2094B9E3815E945 /* Pods-Phim24h.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phim24h.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phim24h/Pods-Phim24h.debug.xcconfig"; sourceTree = "<group>"; };
 		541305F81D94CCCB0055B180 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		541305F91D94CCCB0055B180 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
-		541306061D951B2D0055B180 /* ViewController123123.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController123123.swift; sourceTree = "<group>"; };
-		541306071D951B2D0055B180 /* ViewController123123.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController123123.xib; sourceTree = "<group>"; };
 		543BB7E01D96231100B348BF /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		543BB7E41D962AE700B348BF /* TableWithPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableWithPage.swift; sourceTree = "<group>"; };
 		543BB7E51D962AE700B348BF /* TableWithPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableWithPage.xib; sourceTree = "<group>"; };
@@ -131,6 +130,13 @@
 		54DCF3E91D9A181100D23742 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		54DCF3EA1D9A181100D23742 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		54DCF3EB1D9A181100D23742 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		54DCF3F71D9A60F300D23742 /* Phim24h-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Phim24h-Bridging-Header.h"; sourceTree = "<group>"; };
+		54DCF3F81D9A60F400D23742 /* FXImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXImageView.h; sourceTree = "<group>"; };
+		54DCF3F91D9A60F400D23742 /* FXImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXImageView.m; sourceTree = "<group>"; };
+		54DCF3FA1D9A60F400D23742 /* UIImage+FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FX.h"; sourceTree = "<group>"; };
+		54DCF3FB1D9A60F400D23742 /* UIImage+FX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FX.m"; sourceTree = "<group>"; };
+		54DCF3FE1D9A60FD00D23742 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		54DCF3FF1D9A60FD00D23742 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		54FADBB81D9236A9005F5E0A /* SlideMenuControllerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideMenuControllerSwift.h; path = ../SlideMenuControllerSwift.h; sourceTree = "<group>"; };
 		54FADBB91D9236A9005F5E0A /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuController.swift; path = ../SlideMenuController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +164,7 @@
 		541305FC1D94CCD20055B180 /* TableCell */ = {
 			isa = PBXGroup;
 			children = (
+				549F7FA61D93E810005B922A /* CollectionCell */,
 				541305F81D94CCCB0055B180 /* TableViewCell.swift */,
 				541305F91D94CCCB0055B180 /* TableViewCell.xib */,
 			);
@@ -167,6 +174,7 @@
 		543BB7E21D962A8400B348BF /* TableDetail */ = {
 			isa = PBXGroup;
 			children = (
+				543BB7E81D962C0D00B348BF /* TableCellWithPage */,
 				543BB7E41D962AE700B348BF /* TableWithPage.swift */,
 				543BB7E51D962AE700B348BF /* TableWithPage.xib */,
 			);
@@ -210,6 +218,7 @@
 		54555D061D8BF1D400048AAC /* Phim24h */ = {
 			isa = PBXGroup;
 			children = (
+				54DCF3F41D9A600A00D23742 /* CustomScrollView */,
 				543BB7F11D96859000B348BF /* CustomView */,
 				549040861D9134A500E7330D /* MenuBase */,
 				5490407C1D91254700E7330D /* Resource */,
@@ -220,8 +229,6 @@
 				54555D0E1D8BF1D400048AAC /* Assets.xcassets */,
 				54555D101D8BF1D400048AAC /* LaunchScreen.storyboard */,
 				54555D131D8BF1D400048AAC /* Info.plist */,
-				541306061D951B2D0055B180 /* ViewController123123.swift */,
-				541306071D951B2D0055B180 /* ViewController123123.xib */,
 			);
 			path = Phim24h;
 			sourceTree = "<group>";
@@ -286,6 +293,7 @@
 		5490407D1D91256400E7330D /* HomeVC */ = {
 			isa = PBXGroup;
 			children = (
+				541305FC1D94CCD20055B180 /* TableCell */,
 				5490407E1D91257A00E7330D /* HomeViewController.swift */,
 				5490407F1D91257A00E7330D /* HomeViewController.xib */,
 			);
@@ -411,10 +419,7 @@
 				54CA7A0B1D99044000FC34C2 /* NowPlaying */,
 				54CA7A061D99041300FC34C2 /* UpComing */,
 				54CA7A011D9903DA00FC34C2 /* TopRated */,
-				543BB7E81D962C0D00B348BF /* TableCellWithPage */,
 				543BB7E21D962A8400B348BF /* TableDetail */,
-				541305FC1D94CCD20055B180 /* TableCell */,
-				549F7FA61D93E810005B922A /* CollectionCell */,
 				549F7FA31D93758E005B922A /* ManagerData */,
 				549F7F9E1D928F88005B922A /* Model */,
 				545B23001D9182D4008CC9C0 /* BaseView */,
@@ -446,6 +451,36 @@
 				54DCF3EB1D9A181100D23742 /* UIApplication.swift */,
 			);
 			name = Extension;
+			sourceTree = "<group>";
+		};
+		54DCF3F41D9A600A00D23742 /* CustomScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				54DCF3F61D9A60D600D23742 /* FXImageView */,
+				54DCF3F51D9A608100D23742 /* iCarousel */,
+			);
+			name = CustomScrollView;
+			sourceTree = "<group>";
+		};
+		54DCF3F51D9A608100D23742 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				54DCF3FE1D9A60FD00D23742 /* iCarousel.h */,
+				54DCF3FF1D9A60FD00D23742 /* iCarousel.m */,
+			);
+			name = iCarousel;
+			sourceTree = "<group>";
+		};
+		54DCF3F61D9A60D600D23742 /* FXImageView */ = {
+			isa = PBXGroup;
+			children = (
+				54DCF3F81D9A60F400D23742 /* FXImageView.h */,
+				54DCF3F91D9A60F400D23742 /* FXImageView.m */,
+				54DCF3FA1D9A60F400D23742 /* UIImage+FX.h */,
+				54DCF3FB1D9A60F400D23742 /* UIImage+FX.m */,
+				54DCF3F71D9A60F300D23742 /* Phim24h-Bridging-Header.h */,
+			);
+			name = FXImageView;
 			sourceTree = "<group>";
 		};
 		CB442EF0AA8B5A0CB7ECE18A /* Pods */ = {
@@ -523,7 +558,6 @@
 			files = (
 				549040841D912A0500E7330D /* menu.png in Resources */,
 				549040921D91351F00E7330D /* background.jpg in Resources */,
-				541306091D951B2D0055B180 /* ViewController123123.xib in Resources */,
 				549040851D912A0500E7330D /* search.png in Resources */,
 				549040761D90F53000E7330D /* RegisterAccount.xib in Resources */,
 				543BB7E71D962AE700B348BF /* TableWithPage.xib in Resources */,
@@ -607,6 +641,8 @@
 				54DCF3EE1D9A181100D23742 /* UIViewController.swift in Sources */,
 				549040751D90F53000E7330D /* RegisterAccount.swift in Sources */,
 				54555D081D8BF1D400048AAC /* AppDelegate.swift in Sources */,
+				54DCF3FC1D9A60F400D23742 /* FXImageView.m in Sources */,
+				54DCF3FD1D9A60F400D23742 /* UIImage+FX.m in Sources */,
 				54CC79921D8FCB1D0013139B /* Account.swift in Sources */,
 				54DCF3EC1D9A181100D23742 /* String.swift in Sources */,
 				543BB7E61D962AE700B348BF /* TableWithPage.swift in Sources */,
@@ -615,7 +651,6 @@
 				549040A81D9144F700E7330D /* MenuViewController.swift in Sources */,
 				5490407A1D90F57100E7330D /* ResetPassword.swift in Sources */,
 				549F7FA91D93E829005B922A /* CollectionViewCell.swift in Sources */,
-				541306081D951B2D0055B180 /* ViewController123123.swift in Sources */,
 				54DCF3E11D9A155F00D23742 /* GenreViewController.swift in Sources */,
 				543BB7F01D96316F00B348BF /* JSONKEYS.swift in Sources */,
 				54DCF3F01D9A181100D23742 /* UIImage.swift in Sources */,
@@ -623,6 +658,7 @@
 				543BB7EE1D962FC500B348BF /* Genre.swift in Sources */,
 				545B23021D9182DD008CC9C0 /* BaseViewController.swift in Sources */,
 				54DCF3EF1D9A181100D23742 /* UIImageView.swift in Sources */,
+				54DCF4001D9A60FD00D23742 /* iCarousel.m in Sources */,
 				541305FA1D94CCCB0055B180 /* TableViewCell.swift in Sources */,
 				549040701D90F47700E7330D /* LoginAccount.swift in Sources */,
 				545B22F71D9173EF008CC9C0 /* DataTableViewCell.swift in Sources */,
@@ -757,6 +793,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = K6V7ET59NN;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Phim24h/Info.plist;
@@ -764,6 +801,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techmaster.Phim24h;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Phim24h/Phim24h-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -774,6 +813,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = K6V7ET59NN;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Phim24h/Info.plist;
@@ -781,6 +821,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techmaster.Phim24h;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Phim24h/Phim24h-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

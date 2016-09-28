@@ -8,7 +8,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GenreViewController" customModule="Phim24h" customModuleProvider="target">
             <connections>
-                <outlet property="loading" destination="eYR-gB-Ivk" id="iuS-6S-pPb"/>
                 <outlet property="myTable" destination="1HY-UZ-8xz" id="fbn-Iv-ztp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,22 +23,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1HY-UZ-8xz">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eYR-gB-Ivk">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8Yl-ne-wYr"/>
-                                    <constraint firstAttribute="width" constant="30" id="uKs-NO-5Kc"/>
-                                </constraints>
-                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="1HY-UZ-8xz" firstAttribute="top" secondItem="Uz0-S3-ckC" secondAttribute="top" id="4SY-ck-283"/>
                             <constraint firstAttribute="trailing" secondItem="1HY-UZ-8xz" secondAttribute="trailing" id="LA5-rh-MYM"/>
-                            <constraint firstItem="eYR-gB-Ivk" firstAttribute="centerX" secondItem="Uz0-S3-ckC" secondAttribute="centerX" id="qdW-CV-MaV"/>
                             <constraint firstItem="1HY-UZ-8xz" firstAttribute="leading" secondItem="Uz0-S3-ckC" secondAttribute="leading" id="rym-fT-WkS"/>
                             <constraint firstAttribute="bottom" secondItem="1HY-UZ-8xz" secondAttribute="bottom" id="xEz-On-Rky"/>
-                            <constraint firstItem="eYR-gB-Ivk" firstAttribute="centerY" secondItem="Uz0-S3-ckC" secondAttribute="centerY" id="zFF-IQ-aeD"/>
                         </constraints>
                     </view>
                     <blurEffect style="light"/>

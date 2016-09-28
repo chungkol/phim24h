@@ -10,7 +10,6 @@ import UIKit
 
 class GenreViewController: BaseViewController {
     
-    @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var myTable: UITableView!
     var datas: [Genre] = []
     override func viewDidLoad() {
@@ -18,8 +17,7 @@ class GenreViewController: BaseViewController {
         
         myTable.delegate = self
         myTable.dataSource = self
-        loading.startAnimating()
-        myTable.register(UITableViewCell.self, forCellReuseIdentifier: "CellGenre")
+        myTable.register(UINib(nibName: "DataTableViewCell", bundle: nil),forCellReuseIdentifier: "CellGenre")
         ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
             self.datas = genres
             self.myTable.reloadData()
@@ -42,19 +40,17 @@ extension GenreViewController: UITableViewDataSource {
         return  datas.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell  = tableView.dequeueReusableCell(withIdentifier: "CellGenre", for: indexPath)
-        cell.textLabel?.text = datas[indexPath.row].name
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "CellGenre", for: indexPath) as! DataTableViewCell
+        cell.nameCell.text = datas[indexPath.row].name
         cell.textLabel?.textColor = UIColor.black
         cell.backgroundColor = UIColor.white
-        if(indexPath.row == datas.count-1 ){
-            loading.isHidden = true
-            loading.stopAnimating()
-        }
+        cell.iconCell.image = UIImage(named: "typefilm")
+        
         return cell
     }
     @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
-        detailVC.genre_id = datas[indexPath.row].id
-        self.navigationController?.pushViewController(detailVC, animated: true)
+//        let detailVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
+//        detailVC.genre_id = datas[indexPath.row].id
+//        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

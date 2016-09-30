@@ -10,6 +10,7 @@ import UIKit
 
 class UpComing: TableWithPage {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let detail = TableWithPage(nibName: "TableWithPage", bundle: nil)

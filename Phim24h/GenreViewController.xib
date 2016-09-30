@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GenreViewController" customModule="Phim24h" customModuleProvider="target">
             <connections>
+                <outlet property="loading" destination="ZDo-Iv-Ope" id="MWo-3a-DoR"/>
                 <outlet property="myTable" destination="1HY-UZ-8xz" id="fbn-Iv-ztp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,12 +24,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1HY-UZ-8xz">
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZDo-Iv-Ope">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="6vc-1y-Ef6"/>
+                                    <constraint firstAttribute="width" constant="30" id="ZF6-KF-oiR"/>
+                                </constraints>
+                                <color key="color" red="0.38823529410000002" green="0.8862745098" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="1HY-UZ-8xz" firstAttribute="top" secondItem="Uz0-S3-ckC" secondAttribute="top" id="4SY-ck-283"/>
+                            <constraint firstItem="ZDo-Iv-Ope" firstAttribute="centerY" secondItem="Uz0-S3-ckC" secondAttribute="centerY" id="AMM-if-ld0"/>
                             <constraint firstAttribute="trailing" secondItem="1HY-UZ-8xz" secondAttribute="trailing" id="LA5-rh-MYM"/>
+                            <constraint firstItem="ZDo-Iv-Ope" firstAttribute="centerX" secondItem="Uz0-S3-ckC" secondAttribute="centerX" id="rLL-PC-XRs"/>
                             <constraint firstItem="1HY-UZ-8xz" firstAttribute="leading" secondItem="Uz0-S3-ckC" secondAttribute="leading" id="rym-fT-WkS"/>
                             <constraint firstAttribute="bottom" secondItem="1HY-UZ-8xz" secondAttribute="bottom" id="xEz-On-Rky"/>
                         </constraints>

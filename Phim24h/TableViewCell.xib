@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="375" height="209.5"/>
+                <frame key="frameInset" width="375" height="209"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rqE-nY-Nc1">
@@ -27,32 +27,57 @@
                             <inset key="sectionInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKZ-jK-5JQ">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4P-OR-Ri0">
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSb-9M-7aR">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="4GW-sw-y3r"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKZ-jK-5JQ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="MTV-tH-NH8"/>
+                                    <constraint firstAttribute="width" constant="20" id="gAd-cM-gve"/>
+                                </constraints>
+                                <state key="normal" image="more">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="150" id="dnP-6W-9Rw"/>
+                            <constraint firstItem="kSb-9M-7aR" firstAttribute="leading" secondItem="k4P-OR-Ri0" secondAttribute="leading" constant="8" id="0DY-Ia-ey7"/>
+                            <constraint firstAttribute="bottom" secondItem="kSb-9M-7aR" secondAttribute="bottom" id="7qS-5m-PIG"/>
+                            <constraint firstItem="NKZ-jK-5JQ" firstAttribute="centerY" secondItem="k4P-OR-Ri0" secondAttribute="centerY" id="7w8-M6-0wZ"/>
+                            <constraint firstItem="kSb-9M-7aR" firstAttribute="top" secondItem="k4P-OR-Ri0" secondAttribute="top" id="G0H-Xi-jKm"/>
+                            <constraint firstAttribute="trailing" secondItem="NKZ-jK-5JQ" secondAttribute="trailing" constant="8" id="fJj-5O-5Zg"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <state key="normal" title="Button">
-                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="rqE-nY-Nc1" secondAttribute="trailing" id="0Wc-t8-VCr"/>
                     <constraint firstItem="rqE-nY-Nc1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3GR-HD-jPb"/>
-                    <constraint firstItem="NKZ-jK-5JQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SQF-Ef-Bna"/>
-                    <constraint firstItem="NKZ-jK-5JQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="W6X-tW-1wq"/>
-                    <constraint firstItem="rqE-nY-Nc1" firstAttribute="top" secondItem="NKZ-jK-5JQ" secondAttribute="bottom" id="t47-zo-zCo"/>
+                    <constraint firstItem="rqE-nY-Nc1" firstAttribute="top" secondItem="k4P-OR-Ri0" secondAttribute="bottom" id="M4B-eT-OyQ"/>
+                    <constraint firstAttribute="trailing" secondItem="k4P-OR-Ri0" secondAttribute="trailing" id="UhG-4V-gLl"/>
+                    <constraint firstItem="k4P-OR-Ri0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YgS-8o-h2o"/>
+                    <constraint firstItem="k4P-OR-Ri0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="epE-Se-axg"/>
                     <constraint firstAttribute="bottom" secondItem="rqE-nY-Nc1" secondAttribute="bottom" id="zN4-Ok-Uou"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="btnMore" destination="NKZ-jK-5JQ" id="QX1-Bz-l5W"/>
                 <outlet property="collectionCell" destination="rqE-nY-Nc1" id="h45-dP-D2g"/>
-                <outlet property="titleCell" destination="NKZ-jK-5JQ" id="orF-Ei-cuc"/>
+                <outlet property="titleCell" destination="kSb-9M-7aR" id="qqs-tw-KzF"/>
             </connections>
-            <point key="canvasLocation" x="59.5" y="173.5"/>
+            <point key="canvasLocation" x="59.5" y="173"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="more" width="64" height="64"/>
+    </resources>
 </document>

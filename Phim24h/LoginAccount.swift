@@ -94,3 +94,11 @@ class LoginAccount: UIViewController {
     }
     
 }
+extension UIViewController
+{
+    public func getRootNav() -> UINavigationController
+    {
+        return self.navigationController!
+    }
+    
+}

@@ -8,31 +8,49 @@
 
 import UIKit
 
-class GenreViewController: BaseViewController {
+class GenreViewController: BaseDetailViewController {
     
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var myTable: UITableView!
     var datas: [Genre] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.edgesForExtendedLayout = .bottom
+//        self.automaticallyAdjustsScrollViewInsets = false
+        self.title = "Genre"
         myTable.delegate = self
         myTable.dataSource = self
-        myTable.register(UINib(nibName: "DataTableViewCell", bundle: nil),forCellReuseIdentifier: "CellGenre")
+        loading.startAnimating()
+        myTable.register(UINib(nibName: "CellGenre", bundle: nil), forCellReuseIdentifier: "CellOfGenre")
+        
         ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
             self.datas = genres
             self.myTable.reloadData()
+            if self.datas.count > 0 {
+                self.loading.isHidden = true
+                self.loading.stopAnimating()
+            }
             })
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = UIColor.clear
-        self.myTable.backgroundColor = UIColor.clear
+//        view.backgroundColor = UIColor.white
+//        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
+//        self.navigationController?.navigationBar.tintColor = UIColor.white
+//        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+//        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
+//        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
+        //        self.view.backgroundColor = UIColor.clear
+        //        self.myTable.backgroundColor = UIColor.clear
     }
     
     
 }
 extension GenreViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 }
 
 extension GenreViewController: UITableViewDataSource {
@@ -40,17 +58,26 @@ extension GenreViewController: UITableViewDataSource {
         return  datas.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell  = tableView.dequeueReusableCell(withIdentifier: "CellGenre", for: indexPath) as! DataTableViewCell
-        cell.nameCell.text = datas[indexPath.row].name
-        cell.textLabel?.textColor = UIColor.black
-        cell.backgroundColor = UIColor.white
-        cell.iconCell.image = UIImage(named: "typefilm")
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "CellOfGenre", for: indexPath) as! CellGenre
+        if let item: Genre = datas[indexPath.row] {
+            cell.titleCell.text = item.name
+            cell.imageCell.image = UIImage(named: "type_film_w")
+        }
+        cell.selectionStyle = .none
         
         return cell
     }
     @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let detailVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
-//        detailVC.genre_id = datas[indexPath.row].id
-//        self.navigationController?.pushViewController(detailVC, animated: true)
+        let detailVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
+    
+        detailVC.genre_id = datas[indexPath.row].id
+        detailVC.data_title = datas[indexPath.row].name
+        print(datas[indexPath.row].id)
+//        ManagerData.instance.getAllFilmWithGenre(genre_id: datas[indexPath.row].id) {[unowned self] (films) in
+//            
+//            
+//        }
+        
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

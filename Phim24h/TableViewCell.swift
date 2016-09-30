@@ -8,9 +8,15 @@
 
 import UIKit
 import Kingfisher
+protocol pushViewDelegate {
+    func setData(film: Film)
+}
 class TableViewCell: UITableViewCell {
     
-    @IBOutlet weak var titleCell: UIButton!
+    var delegate: pushViewDelegate!
+    @IBOutlet weak var btnMore: UIButton!
+   
+    @IBOutlet weak var titleCell: UILabel!
     
     @IBOutlet weak var collectionCell: UICollectionView!
     
@@ -23,9 +29,7 @@ class TableViewCell: UITableViewCell {
         collectionCell.dataSource = self
         collectionCell.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         self.collectionCell.reloadData()
-        
-        
-        collectionCell.reloadData()
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -50,7 +54,9 @@ class TableViewCell: UITableViewCell {
 }
 extension TableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(datas[indexPath.row].title)
+//        
+        delegate.setData(film: datas[indexPath.row])
+        
     }
 }
 
@@ -63,20 +69,21 @@ extension TableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
         cell.loading.startAnimating()
-        titleCell.setTitle(title, for: .normal)
-        
+        titleCell.text = title
         let item: Film = datas[(indexPath as NSIndexPath).row]
         
-        let pathImage = "https://image.tmdb.org/t/p/original\(item.poster_path!)"
-        
-        cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-            cell.loading.isHidden = true
-            cell.loading.stopAnimating()
-        })
+        if let path = item.poster_path {
+            let pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
+                cell.loading.isHidden = true
+                cell.loading.stopAnimating()
+            })
+        }
         cell.nameCell.text = item.title
         return cell
         
     }
+    
     
     
 }

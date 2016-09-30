@@ -16,7 +16,7 @@ class ManagerData {
     static let UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?language=en-US"
     static let NOW_PLAYING = "https://api.themoviedb.org/3/movie/now_playing?language=en-US"
     static let GENRE = "https://api.themoviedb.org/3/genre/movie/list?language=en-US"
-    static let FILM_WITH_GENRE = "https://api.themoviedb.org/3/genre/{genre_id}/movies?api_key=<<api_key>>&language=en-US&sort_by=created_at.asc"
+    static let FILM_WITH_GENRE = "https://api.themoviedb.org/3/genre/"
     
     static let instance = ManagerData()
     
@@ -37,19 +37,14 @@ class ManagerData {
     
     func getAllFilmWithGenre(genre_id: Int, completetion:@escaping ([Film])->())
     {
-        if (list_Film_With_Genre.count == 0)
-        {
+       
             getFilmWithGenre(genre_id: genre_id, completetion: { [unowned self] films in
                 self.list_Film_With_Genre = films
                 completetion(films)
                 })
-        }
-        else
-        {
-            completetion(list_Film_With_Genre)
-        }
+        
     }
-
+    
     
     
     func getAllGenre(completetion: @escaping ([Genre])->()) {
@@ -58,7 +53,9 @@ class ManagerData {
                 self.list_genres = genres
                 completetion(genres)
                 
-            })
+                })
+        }else{
+            completetion(list_genres)
         }
     }
     
@@ -157,22 +154,20 @@ class ManagerData {
                 if let json = response.result.value {
                     let results = json["genres"].map(Genre.init)
                     completetion(results)
-                
+                    
                 }
         }
         
     }
     private func getFilmWithGenre(genre_id: Int, completetion: @escaping ([Film])->()) {
-        
-        let parameters: Parameters = ["api_key": ManagerData.API_KEY, "genre_id": genre_id]
-        
-        Alamofire.request(ManagerData.FILM_WITH_GENRE, parameters: parameters).responseJASON
+        let path = "\(ManagerData.FILM_WITH_GENRE)\(genre_id)/movies?language=en-US&sort_by=created_at.asc"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        Alamofire.request(path, parameters: parameters).responseJASON
             {response in
                 
                 if let json = response.result.value {
                     let results = json["results"].map(Film.init)
                     completetion(results)
-                
                     
                 }
         }

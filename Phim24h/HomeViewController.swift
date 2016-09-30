@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import Kingfisher
 
-class HomeViewController: BaseViewController  {
+class HomeViewController: BaseViewController, pushViewDelegate  {
     
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
@@ -49,6 +49,8 @@ class HomeViewController: BaseViewController  {
         
         
     }
+    
+    
     
     
     func addIcarousel(){
@@ -93,7 +95,7 @@ class HomeViewController: BaseViewController  {
             headerView.addSubview(pageSilde)
             
             pageSilde.currentPageIndicatorTintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
-
+            
             self.pageSilde.translatesAutoresizingMaskIntoConstraints = false
             
             let layouTop = NSLayoutConstraint(item: pageSilde, attribute: .top, relatedBy: .equal, toItem: self.iCa, attribute: .bottom, multiplier: 1.0, constant: 0)
@@ -136,7 +138,8 @@ class HomeViewController: BaseViewController  {
                         self.myTable.delegate = self
                         self.myTable.dataSource = self
                         self.myTable.reloadData()
-                        
+                        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+                            })
                         
                     }
                     
@@ -243,20 +246,27 @@ extension HomeViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! TableViewCell
-        
+        cell.delegate = self
         let dataModel: DataModel = datas[indexPath.row]
         
         
         if let myData = dataModel.datas
         {
-            cell.titleCell.addTarget(self, action: #selector(HomeViewController.seeMore(_:)), for: .touchUpInside)
-            cell.titleCell.tag = 100 + indexPath.row
+            cell.btnMore.addTarget(self, action: #selector(HomeViewController.seeMore(_:)), for: .touchUpInside)
+            cell.btnMore.tag = 100 + indexPath.row
             cell.datas = myData
             cell.title = dataModel.title
+            cell.selectionStyle = .none
         }
         
         return cell
         
+    }
+    
+    func setData(film: Film) {
+        let detaiMovie = DetailMovieViewController(nibName: "DetailMovieViewController", bundle: nil) as DetailMovieViewController
+        detaiMovie.film = film
+        self.navigationController?.pushViewController(detaiMovie, animated: true)
     }
 }
 extension HomeViewController: iCarouselDelegate{
@@ -264,7 +274,7 @@ extension HomeViewController: iCarouselDelegate{
 }
 
 extension HomeViewController: iCarouselDataSource{
-
+    
     func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
         pageSilde.currentPage = carousel.currentItemIndex
     }
@@ -308,11 +318,15 @@ extension HomeViewController: iCarouselDataSource{
         
         
         if let item: Film = dataForSlide[index]  {
-            let pathImage = "https://image.tmdb.org/t/p/original\(item.backdrop_path!)"
-            subView.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                loading.isHidden = true
-                loading.stopAnimating()
-            })
+            
+            if let path = item.backdrop_path {
+                let pathImage = "https://image.tmdb.org/t/p/original\(path)"
+                subView.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
+                    loading.isHidden = true
+                    loading.stopAnimating()
+                })
+            }
+            
             
         }
         
@@ -325,7 +339,12 @@ extension HomeViewController: iCarouselDataSource{
     override var shouldAutorotate: Bool {
         return true
     }
-    
+    @objc(carousel:didSelectItemAtIndex:) func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
+        let detaiMovie = DetailMovieViewController(nibName: "DetailMovieViewController", bundle: nil) as DetailMovieViewController
+        
+        detaiMovie.film = dataForSlide[index]
+        self.navigationController?.pushViewController(detaiMovie, animated: true)
+    }
     
 }
 

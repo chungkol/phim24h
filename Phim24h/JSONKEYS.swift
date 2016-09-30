@@ -37,7 +37,7 @@ extension JSONKeys {
     
     static let video = JSONKey<Bool?>("video")
     
-    static let vote_average = JSONKey<Float?>("vote_average")
+    static let vote_average = JSONKey<Double?>("vote_average")
     
     static let name = JSONKey<String?>("name")
     

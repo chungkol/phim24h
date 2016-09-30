@@ -8,15 +8,16 @@
 
 import UIKit
 
-class Popular: UIViewController {
+class Popular: TableWithPage {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let detail = TableWithPage(nibName: "TableWithPage", bundle: nil)
-        detail.data_key = ManagerData.POPULAR
-        detail.data_title = "Popular"
-        self.navigationController?.pushViewController(detail, animated: true)
+//        let detail = TableWithPage(nibName: "TableWithPage", bundle: nil)
+//        detail.data_key = ManagerData.POPULAR
+//        detail.data_title = "Popular"
+//        self.navigationController?.pushViewController(detail, animated: true)
+        
     }
 
     override func didReceiveMemoryWarning() {

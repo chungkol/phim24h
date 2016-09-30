@@ -23,7 +23,7 @@ struct Film {
     let popularity: Float?
     let vote_count: Int?
     let video: Bool?
-    let vote_average: Float?
+    let vote_average: Double?
     
     init(_ json: JSON) {
         JSON.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

@@ -19,7 +19,13 @@ class TableWithPage: UIViewController {
     var datas: [Film] = []
     
     @IBOutlet weak var myTable: UITableView!
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: "TableWithPage", bundle: nil)
+    }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         myTable.delegate = self
@@ -52,7 +58,7 @@ class TableWithPage: UIViewController {
         //            getData(page: 1)
         //        }
     }
-    func getData(page: Int) {
+    func getData(page: Int ) {
         if genre_id == 0 {
             switch self.data_key {
             case ManagerData.POPULAR:
@@ -75,13 +81,14 @@ class TableWithPage: UIViewController {
                 
             default: break
             }
-            
+            myTable.reloadData()
         }else{
             ManagerData.instance.getAllFilmWithGenre(genre_id: genre_id) {[unowned self] (films) in
                 self.datas = films
+                self.myTable.reloadData()
             }
         }
-        myTable.reloadData()
+        
         
         
         
@@ -94,11 +101,7 @@ class TableWithPage: UIViewController {
             for index in 0..<genres.count {
                 if item.id == genres[index] {
                     
-                    if( index == genres.count - 1) {
-                        result.append("\(item.name!).")
-                    }else{
-                        result.append("\(item.name!), ")
-                    }
+                    result.append("\(item.name!), ")
                 }
             }
         }
@@ -121,7 +124,7 @@ extension TableWithPage: UITableViewDelegate {
 extension TableWithPage: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return datas.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -130,11 +133,14 @@ extension TableWithPage: UITableViewDataSource {
         if let item: Film = datas[indexPath.row] {
             cell.loading.startAnimating()
             
-            let pathImage = "https://image.tmdb.org/t/p/original\(item.poster_path!)"
-            cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                cell.loading.isHidden = true
-                cell.loading.stopAnimating()
-            })
+            if let path = item.poster_path {
+                let pathImage = "https://image.tmdb.org/t/p/original\(path)"
+                cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
+                    cell.loading.isHidden = true
+                    cell.loading.stopAnimating()
+                })
+            }
+           
             cell.titleCell.text = item.title
             cell.totalViewCell.text = String(item.popularity!)
             cell.contentCell.text = item.overview
@@ -147,6 +153,13 @@ extension TableWithPage: UITableViewDataSource {
             }
         }
         return cell
+        
+    }
+    @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detaiMovie = DetailMovieViewController(nibName: "DetailMovieViewController", bundle: nil) as DetailMovieViewController
+        
+        detaiMovie.film = datas[indexPath.row]
+        self.navigationController?.pushViewController(detaiMovie, animated: true)
         
     }
     

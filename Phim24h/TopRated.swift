@@ -13,10 +13,10 @@ class TopRated: TableWithPage {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let detail = TableWithPage(nibName: "TableWithPage", bundle: nil)
-        detail.data_key = ManagerData.TOP_RATED
-        detail.data_title = "Top Rated"
-        self.navigationController?.pushViewController(detail, animated: true)
+//        let detail = TableWithPage(nibName: "TableWithPage", bundle: nil)
+//        detail.data_key = ManagerData.TOP_RATED
+//        detail.data_title = "Top Rated"
+//        self.navigationController?.pushViewController(detail, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

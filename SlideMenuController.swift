@@ -69,7 +69,7 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
     open var mainContainerView = UIView()
     open var leftContainerView = UIView()
     open var rightContainerView =  UIView()
-    open var mainViewController: UIViewController?
+    open var mainViewController: UINavigationController?
     open var leftViewController: UIViewController?
     open var leftPanGesture: UIPanGestureRecognizer?
     open var leftTapGesture: UITapGestureRecognizer?
@@ -85,21 +85,21 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    public convenience init(mainViewController: UIViewController, leftMenuViewController: UIViewController) {
+    public convenience init(mainViewController: UINavigationController, leftMenuViewController: UIViewController) {
         self.init()
         self.mainViewController = mainViewController
         leftViewController = leftMenuViewController
         initView()
     }
     
-    public convenience init(mainViewController: UIViewController, rightMenuViewController: UIViewController) {
+    public convenience init(mainViewController: UINavigationController, rightMenuViewController: UIViewController) {
         self.init()
         self.mainViewController = mainViewController
         rightViewController = rightMenuViewController
         initView()
     }
     
-    public convenience init(mainViewController: UIViewController, leftMenuViewController: UIViewController, rightMenuViewController: UIViewController) {
+    public convenience init(mainViewController: UINavigationController, leftMenuViewController: UIViewController, rightMenuViewController: UIViewController) {
         self.init()
         self.mainViewController = mainViewController
         leftViewController = leftMenuViewController
@@ -514,7 +514,7 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
         UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions(), animations: { [weak self]() -> Void in
             if let strongSelf = self {
                 strongSelf.leftContainerView.frame = frame
-                strongSelf.opacityView.layer.opacity = Float(SlideMenuOptions.contentViewOpacity)
+//                strongSelf.opacityView.layer.opacity = Float(SlideMenuOptions.contentViewOpacity)
               
                 SlideMenuOptions.contentViewDrag == true ? (strongSelf.mainContainerView.transform = CGAffineTransform(translationX: SlideMenuOptions.leftViewWidth, y: 0)) : (strongSelf.mainContainerView.transform = CGAffineTransform(scaleX: SlideMenuOptions.contentViewScale, y: SlideMenuOptions.contentViewScale))
                 
@@ -664,10 +664,16 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     open func changeMainViewController(_ mainViewController: UIViewController,  close: Bool) {
+        self.mainViewController!.popViewController(animated: false)
+        if (self.mainViewController != mainViewController)
+        {
+            self.mainViewController?.pushViewController(mainViewController, animated: true)
+            
+        }
         
-        removeViewController(self.mainViewController)
-        self.mainViewController = mainViewController
-        setUpViewController(mainContainerView, targetViewController: mainViewController)
+        /*removeViewController(self.mainViewController)
+         self.mainViewController = mainViewController
+         setUpViewController(mainContainerView, targetViewController: mainViewController)*/
         if (close) {
             closeLeft()
             closeRight()

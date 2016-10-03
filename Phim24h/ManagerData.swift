@@ -17,15 +17,22 @@ class ManagerData {
     static let NOW_PLAYING = "https://api.themoviedb.org/3/movie/now_playing?language=en-US"
     static let GENRE = "https://api.themoviedb.org/3/genre/movie/list?language=en-US"
     static let FILM_WITH_GENRE = "https://api.themoviedb.org/3/genre/"
+    static let GET_ALL_INFO_WITH_ID = "https://api.themoviedb.org/3/movie/"
+    //    static let GET_ALL_IMAGE_WITH_ID = "https://api.themoviedb.org/3/movie/"
     
     static let instance = ManagerData()
     
     private var list_Top_Rated : [Film] = []
-    var list_Popular : [Film] = []
-    var list_Up_Coming : [Film] = []
-    var list_Now_Playing : [Film] = []
-    var list_genres: [Genre] = []
-    var list_Film_With_Genre: [Film] = []
+    private var list_Popular : [Film] = []
+    private var list_Up_Coming : [Film] = []
+    private var list_Now_Playing : [Film] = []
+    private var list_genres: [Genre] = []
+    private var list_Film_With_Genre: [Film] = []
+    private var list_Trailer: [Trailer] = []
+    private var list_Image: [Backdrop] = []
+    private var list_cast: [Cast] = []
+    private var list_crew: [Crew] = []
+    
     var pageTopRated = 1
     var pagePopular = 1
     var pageUpComing = 1
@@ -35,18 +42,58 @@ class ManagerData {
     }
     
     
+    
+    //singleton
+    
+    func getAllCrew(movie_id: Int, completetion: @escaping ([Crew])->()) {
+        
+        getCrew(movie_ID: movie_id, completetion: { [unowned self] results in
+            self.list_crew = results
+            completetion(results)
+            })
+    }
+    func getAllCast(movie_id: Int, completetion: @escaping ([Cast])->()) {
+        
+        getCast(movie_ID: movie_id, completetion: { [unowned self] results in
+            self.list_cast = results
+            completetion(results)
+            })
+    }
+    
+    //lấy list ảnh theo id
+    func getAllImageWithID(movie_id: Int, completetion: @escaping ([Backdrop])->()) {
+        
+        getImageWithID(movie_ID: movie_id, completetion: { [unowned self] backdrops in
+            self.list_Image = backdrops
+            completetion(backdrops)
+            })
+    }
+    
+    
+    // lấy danh sách video theo id
+    func getAllVideoWithID(movie_id: Int, completetion: @escaping ([Trailer])->()) {
+        
+        getVideoWithID(movie_ID: movie_id, completetion: { [unowned self] trailers in
+            self.list_Trailer = trailers
+            completetion(trailers)
+            })
+        
+    }
+    
+    //lấy film theo từng thể loại
+    
     func getAllFilmWithGenre(genre_id: Int, completetion:@escaping ([Film])->())
     {
-       
-            getFilmWithGenre(genre_id: genre_id, completetion: { [unowned self] films in
-                self.list_Film_With_Genre = films
-                completetion(films)
-                })
+        
+        getFilmWithGenre(genre_id: genre_id, completetion: { [unowned self] films in
+            self.list_Film_With_Genre = films
+            completetion(films)
+            })
         
     }
     
     
-    
+    // lấy ra tên thể loại film
     func getAllGenre(completetion: @escaping ([Genre])->()) {
         if list_genres.count == 0  {
             getGenres(completetion: { [unowned self] genres in
@@ -169,6 +216,64 @@ class ManagerData {
                     let results = json["results"].map(Film.init)
                     completetion(results)
                     
+                }
+        }
+        
+    }
+    private func getVideoWithID(movie_ID: Int, completetion: @escaping ([Trailer])->()) {
+        let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/videos"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        Alamofire.request(path, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["results"].map(Trailer.init)
+                    completetion(results)
+                    
+                }
+        }
+        
+    }
+    private func getImageWithID(movie_ID: Int, completetion: @escaping ([Backdrop])->()) {
+        let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/images"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        Alamofire.request(path, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["backdrops"].map(Backdrop.init)
+                    completetion(results)
+                    
+                }
+        }
+        
+    }
+    
+    private func getCrew(movie_ID: Int, completetion: @escaping ([Crew])->()) {
+        let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/credits"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        Alamofire.request(path, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["crew"].map(Crew.init)
+                    completetion(results)
+                   
+                }
+        }
+        
+    }
+    
+    private func getCast(movie_ID: Int, completetion: @escaping ([Cast])->()) {
+        let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/credits"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        Alamofire.request(path, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["cast"].map(Cast.init)
+                    completetion(results)
+                   
                 }
         }
         

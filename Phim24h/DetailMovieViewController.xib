@@ -15,6 +15,7 @@
                 <outlet property="imageVote" destination="pXF-Wx-4Qm" id="Skx-Ab-q2A"/>
                 <outlet property="loading" destination="VSl-IV-5mG" id="46a-hA-QDw"/>
                 <outlet property="mySegment" destination="yEl-6i-5ru" id="QE4-Q7-Bio"/>
+                <outlet property="parentView" destination="3AG-1t-vOm" id="iaP-ll-36F"/>
                 <outlet property="titleDetail" destination="rfq-X4-DbF" id="Cl2-tc-X9R"/>
                 <outlet property="totalVote" destination="X4U-tU-kWz" id="gJY-Qt-rJu"/>
                 <outlet property="typeDetail" destination="Hb1-R9-UUB" id="Is8-Fx-P8L"/>
@@ -181,7 +182,7 @@
                 <constraint firstItem="3AG-1t-vOm" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="EB4-Zi-w0L"/>
                 <constraint firstItem="TzZ-VR-Dnx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ief-gW-XPB"/>
                 <constraint firstItem="TzZ-VR-Dnx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KiI-ij-pAj"/>
-                <constraint firstItem="3AG-1t-vOm" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="NOa-OY-Kcd"/>
+                <constraint firstItem="3AG-1t-vOm" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" priority="250" id="NOa-OY-Kcd"/>
             </constraints>
             <point key="canvasLocation" x="32.5" y="112.5"/>
         </view>

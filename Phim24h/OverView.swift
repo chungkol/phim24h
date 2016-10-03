@@ -7,40 +7,74 @@
 //
 
 import UIKit
-
+import Kingfisher
 class OverView: UIViewController {
-
+    
     
     @IBOutlet weak var contentDetail: UILabel!
     
     @IBOutlet weak var myCollection: UICollectionView!
     
-    @IBOutlet weak var releaseDate: UILabel!
-    
-    @IBOutlet weak var revenue: UILabel!
-    
-    @IBOutlet weak var budget: UILabel!
-    @IBOutlet weak var runTime: UILabel!
+    var movie_id: Int!
+    var movie_content: String!
+    var datas: [Trailer] = []
+    var imageDatas: [Backdrop] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        myCollection.dataSource = self
+        myCollection.delegate = self
+        myCollection.register(UINib(nibName: "CellForTrailer", bundle: nil), forCellWithReuseIdentifier: "CelTrailer")
+        contentDetail.text = movie_content
+        ManagerData.instance.getAllVideoWithID(movie_id: movie_id, completetion: { [unowned self] (trailers) in
+            self.datas = trailers
+            ManagerData.instance.getAllImageWithID(movie_id: self.movie_id, completetion: { [unowned self] (backdrops) in
+                self.imageDatas = backdrops
+                self.myCollection.reloadData()
+                })
+            
+            })
+        
     }
     
+}
+extension OverView: UICollectionViewDelegate {
+    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        //
+    //        delegate.setData(film: datas[indexPath.row])
+    //
+    //    }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension OverView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return datas.count
     }
-    */
-
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CelTrailer", for: indexPath) as! CellForTrailer
+        
+        cell.loading.startAnimating()
+        
+        if let path = imageDatas[indexPath.row].file_path {
+            let pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
+                cell.loading.isHidden = true
+                cell.loading.stopAnimating()
+            })
+        }
+        
+        cell.labelCell.text = datas[indexPath.row].name
+        
+        
+        
+        return cell
+        
+    }
+    @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(datas[indexPath.row].key)
+    }
+    
+    
+    
 }

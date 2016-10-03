@@ -27,6 +27,10 @@ class DetailMovieViewController: BaseDetailViewController {
     @IBOutlet weak var totalVote: UILabel!
     
     @IBOutlet weak var mySegment: UISegmentedControl!
+    
+    @IBOutlet weak var parentView: UIView!
+    
+    
     var film: Film!
     
     var list_Genre: [Genre] = []
@@ -54,7 +58,10 @@ class DetailMovieViewController: BaseDetailViewController {
             })
         setData()
     }
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //        addSubviewForSegment()
+    }
     func actionVote() {
         print("vote")
     }
@@ -101,26 +108,35 @@ class DetailMovieViewController: BaseDetailViewController {
         switch mySegment.selectedSegmentIndex
         {
         case 0:
-            print("overview")
-            overView.view.isHidden = false
-            people.view.isHidden = true
-            similar.view.isHidden = true
-            
+            showView(type: "overview")
         case 1:
             print("people")
-            people.view.isHidden = false
-            similar.view.isHidden = true
-            overView.view.isHidden = true
+            showView(type: "people")
         case 2:
             print("similar")
-            similar.view.isHidden = false
-            
-            people.view.isHidden = true
-            overView.view.isHidden = true
+            showView(type: "similar")
         default:
             break;
         }
         
+    }
+    func showView (type: String) {
+        switch type {
+        case "overview":
+            overView.view.isHidden = false
+            people.view.isHidden = true
+            similar.view.isHidden = true
+        case "people":
+            people.view.isHidden = false
+            similar.view.isHidden = true
+            overView.view.isHidden = true
+        case "similar":
+            similar.view.isHidden = false
+            people.view.isHidden = true
+            overView.view.isHidden = true
+        default:
+            break
+        }
     }
     
     func addSubviewForSegment () {
@@ -132,21 +148,21 @@ class DetailMovieViewController: BaseDetailViewController {
             
             bottomView.translatesAutoresizingMaskIntoConstraints = false
             
-            let layouTop = NSLayoutConstraint(item: bottomView, attribute: .top, relatedBy: .equal, toItem: self.headerView, attribute: .bottom, multiplier: 1.0, constant: 8)
+            let layoutTop = NSLayoutConstraint(item: bottomView, attribute: .top, relatedBy: .equal, toItem: self.headerView, attribute: .bottom, multiplier: 1.0, constant: 8)
             
             let layoutBot = NSLayoutConstraint(item: bottomView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: -8)
             
+            let layoutRight = NSLayoutConstraint(item: bottomView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0)
             
-            let layoutRight = NSLayoutConstraint(item: bottomView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: -8)
             
+            let layoutLeft = NSLayoutConstraint(item: bottomView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0)
             
-            let layoutLeft = NSLayoutConstraint(item: bottomView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 8)
-            
-            NSLayoutConstraint.activate([layouTop, layoutBot, layoutLeft, layoutRight])
+            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
         }
-        
+        //
         overView = OverView(nibName: "OverView", bundle: nil)
-        //        controller.ANYPROPERTY=THEVALUE // If you want to pass value
+        overView.movie_id = film.id
+        overView.movie_content = film.overview
         overView.view.frame = self.view.bounds;
         overView.willMove(toParentViewController: self)
         bottomView.addSubview(overView.view)
@@ -156,7 +172,7 @@ class DetailMovieViewController: BaseDetailViewController {
         
         
         people = People(nibName: "People", bundle: nil)
-        //        controller.ANYPROPERTY=THEVALUE // If you want to pass value
+        people.movie_id = film.id
         people.view.frame = self.view.bounds;
         people.willMove(toParentViewController: self)
         bottomView.addSubview(people.view)

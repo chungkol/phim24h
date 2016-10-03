@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import Kingfisher
 
 class HomeViewController: BaseViewController, pushViewDelegate  {

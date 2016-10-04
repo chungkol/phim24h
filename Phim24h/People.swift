@@ -31,13 +31,10 @@ class People: UIViewController {
         ManagerData.instance.getAllCast(movie_id: movie_id, completetion: { [unowned self] (results) in
             self.list_Cast = results
             self.collectionCast.reloadData()
-            print(self.list_Cast.count)
-
-            ManagerData.instance.getAllCrew(movie_id: self.movie_id, completetion: { [unowned self] (results) in
-                self.list_Crew = results
-                self.collectionCrew.reloadData()
-                print(self.list_Crew.count)
-                })
+            })
+        ManagerData.instance.getAllCrew(movie_id: self.movie_id, completetion: { [unowned self] (results) in
+            self.list_Crew = results
+            self.collectionCrew.reloadData()
             })
         
         
@@ -65,7 +62,15 @@ extension People: UICollectionViewDelegate {
 extension People: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list_Crew.count
+        
+        
+        if list_Cast.count >= 10 && collectionView.tag == 102 {
+            return 10
+        } else if list_Crew.count >= 10 && collectionView.tag == 101  {
+            return 10
+        }else {
+            return 0
+        }
         
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -86,8 +91,7 @@ extension People: UICollectionViewDataSource {
             }
             
         }
-        
-        if collectionView.tag == 101 {
+        else if collectionView.tag == 101 {
             if let item: Crew = list_Crew[indexPath.row] {
                 cell.loading.startAnimating()
                 if let path = item.profile_path {

@@ -199,7 +199,7 @@ class DetailMovieViewController: BaseDetailViewController {
                 , attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.view.bounds.width)
             
             
-            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot , layoutWidth , layoutHeight])
+            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot , layoutHeight , layoutWidth])
         }
         
     }
@@ -439,7 +439,7 @@ class DetailMovieViewController: BaseDetailViewController {
             layoutHeight = NSLayoutConstraint(item: saperator
                 , attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 1)
             
-            layoutLeft = NSLayoutConstraint(item: saperator, attribute: .leading, relatedBy: .equal, toItem: self.header, attribute: .trailing, multiplier: 1.0, constant: 0)
+            layoutLeft = NSLayoutConstraint(item: saperator, attribute: .leading, relatedBy: .equal, toItem: self.header, attribute: .leading, multiplier: 1.0, constant: 0)
             
             layoutRight = NSLayoutConstraint(item: saperator, attribute: .trailing, relatedBy: .equal, toItem: self.header, attribute: .trailing, multiplier: 1.0, constant: 0)
             
@@ -466,7 +466,7 @@ class DetailMovieViewController: BaseDetailViewController {
             
             let layoutTop = NSLayoutConstraint(item: bottom, attribute: .top, relatedBy: .equal, toItem: self.header, attribute: .bottom, multiplier: 1.0, constant: 0)
             
-            let layoutBot = NSLayoutConstraint(item: bottom, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: -8)
+            let layoutBot = NSLayoutConstraint(item: bottom, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0)
             
             let layoutRight = NSLayoutConstraint(item: bottom, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0)
             

@@ -28,16 +28,23 @@ class People: UIViewController {
         collectionCrew.dataSource = self
         collectionCrew.register(UINib(nibName: "CollectionViewPeople", bundle: nil), forCellWithReuseIdentifier: "CellForPeople")
         collectionCast.register(UINib(nibName: "CollectionViewPeople", bundle: nil), forCellWithReuseIdentifier: "CellForPeople")
-        ManagerData.instance.getAllCast(movie_id: movie_id, completetion: { [unowned self] (results) in
-            self.list_Cast = results
-            self.collectionCast.reloadData()
-            })
-        ManagerData.instance.getAllCrew(movie_id: self.movie_id, completetion: { [unowned self] (results) in
-            self.list_Crew = results
-            self.collectionCrew.reloadData()
-            })
         
         
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if movie_id != nil {
+            ManagerData.instance.getAllCast(movie_id: movie_id, completetion: { [unowned self] (results) in
+                self.list_Cast = results
+                self.collectionCast.reloadData()
+                })
+            ManagerData.instance.getAllCrew(movie_id: self.movie_id, completetion: { [unowned self] (results) in
+                self.list_Crew = results
+                self.collectionCrew.reloadData()
+                })
+        }
     }
     
     
@@ -85,6 +92,8 @@ extension People: UICollectionViewDataSource {
                         cell.loading.isHidden = true
                         cell.loading.stopAnimating()
                     })
+                }else {
+                    cell.loading.startAnimating()
                 }
                 cell.lbChar.text = item.character
                 cell.lbName.text = item.name
@@ -100,6 +109,8 @@ extension People: UICollectionViewDataSource {
                         cell.loading.isHidden = true
                         cell.loading.stopAnimating()
                     })
+                }else {
+                    cell.loading.startAnimating()
                 }
                 cell.lbChar.text = item.department
                 cell.lbName.text = item.name

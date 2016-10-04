@@ -32,6 +32,7 @@ class ManagerData {
     private var list_Image: [Backdrop] = []
     private var list_cast: [Cast] = []
     private var list_crew: [Crew] = []
+    private var list_similar: [Film] = []
     
     var pageTopRated = 1
     var pagePopular = 1
@@ -44,6 +45,22 @@ class ManagerData {
     
     
     //singleton
+    
+    func getAllMovieSimilar(page: Int, movie_ID: Int,
+                            completetion:@escaping ([Film])->())
+    {
+        if (list_similar.count == 0)
+        {
+            getMovieSimilar(page: page, movie_ID: movie_ID, completetion: { [unowned self] films in
+                self.list_similar = films
+                completetion(films)
+                })
+        }
+        else
+        {
+            completetion(list_similar)
+        }
+    }
     
     func getAllCrew(movie_id: Int, completetion: @escaping ([Crew])->()) {
         
@@ -258,7 +275,7 @@ class ManagerData {
                 if let json = response.result.value {
                     let results = json["crew"].map(Crew.init)
                     completetion(results)
-                   
+                    
                 }
         }
         
@@ -273,7 +290,23 @@ class ManagerData {
                 if let json = response.result.value {
                     let results = json["cast"].map(Cast.init)
                     completetion(results)
-                   
+                    
+                }
+        }
+        
+    }
+    private func getMovieSimilar(page: Int, movie_ID: Int, completetion: @escaping ([Film])->()) {
+        let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/similar"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY,
+                                      "page": page]
+        Alamofire.request(path, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["results"].map(Film.init)
+                    completetion(results)
+                    print(results)
+                    
                 }
         }
         

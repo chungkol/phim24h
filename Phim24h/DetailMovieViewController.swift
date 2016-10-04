@@ -126,13 +126,14 @@ class DetailMovieViewController: BaseDetailViewController {
         {
         case 0:
             print("overviwe")
-            
             showView(type: "overview")
         case 1:
             print("people")
+           
             showView(type: "people")
         case 2:
             print("similar")
+            
             showView(type: "similar")
         default:
             break;
@@ -153,6 +154,7 @@ class DetailMovieViewController: BaseDetailViewController {
             similar.view.isHidden = false
             people.view.isHidden = true
             overView.view.isHidden = true
+            
         default:
             break
         }
@@ -499,7 +501,7 @@ class DetailMovieViewController: BaseDetailViewController {
         
         // add people view--------------
         people = People(nibName: "People", bundle: nil)
-        people.movie_id = film.id
+         people.movie_id = film.id
         people.view.frame = self.view.bounds;
         people.willMove(toParentViewController: self)
         bottom.addSubview(people.view)
@@ -521,6 +523,7 @@ class DetailMovieViewController: BaseDetailViewController {
         
         // add similar view -----------
         similar = Similar(nibName: "Similar", bundle: nil)
+         similar.movie_id = film.id
         similar.view.frame = self.view.bounds;
         similar.willMove(toParentViewController: self)
         bottom.addSubview(similar.view)

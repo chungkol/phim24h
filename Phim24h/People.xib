@@ -136,15 +136,24 @@
                                         <constraint firstItem="FCx-Hj-4ZH" firstAttribute="leading" secondItem="ihj-nH-m8Q" secondAttribute="leading" constant="8" id="w4j-fP-lee"/>
                                     </constraints>
                                 </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BX5-uW-45D">
+                                    <color key="backgroundColor" red="0.38823529410000002" green="0.8862745098" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="aah-kB-ja4"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
                                 <constraint firstItem="rC0-DJ-pBF" firstAttribute="leading" secondItem="9qh-9B-1f5" secondAttribute="leading" id="103-GQ-p3H"/>
-                                <constraint firstItem="ihj-nH-m8Q" firstAttribute="top" secondItem="rC0-DJ-pBF" secondAttribute="bottom" constant="8" id="BfE-El-xB4"/>
+                                <constraint firstItem="ihj-nH-m8Q" firstAttribute="top" secondItem="BX5-uW-45D" secondAttribute="bottom" constant="8" id="32X-PC-1zy"/>
+                                <constraint firstItem="BX5-uW-45D" firstAttribute="leading" secondItem="9qh-9B-1f5" secondAttribute="leading" id="KJe-Ma-FQc"/>
                                 <constraint firstAttribute="trailing" secondItem="rC0-DJ-pBF" secondAttribute="trailing" id="QJR-jY-o9I"/>
                                 <constraint firstItem="ihj-nH-m8Q" firstAttribute="leading" secondItem="9qh-9B-1f5" secondAttribute="leading" id="Rii-SE-4MR"/>
                                 <constraint firstAttribute="trailing" secondItem="ihj-nH-m8Q" secondAttribute="trailing" id="Z2s-An-nXD"/>
                                 <constraint firstItem="rC0-DJ-pBF" firstAttribute="top" secondItem="9qh-9B-1f5" secondAttribute="top" constant="8" id="gL1-gp-Pep"/>
+                                <constraint firstItem="BX5-uW-45D" firstAttribute="top" secondItem="rC0-DJ-pBF" secondAttribute="bottom" constant="8" id="iJe-ZC-aeG"/>
+                                <constraint firstAttribute="trailing" secondItem="BX5-uW-45D" secondAttribute="trailing" id="pc1-PQ-gra"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -166,6 +175,7 @@
                 <constraint firstAttribute="bottom" secondItem="d9O-2E-bmp" secondAttribute="bottom" id="X4x-lV-mk1"/>
                 <constraint firstAttribute="trailing" secondItem="d9O-2E-bmp" secondAttribute="trailing" id="ZXo-xO-akL"/>
             </constraints>
+            <point key="canvasLocation" x="24.5" y="52.5"/>
         </view>
     </objects>
     <resources>

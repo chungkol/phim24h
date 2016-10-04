@@ -10,7 +10,10 @@ import UIKit
 
 class TableViewCellWithPage: UITableViewCell {
     
+    @IBOutlet weak var imPlay: UIImageView!
+    @IBOutlet weak var bgCell: UIView!
     
+    @IBOutlet weak var imType: UIImageView!
     @IBOutlet weak var loading: UIActivityIndicatorView!
     
     @IBOutlet weak var contentCell: UITextView!

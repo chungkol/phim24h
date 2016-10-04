@@ -114,7 +114,10 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bgCell" destination="WxB-Tx-W13" id="jdI-nb-EbD"/>
                 <outlet property="contentCell" destination="mwm-vP-4ca" id="X9e-AU-wcH"/>
+                <outlet property="imPlay" destination="T56-kB-Bgg" id="EHu-Qd-iRU"/>
+                <outlet property="imType" destination="pe9-u3-N5j" id="6NI-go-yuw"/>
                 <outlet property="imageCell" destination="AFb-eI-akp" id="hGE-AX-jnX"/>
                 <outlet property="loading" destination="KE7-m4-NTC" id="kIE-dD-aBz"/>
                 <outlet property="titleCell" destination="cEm-Nt-e33" id="IGb-9W-M2g"/>

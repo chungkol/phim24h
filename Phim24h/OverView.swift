@@ -37,6 +37,9 @@ class OverView: UIViewController {
         
     }
     
+    @IBAction func print(_ sender: AnyObject) {
+        print(self.view)
+    }
 }
 extension OverView: UICollectionViewDelegate {
     //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -72,7 +75,7 @@ extension OverView: UICollectionViewDataSource {
         
     }
     @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(datas[indexPath.row].key)
+        print(datas[indexPath.row].key as AnyObject)
     }
     
     

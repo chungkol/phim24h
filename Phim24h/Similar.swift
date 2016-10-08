@@ -13,8 +13,24 @@ class Similar: UIViewController {
     
     @IBOutlet weak var myTable: UITableView!
     var datas: [Film] = []
-    var movie_id: Int!
+    
     var list_Genre: [Genre] = []
+    
+    var movie_id: Int! {
+        didSet {
+            ManagerData.instance.getAllMovieSimilar(1, movie_ID: movie_id, completetion: {            [unowned self] (films) in
+                self.datas = films
+                self.myTable.reloadData()
+                
+                })
+            ManagerData.instance.getAllGenre({ [unowned self] (genres) in
+                self.list_Genre = genres
+                self.myTable.reloadData()
+                
+                })
+            
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,22 +41,22 @@ class Similar: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if movie_id != nil {
-            ManagerData.instance.getAllMovieSimilar(page: 1, movie_ID: movie_id, completetion: {            [unowned self] (films) in
-                self.datas = films
-                self.myTable.reloadData()
-                
-                })
-            ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
-                self.list_Genre = genres
-                self.myTable.reloadData()
-                
-                })
-            
-
-        }
+//        if movie_id != nil {
+//            ManagerData.instance.getAllMovieSimilar(page: 1, movie_ID: movie_id, completetion: {            [unowned self] (films) in
+//                self.datas = films
+//                self.myTable.reloadData()
+//                
+//                })
+//            ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+//                self.list_Genre = genres
+//                self.myTable.reloadData()
+//                
+//                })
+//            
+//
+//        }
     }
-    func getNameOfGenre(genres: [Int]) -> String {
+    func getNameOfGenre(_ genres: [Int]) -> String {
         var result: String = ""
         for item in self.list_Genre {
             for index in 0..<genres.count {
@@ -74,11 +90,12 @@ extension Similar: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCellWithPage", for: indexPath) as! TableViewCellWithPage
-        cell.backgroundColor = UIColor.black
-        cell.bgCell.backgroundColor = UIColor.black
+ 
         if let item: Film = datas[indexPath.row] {
             cell.loading.startAnimating()
-            
+            cell.titleCell.text = item.title
+            cell.totalViewCell.text = String(item.popularity!)
+            cell.contentCell.text = item.overview
             if let path = item.poster_path {
                 let pathImage = "https://image.tmdb.org/t/p/original\(path)"
                 cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
@@ -87,18 +104,9 @@ extension Similar: UITableViewDataSource {
                 })
             }
             
-            cell.titleCell.text = item.title
-            cell.totalViewCell.text = String(item.popularity!)
-            cell.contentCell.text = item.overview
-            
-            cell.titleCell.textColor = UIColor.white
-            cell.totalViewCell.textColor = UIColor.white
-            cell.contentCell.textColor = UIColor.white
-            cell.typeCell.textColor = UIColor.white
-            cell.imPlay.image = UIImage(named: "play_w")
-            cell.imType.image = UIImage(named: "type_film_w")
+     
             if list_Genre.count > 0 {
-                if let type: String = self.getNameOfGenre(genres: item.genre_ids as! [Int]) {
+                if let type: String = self.getNameOfGenre(item.genre_ids as! [Int]) {
                     cell.typeCell.text = type
                 }
             }

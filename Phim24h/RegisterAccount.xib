@@ -40,14 +40,14 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3n-jX-5yX">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3n-jX-5yX" customClass="CustomButton" customModule="Phim24h" customModuleProvider="target">
                                     <color key="backgroundColor" white="0.20147421230000001" alpha="0.5" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="POD-1Y-hfH"/>
                                         <constraint firstAttribute="height" constant="40" id="gLb-5r-dm1"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                    <state key="normal" title="Register">
+                                    <state key="normal" title="Sign Up">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
@@ -77,11 +77,11 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0A-q2-t1s">
                             <constraints>
-                                <constraint firstAttribute="width" constant="100" id="9cS-pJ-MhG"/>
-                                <constraint firstAttribute="height" constant="30" id="kks-lG-WMv"/>
+                                <constraint firstAttribute="height" constant="30" id="9Dq-pK-Vdm"/>
+                                <constraint firstAttribute="width" constant="15" id="Itg-02-yxz"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <state key="normal" title="Login">
+                            <state key="normal" backgroundImage="back">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
@@ -95,9 +95,9 @@
                         <constraint firstItem="52A-SA-eHY" firstAttribute="centerX" secondItem="01b-Od-LK1" secondAttribute="centerX" id="7tB-qR-MTO"/>
                         <constraint firstItem="52A-SA-eHY" firstAttribute="centerY" secondItem="01b-Od-LK1" secondAttribute="centerY" id="9hw-SG-vwX"/>
                         <constraint firstItem="L9O-Zj-G3y" firstAttribute="leading" secondItem="01b-Od-LK1" secondAttribute="leadingMargin" constant="60" id="AbV-ux-waS"/>
-                        <constraint firstItem="v0A-q2-t1s" firstAttribute="centerX" secondItem="01b-Od-LK1" secondAttribute="centerX" id="AjV-eO-ghe"/>
-                        <constraint firstAttribute="bottom" secondItem="v0A-q2-t1s" secondAttribute="bottom" constant="8" id="Es5-Xq-rKb"/>
                         <constraint firstItem="52A-SA-eHY" firstAttribute="top" secondItem="L9O-Zj-G3y" secondAttribute="bottom" constant="24" id="TZZ-7K-65a"/>
+                        <constraint firstItem="v0A-q2-t1s" firstAttribute="leading" secondItem="01b-Od-LK1" secondAttribute="leading" constant="8" id="bBr-sq-GH4"/>
+                        <constraint firstItem="v0A-q2-t1s" firstAttribute="top" secondItem="01b-Od-LK1" secondAttribute="top" constant="20" id="kLo-Zc-Iyp"/>
                         <constraint firstAttribute="trailing" secondItem="52A-SA-eHY" secondAttribute="trailing" constant="20" id="kgr-bm-y0M"/>
                         <constraint firstItem="52A-SA-eHY" firstAttribute="leading" secondItem="01b-Od-LK1" secondAttribute="leading" constant="20" id="pm0-2C-Zl1"/>
                     </constraints>
@@ -113,4 +113,7 @@
             <point key="canvasLocation" x="25.5" y="52.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="back" width="10" height="19"/>
+    </resources>
 </document>

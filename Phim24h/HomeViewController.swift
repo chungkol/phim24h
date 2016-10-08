@@ -115,17 +115,17 @@ class HomeViewController: BaseViewController, pushViewDelegate  {
     
     
     func initData(){
-        ManagerData.instance.getUpComing(page: 1 , type: ManagerData.UPCOMING) {[unowned self] (films) in
+        ManagerData.instance.getUpComing(1 , type: ManagerData.UPCOMING) {[unowned self] (films) in
             self.datas.append(DataModel(title: "Up Coming", key: ManagerData.UPCOMING, datas: films as [Film]))
             
-            ManagerData.instance.getTopRated(page: 1 , type: ManagerData.TOP_RATED) {[unowned self] (films) in
+            ManagerData.instance.getTopRated(1 , type: ManagerData.TOP_RATED) {[unowned self] (films) in
                 self.datas.append(DataModel(title: "Top Rated", key: ManagerData.TOP_RATED, datas: films as [Film]))
                 
                 
-                ManagerData.instance.getPopular(page: 1 , type: ManagerData.POPULAR) {[unowned self] (films) in
+                ManagerData.instance.getPopular(1 , type: ManagerData.POPULAR) {[unowned self] (films) in
                     self.datas.append(DataModel(title: "Popular", key: ManagerData.POPULAR, datas: films as [Film]))
                     
-                    ManagerData.instance.getNowPlaying(page: 1 , type: ManagerData.NOW_PLAYING) {[unowned self] (films) in
+                    ManagerData.instance.getNowPlaying(1 , type: ManagerData.NOW_PLAYING) {[unowned self] (films) in
                         
                         self.dataForSlide = films
                         
@@ -137,7 +137,7 @@ class HomeViewController: BaseViewController, pushViewDelegate  {
                         self.myTable.delegate = self
                         self.myTable.dataSource = self
                         self.myTable.reloadData()
-                        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+                        ManagerData.instance.getAllGenre({ [unowned self] (genres) in
                             })
                         
                     }
@@ -187,24 +187,24 @@ class HomeViewController: BaseViewController, pushViewDelegate  {
         switch sender.tag {
         case 100:
             print("Up Coming")
-            goToTableWithPage(key: ManagerData.UPCOMING, titleCell: "Up Coming")
+            goToTableWithPage(ManagerData.UPCOMING, titleCell: "Up Coming")
         case 101:
             print("Top Rated")
-            goToTableWithPage(key: ManagerData.TOP_RATED, titleCell: "Top Rated")
+            goToTableWithPage(ManagerData.TOP_RATED, titleCell: "Top Rated")
             
         case 102:
             print("Popular")
-            goToTableWithPage(key: ManagerData.POPULAR, titleCell: "Popular")
+            goToTableWithPage(ManagerData.POPULAR, titleCell: "Popular")
             
         case 103:
             print("Now Playing")
-            goToTableWithPage(key: ManagerData.NOW_PLAYING, titleCell: "Now Playing")
+            goToTableWithPage(ManagerData.NOW_PLAYING, titleCell: "Now Playing")
             
         default: break
         }
     }
     
-    func  goToTableWithPage(key: String, titleCell: String) {
+    func  goToTableWithPage(_ key: String, titleCell: String) {
         let tableWithpage = TableWithPage(nibName: "TableWithPage", bundle: nil)
         tableWithpage.data_key = key
         tableWithpage.data_title = titleCell
@@ -262,7 +262,7 @@ extension HomeViewController: UITableViewDataSource {
         
     }
     
-    func setData(film: Film) {
+    func setData(_ film: Film) {
         let detaiMovie = DetailMovieViewController(nibName: "DetailMovieViewController", bundle: nil) as DetailMovieViewController
         detaiMovie.film = film
         self.navigationController?.pushViewController(detaiMovie, animated: true)

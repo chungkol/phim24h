@@ -27,11 +27,9 @@
                             <constraint firstAttribute="height" constant="30" id="yBV-Py-7Hr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="tTR-9V-1K1" firstAttribute="leading" secondItem="7xF-Qs-zON" secondAttribute="trailing" constant="8" id="BtP-OU-ncE"/>
                     <constraint firstItem="tTR-9V-1K1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Cdn-ct-ihf"/>
@@ -40,6 +38,7 @@
                     <constraint firstItem="7xF-Qs-zON" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xdo-zi-0pz"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="imageCell" destination="7xF-Qs-zON" id="AfZ-6k-ofJ"/>
                 <outlet property="titleCell" destination="tTR-9V-1K1" id="d6A-2l-dK7"/>

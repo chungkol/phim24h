@@ -18,7 +18,19 @@ class People: UIViewController {
     
     var list_Cast: [Cast] = []
     var list_Crew: [Crew] = []
-    var movie_id: Int!
+    var movie_id: Int! {
+        didSet {
+            ManagerData.instance.getAllCast(movie_id, completetion: { [unowned self] (results) in
+                self.list_Cast = results
+                self.collectionCast.reloadData()
+                })
+            ManagerData.instance.getAllCrew(self.movie_id, completetion: { [unowned self] (results) in
+                self.list_Crew = results
+                self.collectionCrew.reloadData()
+                })
+
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,16 +47,16 @@ class People: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if movie_id != nil {
-            ManagerData.instance.getAllCast(movie_id: movie_id, completetion: { [unowned self] (results) in
-                self.list_Cast = results
-                self.collectionCast.reloadData()
-                })
-            ManagerData.instance.getAllCrew(movie_id: self.movie_id, completetion: { [unowned self] (results) in
-                self.list_Crew = results
-                self.collectionCrew.reloadData()
-                })
-        }
+//        if movie_id != nil {
+//            ManagerData.instance.getAllCast(movie_id: movie_id, completetion: { [unowned self] (results) in
+//                self.list_Cast = results
+//                self.collectionCast.reloadData()
+//                })
+//            ManagerData.instance.getAllCrew(movie_id: self.movie_id, completetion: { [unowned self] (results) in
+//                self.list_Crew = results
+//                self.collectionCrew.reloadData()
+//                })
+//        }
     }
     
     

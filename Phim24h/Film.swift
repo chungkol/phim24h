@@ -20,7 +20,7 @@ struct Film {
     let original_language: String?
     let title: String?
     let backdrop_path: String?
-    let popularity: Float?
+    let popularity: Double?
     let vote_count: Int?
     let video: Bool?
     let vote_average: Double?

@@ -18,39 +18,24 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TsQ-3N-ij0">
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Uz0-S3-ckC">
-                        <frame key="frameInset"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1HY-UZ-8xz">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZDo-Iv-Ope">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="6vc-1y-Ef6"/>
-                                    <constraint firstAttribute="width" constant="30" id="ZF6-KF-oiR"/>
-                                </constraints>
-                                <color key="color" red="0.38823529410000002" green="0.8862745098" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="1HY-UZ-8xz" firstAttribute="top" secondItem="Uz0-S3-ckC" secondAttribute="top" id="4SY-ck-283"/>
-                            <constraint firstItem="ZDo-Iv-Ope" firstAttribute="centerY" secondItem="Uz0-S3-ckC" secondAttribute="centerY" id="AMM-if-ld0"/>
-                            <constraint firstAttribute="trailing" secondItem="1HY-UZ-8xz" secondAttribute="trailing" id="LA5-rh-MYM"/>
-                            <constraint firstItem="ZDo-Iv-Ope" firstAttribute="centerX" secondItem="Uz0-S3-ckC" secondAttribute="centerX" id="rLL-PC-XRs"/>
-                            <constraint firstItem="1HY-UZ-8xz" firstAttribute="leading" secondItem="Uz0-S3-ckC" secondAttribute="leading" id="rym-fT-WkS"/>
-                            <constraint firstAttribute="bottom" secondItem="1HY-UZ-8xz" secondAttribute="bottom" id="xEz-On-Rky"/>
-                        </constraints>
-                    </view>
-                    <blurEffect style="light"/>
-                </visualEffectView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1HY-UZ-8xz">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZDo-Iv-Ope">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="28n-EH-aZ4"/>
+                        <constraint firstAttribute="height" constant="30" id="dRY-8J-tK4"/>
+                    </constraints>
+                    <color key="color" red="0.38823529410000002" green="0.8862745098" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                </activityIndicatorView>
             </subviews>
             <constraints>
-                <constraint firstItem="TsQ-3N-ij0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7HZ-Oh-DOy"/>
-                <constraint firstAttribute="trailing" secondItem="TsQ-3N-ij0" secondAttribute="trailing" id="Gct-JC-gWI"/>
-                <constraint firstAttribute="bottom" secondItem="TsQ-3N-ij0" secondAttribute="bottom" id="JWo-N3-9X7"/>
-                <constraint firstItem="TsQ-3N-ij0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TR1-B8-6Cp"/>
+                <constraint firstAttribute="bottom" secondItem="1HY-UZ-8xz" secondAttribute="bottom" id="6He-Fc-LW4"/>
+                <constraint firstItem="1HY-UZ-8xz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9Te-gJ-p97"/>
+                <constraint firstAttribute="trailing" secondItem="1HY-UZ-8xz" secondAttribute="trailing" id="AZp-1v-V0c"/>
+                <constraint firstItem="ZDo-Iv-Ope" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ODJ-Bd-3kK"/>
+                <constraint firstItem="1HY-UZ-8xz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fEW-fI-fbY"/>
+                <constraint firstItem="ZDo-Iv-Ope" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="xlG-WM-5Iq"/>
             </constraints>
             <point key="canvasLocation" x="68.5" y="59.5"/>
         </view>

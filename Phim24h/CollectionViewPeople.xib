@@ -26,7 +26,6 @@
                                 <color key="color" red="0.38823529410000002" green="0.8862745098" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nKY-mt-KAB" secondAttribute="trailing" id="PLJ-aB-bHp"/>
                             <constraint firstItem="nKY-mt-KAB" firstAttribute="top" secondItem="zzK-Cc-rVg" secondAttribute="top" id="UAK-wo-7b4"/>
@@ -42,7 +41,7 @@
                             <constraint firstAttribute="height" constant="15" id="muM-rk-hcX"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07o-gR-tkf">
@@ -55,7 +54,7 @@
                     </label>
                 </subviews>
             </view>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="zzK-Cc-rVg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Eka-9O-olf"/>
                 <constraint firstItem="I22-Jf-wee" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fw1-0o-amu"/>

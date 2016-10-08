@@ -17,13 +17,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kfk-TU-N5j">
-                    <frame key="frameInset" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kfk-TU-N5j">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Kfk-TU-N5j" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8Ca-Td-9lv"/>
+                <constraint firstAttribute="trailing" secondItem="Kfk-TU-N5j" secondAttribute="trailing" id="XqL-ea-7di"/>
+                <constraint firstItem="Kfk-TU-N5j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="q3V-WT-4t8"/>
+                <constraint firstAttribute="bottom" secondItem="Kfk-TU-N5j" secondAttribute="bottom" id="ti9-Fw-R4N"/>
+            </constraints>
             <point key="canvasLocation" x="32.5" y="103.5"/>
         </view>
     </objects>

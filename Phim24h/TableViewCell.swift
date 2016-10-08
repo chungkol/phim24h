@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 protocol pushViewDelegate {
-    func setData(film: Film)
+    func setData(_ film: Film)
 }
 class TableViewCell: UITableViewCell {
     
@@ -38,7 +38,7 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func seeMore(sender: AnyObject!) {
+    func seeMore(_ sender: AnyObject!) {
         switch titleCell.tag {
         case 100:
             print("Up Coming")
@@ -55,7 +55,7 @@ class TableViewCell: UITableViewCell {
 extension TableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        
-        delegate.setData(film: datas[indexPath.row])
+        delegate.setData(datas[indexPath.row])
         
     }
 }

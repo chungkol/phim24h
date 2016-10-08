@@ -15,31 +15,52 @@ class OverView: UIViewController {
     
     @IBOutlet weak var myCollection: UICollectionView!
     
-    var movie_id: Int!
-    var movie_content: String!
+    
+    
+    @IBOutlet weak var movie_release: UILabel!
+    
+    @IBOutlet weak var movie_runtime: UILabel!
+    
+    @IBOutlet weak var movie_budget: UILabel!
+    
+    @IBOutlet weak var movie_revenue: UILabel!
+    
+    var movie: MovieDetail!
+    var movie_content : String!
     var datas: [Trailer] = []
     var imageDatas: [Backdrop] = []
+    var heightScroll: CGFloat!
+    var movie_id: Int! {
+        didSet {
+            ManagerData.instance.getAllVideoWithID(movie_id, completetion: { [unowned self] (trailers) in
+                self.datas = trailers
+                ManagerData.instance.getAllImageWithID(self.movie_id, completetion: { [unowned self] (backdrops) in
+                    self.imageDatas = backdrops
+                    self.myCollection.reloadData()
+                    })
+                
+                })
+            
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        contentDetail.text = movie_content
         myCollection.dataSource = self
         myCollection.delegate = self
         myCollection.register(UINib(nibName: "CellForTrailer", bundle: nil), forCellWithReuseIdentifier: "CelTrailer")
-        contentDetail.text = movie_content
-        ManagerData.instance.getAllVideoWithID(movie_id: movie_id, completetion: { [unowned self] (trailers) in
-            self.datas = trailers
-            ManagerData.instance.getAllImageWithID(movie_id: self.movie_id, completetion: { [unowned self] (backdrops) in
-                self.imageDatas = backdrops
-                self.myCollection.reloadData()
-                })
-            
+        ManagerData.instance.getAllMovieDetail(movie_id, completetion: { [unowned self] (results) in
+            self.movie = results
+            self.movie_budget.text = "$ \(self.movie.budget!)"
+            self.movie_release.text = "\(self.movie.release_date!)"
+            self.movie_runtime.text = "\(self.movie.runtime!) minutes"
+            self.movie_revenue.text = "\(self.movie.revenue!)"
             })
+        
         
     }
     
-    @IBAction func print(_ sender: AnyObject) {
-        print(self.view)
-    }
+    
 }
 extension OverView: UICollectionViewDelegate {
     //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -65,7 +86,9 @@ extension OverView: UICollectionViewDataSource {
                 cell.loading.isHidden = true
                 cell.loading.stopAnimating()
             })
+            
         }
+        
         
         cell.labelCell.text = datas[indexPath.row].name
         
@@ -74,8 +97,16 @@ extension OverView: UICollectionViewDataSource {
         return cell
         
     }
+    
     @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(datas[indexPath.row].key as AnyObject)
+        let moviePlay = MoviePlayer(nibName: "MoviePlayer", bundle: nil)
+        moviePlay.trailer = datas[indexPath.row]
+        moviePlay.img_path = imageDatas[indexPath.row].file_path
+        print("trailer \(datas[indexPath.row])")
+        print("path \(imageDatas[indexPath.row].file_path)")
+        self.navigationController?.pushViewController(moviePlay, animated: true)
+        
     }
     
     

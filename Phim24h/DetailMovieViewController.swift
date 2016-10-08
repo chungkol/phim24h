@@ -8,12 +8,12 @@
 
 import UIKit
 protocol pushView {
-    func setData(film:Film)
+    func setData(_ film:Film)
 }
 class DetailMovieViewController: BaseDetailViewController {
     
     
-    var parentView: UIView!
+    
     var myScrollView: UIScrollView!
     
     var header: UIView!
@@ -39,7 +39,7 @@ class DetailMovieViewController: BaseDetailViewController {
     var layoutWidth : NSLayoutConstraint!
     var layoutCenterX : NSLayoutConstraint!
     var layoutCenterY : NSLayoutConstraint!
-    
+
     var film: Film!
     var list_Genre: [Genre] = []
     var overView: OverView!
@@ -63,7 +63,9 @@ class DetailMovieViewController: BaseDetailViewController {
         if bottom == nil {
             addSubviewForSegment()
         }
-        mySegment.setFontSize(fontSize: 14)
+        myScrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.header.bounds.size.height + self.bottom.bounds.size.height + 100 )
+        
+        mySegment.setFontSize(14)
         let leftButton = UIBarButtonItem(image: UIImage(named: "vote"), style: .plain, target: self
             , action: #selector(actionVote))
         let leftButton2 = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self
@@ -71,9 +73,9 @@ class DetailMovieViewController: BaseDetailViewController {
         
         navigationItem.rightBarButtonItems = [leftButton,leftButton2]
         
-        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+        ManagerData.instance.getAllGenre({ [unowned self] (genres) in
             self.list_Genre = genres
-            self.typeDetail.text = self.getNameOfGenre(genres: self.film.genre_ids as! [Int])
+            self.typeDetail.text = self.getNameOfGenre(self.film.genre_ids as! [Int])
             })
         setData()
         
@@ -103,7 +105,7 @@ class DetailMovieViewController: BaseDetailViewController {
         
         
     }
-    func getNameOfGenre(genres: [Int]) -> String {
+    func getNameOfGenre(_ genres: [Int]) -> String {
         var result: String = ""
         for item in self.list_Genre {
             for index in 0..<genres.count {
@@ -126,21 +128,21 @@ class DetailMovieViewController: BaseDetailViewController {
         {
         case 0:
             print("overviwe")
-            showView(type: "overview")
+            showView("overview")
         case 1:
             print("people")
-           
-            showView(type: "people")
+            
+            showView("people")
         case 2:
             print("similar")
             
-            showView(type: "similar")
+            showView("similar")
         default:
             break;
         }
         
     }
-    func showView (type: String) {
+    func showView (_ type: String) {
         switch type {
         case "overview":
             overView.view.isHidden = false
@@ -150,10 +152,12 @@ class DetailMovieViewController: BaseDetailViewController {
             people.view.isHidden = false
             similar.view.isHidden = true
             overView.view.isHidden = true
+            people.movie_id = film.id
         case "similar":
             similar.view.isHidden = false
             people.view.isHidden = true
             overView.view.isHidden = true
+            similar.movie_id = film.id
             
         default:
             break
@@ -162,9 +166,7 @@ class DetailMovieViewController: BaseDetailViewController {
     func addScrollView() {
         if (myScrollView == nil) {
             myScrollView = UIScrollView(frame: CGRect(x:0, y:0, width: 5, height:5))
-            myScrollView.backgroundColor = UIColor.red
-            myScrollView.contentSize = self.view.bounds.size
-            self.view.addSubview(myScrollView)
+                        self.view.addSubview(myScrollView)
             
             myScrollView.translatesAutoresizingMaskIntoConstraints = false
             
@@ -179,31 +181,6 @@ class DetailMovieViewController: BaseDetailViewController {
             
             NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
         }
-        if (parentView == nil) {
-            parentView = UIView(frame: CGRect(x:0, y:0, width: 5, height:5))
-            parentView.backgroundColor = UIColor.red
-            self.myScrollView.addSubview(parentView)
-            
-            parentView.translatesAutoresizingMaskIntoConstraints = false
-            
-            
-            layoutTop = NSLayoutConstraint(item: parentView, attribute: .top, relatedBy: .equal, toItem: self.myScrollView, attribute: .top, multiplier: 1.0, constant: 0)
-            
-            layoutLeft = NSLayoutConstraint(item: parentView, attribute: .leading, relatedBy: .equal, toItem: self.myScrollView, attribute: .leading, multiplier: 1.0, constant: 0)
-            
-            layoutRight = NSLayoutConstraint(item: parentView, attribute: .trailing, relatedBy: .equal, toItem: self.myScrollView, attribute: .trailing, multiplier: 1.0, constant: 0)
-            
-            layoutBot = NSLayoutConstraint(item: parentView, attribute: .bottom, relatedBy: .equal, toItem: self.myScrollView, attribute: .bottom, multiplier: 1.0, constant: 0)
-            
-            layoutHeight = NSLayoutConstraint(item: parentView
-                , attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.view.bounds.height)
-            layoutWidth = NSLayoutConstraint(item: parentView
-                , attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.view.bounds.width)
-            
-            
-            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot , layoutHeight , layoutWidth])
-        }
-        
     }
     func addHeaderView() {
         
@@ -211,12 +188,12 @@ class DetailMovieViewController: BaseDetailViewController {
         // add Header
         if (header == nil) {
             header = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.5)))
-            header.backgroundColor = UIColor.black
-            self.parentView.addSubview(header)
+               header.backgroundColor = UIColor.init(hex: "#EEEEEE")
+            self.myScrollView.addSubview(header)
             
             header.translatesAutoresizingMaskIntoConstraints = false
             
-            layoutTop = NSLayoutConstraint(item: header, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0)
+            layoutTop = NSLayoutConstraint(item: header, attribute: .top, relatedBy: .equal, toItem: self.myScrollView, attribute: .top, multiplier: 1.0, constant: 0)
             
             layoutHeight = NSLayoutConstraint(item: header
                 , attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: (self.view.bounds.size.width * 0.5))
@@ -224,14 +201,13 @@ class DetailMovieViewController: BaseDetailViewController {
             layoutRight = NSLayoutConstraint(item: header, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0)
             
             
-            layoutLeft = NSLayoutConstraint(item: header, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0)
+            layoutLeft = NSLayoutConstraint(item: header, attribute: .leading, relatedBy: .equal, toItem: self.myScrollView, attribute: .leading, multiplier: 1.0, constant: 0)
             
             NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutHeight])
         }
         //add header left---------------------------
         if headerLeft == nil {
             headerLeft = UIView(frame: CGRect(x:0, y:0, width: 100, height: 130))
-            headerLeft.backgroundColor = UIColor.black
             self.header.addSubview(headerLeft)
             
             headerLeft.translatesAutoresizingMaskIntoConstraints = false
@@ -289,9 +265,8 @@ class DetailMovieViewController: BaseDetailViewController {
         //add header right
         if headerRight == nil {
             headerRight = UIView(frame: CGRect(x:0, y:0, width: 100, height: 130))
-            headerRight.backgroundColor = UIColor.black
             self.header.addSubview(headerRight)
-            
+         
             headerRight.translatesAutoresizingMaskIntoConstraints = false
             
             layoutTop = NSLayoutConstraint(item: headerRight, attribute: .top, relatedBy: .equal, toItem: self.header, attribute: .top, multiplier: 1.0, constant: 8)
@@ -306,7 +281,7 @@ class DetailMovieViewController: BaseDetailViewController {
         }
         if titleDetail == nil {
             titleDetail = UILabel(frame: CGRect(x:0, y:0, width: 100, height: 130))
-            titleDetail.textColor = UIColor.white
+            titleDetail.textColor = UIColor.black
             titleDetail.font = UIFont.systemFont(ofSize: 17)
             self.headerRight.addSubview(titleDetail)
             
@@ -325,7 +300,7 @@ class DetailMovieViewController: BaseDetailViewController {
         }
         if dateDetail == nil {
             dateDetail = UILabel(frame: CGRect(x:0, y:0, width: 100, height: 130))
-            dateDetail.textColor = UIColor.gray
+            dateDetail.textColor = UIColor.black
             dateDetail.font = UIFont.systemFont(ofSize: 15)
             self.headerRight.addSubview(dateDetail)
             
@@ -344,7 +319,7 @@ class DetailMovieViewController: BaseDetailViewController {
         }
         if typeDetail == nil {
             typeDetail = UILabel(frame: CGRect(x:0, y:0, width: 100, height: 130))
-            typeDetail.textColor = UIColor.gray
+            typeDetail.textColor = UIColor.black
             typeDetail.font = UIFont.systemFont(ofSize: 15)
             
             self.headerRight.addSubview(typeDetail)
@@ -386,7 +361,7 @@ class DetailMovieViewController: BaseDetailViewController {
         
         if totalVote == nil {
             totalVote = UILabel(frame: CGRect(x:0, y:0, width: 100, height: 130))
-            totalVote.textColor = UIColor.gray
+            totalVote.textColor = UIColor.black
             totalVote.font = UIFont.systemFont(ofSize: 15)
             
             self.headerRight.addSubview(totalVote)
@@ -463,7 +438,7 @@ class DetailMovieViewController: BaseDetailViewController {
             bottom = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6) + 25))
             bottom.backgroundColor = UIColor.red
             
-            self.parentView.addSubview(bottom)
+            self.myScrollView.addSubview(bottom)
             bottom.translatesAutoresizingMaskIntoConstraints = false
             
             let layoutTop = NSLayoutConstraint(item: bottom, attribute: .top, relatedBy: .equal, toItem: self.header, attribute: .bottom, multiplier: 1.0, constant: 0)
@@ -499,9 +474,10 @@ class DetailMovieViewController: BaseDetailViewController {
         
         NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutBot, layoutRight])
         
+         
         // add people view--------------
         people = People(nibName: "People", bundle: nil)
-         people.movie_id = film.id
+        
         people.view.frame = self.view.bounds;
         people.willMove(toParentViewController: self)
         bottom.addSubview(people.view)
@@ -523,7 +499,7 @@ class DetailMovieViewController: BaseDetailViewController {
         
         // add similar view -----------
         similar = Similar(nibName: "Similar", bundle: nil)
-         similar.movie_id = film.id
+        
         similar.view.frame = self.view.bounds;
         similar.willMove(toParentViewController: self)
         bottom.addSubview(similar.view)
@@ -552,15 +528,15 @@ class DetailMovieViewController: BaseDetailViewController {
 
 extension UISegmentedControl {
     
-    func setFontSize(fontSize: CGFloat) {
+    func setFontSize(_ fontSize: CGFloat) {
         
-        let normalTextAttributes: [NSObject : AnyObject] = [
-            NSForegroundColorAttributeName as NSObject: UIColor.white,
+        let normalTextAttributes: [AnyHashable: Any] = [
+            NSForegroundColorAttributeName as NSObject: UIColor.black,
             NSFontAttributeName as NSObject: UIFont.systemFont(ofSize: fontSize, weight: UIFontWeightRegular)
         ]
         
-        let boldTextAttributes: [NSObject : AnyObject] = [
-            NSForegroundColorAttributeName as NSObject : UIColor.black
+        let boldTextAttributes: [AnyHashable: Any] = [
+            NSForegroundColorAttributeName as NSObject : UIColor.white
             ,
             NSFontAttributeName as NSObject : UIFont.systemFont(ofSize: fontSize, weight: UIFontWeightMedium),
             ]

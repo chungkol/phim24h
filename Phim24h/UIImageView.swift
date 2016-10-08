@@ -62,7 +62,7 @@ extension UIImageView {
             let top: CGFloat = (imageSize.height - cropHeight) / 2
             
             let trimRect : CGRect = CGRect(x: left, y: top, width: cropWidth, height: cropHeight)
-            self.image = baseImage.trim(trimRect: trimRect)
+            self.image = baseImage.trim(trimRect)
             self.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: displayHeight)
         }
     }

@@ -26,6 +26,9 @@ open class BaseViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
         
     }
+    open override var shouldAutorotate: Bool {
+        return false
+    }
     open func setTitForView(_ title: String)
     {
         self.navigationItem.title = title

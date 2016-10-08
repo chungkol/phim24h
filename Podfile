@@ -14,5 +14,6 @@ pod 'DLRadioButton'
 pod 'Alamofire', '~> 4.0'
 pod 'JASON', '~> 3.0'
 pod 'Kingfisher', '~> 3.0'
+pod 'MobilePlayer', '~> 1.1'
 
 end

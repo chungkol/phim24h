@@ -8,18 +8,18 @@
 
 import UIKit
 import Firebase
-class RegisterAccount: UIViewController {
-
+class RegisterAccount: UIViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var tfUser: UITextField!
     
     @IBOutlet weak var tfPass: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        customRadiusTextField()
         // Do any additional setup after loading the view.
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -30,7 +30,13 @@ class RegisterAccount: UIViewController {
         
     }
     
-
+    func customRadiusTextField(){
+        tfUser.addIconTextField(tfUser, stringImage: "user")
+        
+        tfPass.addIconTextField(tfPass, stringImage: "pass")
+        tfPass.delegate = self
+        tfUser.delegate = self
+    }
     @IBAction func dimissToLogin(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }

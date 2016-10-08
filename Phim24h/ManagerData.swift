@@ -18,69 +18,74 @@ class ManagerData {
     static let GENRE = "https://api.themoviedb.org/3/genre/movie/list?language=en-US"
     static let FILM_WITH_GENRE = "https://api.themoviedb.org/3/genre/"
     static let GET_ALL_INFO_WITH_ID = "https://api.themoviedb.org/3/movie/"
-    //    static let GET_ALL_IMAGE_WITH_ID = "https://api.themoviedb.org/3/movie/"
+    
     
     static let instance = ManagerData()
     
-    private var list_Top_Rated : [Film] = []
-    private var list_Popular : [Film] = []
-    private var list_Up_Coming : [Film] = []
-    private var list_Now_Playing : [Film] = []
-    private var list_genres: [Genre] = []
-    private var list_Film_With_Genre: [Film] = []
-    private var list_Trailer: [Trailer] = []
-    private var list_Image: [Backdrop] = []
-    private var list_cast: [Cast] = []
-    private var list_crew: [Crew] = []
-    private var list_similar: [Film] = []
+    fileprivate var list_Top_Rated : [Film] = []
+    fileprivate var list_Popular : [Film] = []
+    fileprivate var list_Up_Coming : [Film] = []
+    fileprivate var list_Now_Playing : [Film] = []
+    fileprivate var list_genres: [Genre] = []
+    fileprivate var list_Film_With_Genre: [Film] = []
+    fileprivate var list_Trailer: [Trailer] = []
+    fileprivate var list_Image: [Backdrop] = []
+    fileprivate var list_cast: [Cast] = []
+    fileprivate var list_crew: [Crew] = []
+    fileprivate var list_similar: [Film] = []
+    fileprivate var detail_Movies: MovieDetail!
     
     var pageTopRated = 1
     var pagePopular = 1
     var pageUpComing = 1
     var pageNowPlaying = 1
-    private init() {
+    fileprivate init() {
         
     }
     
     
     
     //singleton
-    
-    func getAllMovieSimilar(page: Int, movie_ID: Int,
+    func getAllMovieDetail(_ movie_ID: Int,
+                           completetion:@escaping (MovieDetail)->())
+    {
+        
+        getMovieDetail(movie_ID, completetion: { [unowned self] movieDetails in
+            self.detail_Movies = movieDetails
+            completetion(movieDetails)
+            })
+        
+    }
+    func getAllMovieSimilar(_ page: Int, movie_ID: Int,
                             completetion:@escaping ([Film])->())
     {
-        if (list_similar.count == 0)
-        {
-            getMovieSimilar(page: page, movie_ID: movie_ID, completetion: { [unowned self] films in
-                self.list_similar = films
-                completetion(films)
-                })
-        }
-        else
-        {
-            completetion(list_similar)
-        }
+        
+        getMovieSimilar(page, movie_ID: movie_ID, completetion: { [unowned self] films in
+            self.list_similar = films
+            completetion(films)
+            })
+        
     }
     
-    func getAllCrew(movie_id: Int, completetion: @escaping ([Crew])->()) {
+    func getAllCrew(_ movie_id: Int, completetion: @escaping ([Crew])->()) {
         
-        getCrew(movie_ID: movie_id, completetion: { [unowned self] results in
+        getCrew(movie_id, completetion: { [unowned self] results in
             self.list_crew = results
             completetion(results)
             })
     }
-    func getAllCast(movie_id: Int, completetion: @escaping ([Cast])->()) {
+    func getAllCast(_ movie_id: Int, completetion: @escaping ([Cast])->()) {
         
-        getCast(movie_ID: movie_id, completetion: { [unowned self] results in
+        getCast(movie_id, completetion: { [unowned self] results in
             self.list_cast = results
             completetion(results)
             })
     }
     
     //lấy list ảnh theo id
-    func getAllImageWithID(movie_id: Int, completetion: @escaping ([Backdrop])->()) {
+    func getAllImageWithID(_ movie_id: Int, completetion: @escaping ([Backdrop])->()) {
         
-        getImageWithID(movie_ID: movie_id, completetion: { [unowned self] backdrops in
+        getImageWithID(movie_id, completetion: { [unowned self] backdrops in
             self.list_Image = backdrops
             completetion(backdrops)
             })
@@ -88,9 +93,9 @@ class ManagerData {
     
     
     // lấy danh sách video theo id
-    func getAllVideoWithID(movie_id: Int, completetion: @escaping ([Trailer])->()) {
+    func getAllVideoWithID(_ movie_id: Int, completetion: @escaping ([Trailer])->()) {
         
-        getVideoWithID(movie_ID: movie_id, completetion: { [unowned self] trailers in
+        getVideoWithID(movie_id, completetion: { [unowned self] trailers in
             self.list_Trailer = trailers
             completetion(trailers)
             })
@@ -99,10 +104,10 @@ class ManagerData {
     
     //lấy film theo từng thể loại
     
-    func getAllFilmWithGenre(genre_id: Int, completetion:@escaping ([Film])->())
+    func getAllFilmWithGenre(_ genre_id: Int, completetion:@escaping ([Film])->())
     {
         
-        getFilmWithGenre(genre_id: genre_id, completetion: { [unowned self] films in
+        getFilmWithGenre(genre_id, completetion: { [unowned self] films in
             self.list_Film_With_Genre = films
             completetion(films)
             })
@@ -111,9 +116,9 @@ class ManagerData {
     
     
     // lấy ra tên thể loại film
-    func getAllGenre(completetion: @escaping ([Genre])->()) {
+    func getAllGenre(_ completetion: @escaping ([Genre])->()) {
         if list_genres.count == 0  {
-            getGenres(completetion: { [unowned self] genres in
+            getGenres({ [unowned self] genres in
                 self.list_genres = genres
                 completetion(genres)
                 
@@ -125,12 +130,12 @@ class ManagerData {
     
     
     //get list film top rated
-    func getTopRated(page: Int,type: String,
+    func getTopRated(_ page: Int,type: String,
                      completetion:@escaping ([Film])->())
     {
         if (list_Top_Rated.count == 0)
         {
-            getFilms(page: page, type: type, completetion: { [unowned self] films in
+            getFilms(page, type: type, completetion: { [unowned self] films in
                 self.list_Top_Rated = films
                 completetion(films)
                 })
@@ -142,12 +147,12 @@ class ManagerData {
     }
     
     //get lish film popular
-    func getPopular(page: Int,type: String,
+    func getPopular(_ page: Int,type: String,
                     completetion:@escaping ([Film])->())
     {
         if (list_Popular.count == 0)
         {
-            getFilms(page: page, type: type, completetion: { [unowned self] films in
+            getFilms(page, type: type, completetion: { [unowned self] films in
                 self.list_Popular = films
                 completetion(films)
                 })
@@ -159,12 +164,12 @@ class ManagerData {
     }
     
     //get list film up coming
-    func getUpComing(page: Int,type: String,
+    func getUpComing(_ page: Int,type: String,
                      completetion:@escaping ([Film])->())
     {
         if (list_Up_Coming.count == 0)
         {
-            getFilms(page: page, type: type, completetion: { [unowned self] films in
+            getFilms(page, type: type, completetion: { [unowned self] films in
                 self.list_Up_Coming = films
                 completetion(films)
                 })
@@ -176,12 +181,12 @@ class ManagerData {
     }
     
     //get lish film now playing
-    func getNowPlaying(page: Int,type: String,
+    func getNowPlaying(_ page: Int,type: String,
                        completetion:@escaping ([Film])->())
     {
         if (list_Now_Playing.count == 0)
         {
-            getFilms(page: page, type: type, completetion: { [unowned self] films in
+            getFilms(page, type: type, completetion: { [unowned self] films in
                 self.list_Now_Playing = films
                 completetion(films)
                 })
@@ -192,8 +197,8 @@ class ManagerData {
         }
     }
     
-    private func getFilms(page: Int, type: String,
-                          completetion:@escaping ([Film])->()){
+    fileprivate func getFilms(_ page: Int, type: String,
+                              completetion:@escaping ([Film])->()){
         let parameters: Parameters = ["api_key": ManagerData.API_KEY,
                                       "page": page]
         
@@ -208,7 +213,7 @@ class ManagerData {
     }
     
     //get genre of film
-    private func getGenres(completetion: @escaping ([Genre])->()) {
+    fileprivate func getGenres(_ completetion: @escaping ([Genre])->()) {
         
         let parameters: Parameters = ["api_key": ManagerData.API_KEY]
         
@@ -223,7 +228,7 @@ class ManagerData {
         }
         
     }
-    private func getFilmWithGenre(genre_id: Int, completetion: @escaping ([Film])->()) {
+    fileprivate func getFilmWithGenre(_ genre_id: Int, completetion: @escaping ([Film])->()) {
         let path = "\(ManagerData.FILM_WITH_GENRE)\(genre_id)/movies?language=en-US&sort_by=created_at.asc"
         let parameters: Parameters = ["api_key": ManagerData.API_KEY]
         Alamofire.request(path, parameters: parameters).responseJASON
@@ -237,7 +242,7 @@ class ManagerData {
         }
         
     }
-    private func getVideoWithID(movie_ID: Int, completetion: @escaping ([Trailer])->()) {
+    fileprivate func getVideoWithID(_ movie_ID: Int, completetion: @escaping ([Trailer])->()) {
         let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/videos"
         let parameters: Parameters = ["api_key": ManagerData.API_KEY]
         Alamofire.request(path, parameters: parameters).responseJASON
@@ -251,7 +256,7 @@ class ManagerData {
         }
         
     }
-    private func getImageWithID(movie_ID: Int, completetion: @escaping ([Backdrop])->()) {
+    fileprivate func getImageWithID(_ movie_ID: Int, completetion: @escaping ([Backdrop])->()) {
         let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/images"
         let parameters: Parameters = ["api_key": ManagerData.API_KEY]
         Alamofire.request(path, parameters: parameters).responseJASON
@@ -266,7 +271,7 @@ class ManagerData {
         
     }
     
-    private func getCrew(movie_ID: Int, completetion: @escaping ([Crew])->()) {
+    fileprivate func getCrew(_ movie_ID: Int, completetion: @escaping ([Crew])->()) {
         let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/credits"
         let parameters: Parameters = ["api_key": ManagerData.API_KEY]
         Alamofire.request(path, parameters: parameters).responseJASON
@@ -281,7 +286,7 @@ class ManagerData {
         
     }
     
-    private func getCast(movie_ID: Int, completetion: @escaping ([Cast])->()) {
+    fileprivate func getCast(_ movie_ID: Int, completetion: @escaping ([Cast])->()) {
         let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/credits"
         let parameters: Parameters = ["api_key": ManagerData.API_KEY]
         Alamofire.request(path, parameters: parameters).responseJASON
@@ -295,7 +300,7 @@ class ManagerData {
         }
         
     }
-    private func getMovieSimilar(page: Int, movie_ID: Int, completetion: @escaping ([Film])->()) {
+    private func getMovieSimilar(_ page: Int, movie_ID: Int, completetion: @escaping ([Film])->()) {
         let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/similar"
         let parameters: Parameters = ["api_key": ManagerData.API_KEY,
                                       "page": page]
@@ -311,10 +316,34 @@ class ManagerData {
         }
         
     }
-    
-    
+    private func getMovieDetail(_ movie_ID: Int, completetion: @escaping (MovieDetail)->()) {
+        let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        Alamofire.request(path, parameters: parameters).responseJSON(completionHandler: {response in
+            if let json = response.result.value {
+                let movie = MovieDetail.init(JSon: json as AnyObject)
+                completetion(movie!)
+                
+                
+            }
+
+            })
+        
+    }
     
 }
+
+//if let data = json as? [AnyObject] {
+//    for catJSON in data {
+//        let categoryObj = catJSON as! [String : AnyObject]
+//        let category = CategoryStory.init(JSON: categoryObj)
+//        self.getStory(idCategory: (category?.idCategory)!) //-- get ID3333
+//        self.catogoryList.append(category!)
+//    }
+//
+//}
+
+
 
 
 extension DataRequest {
@@ -339,7 +368,7 @@ extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseJASON(completionHandler: @escaping (DataResponse<JASON.JSON>) -> Void) -> Self {
+    public func responseJASON(_ completionHandler: @escaping (DataResponse<JASON.JSON>) -> Void) -> Self {
         return response(responseSerializer: DataRequest.JASONReponseSerializer(), completionHandler: completionHandler)
     }
     

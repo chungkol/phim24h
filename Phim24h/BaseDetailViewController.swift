@@ -25,5 +25,9 @@ open class BaseDetailViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
         
     }
+    open override var shouldAutorotate: Bool {
+        return false
+    }
+    
     
 }

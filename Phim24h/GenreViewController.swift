@@ -23,7 +23,7 @@ class GenreViewController: BaseDetailViewController {
         loading.startAnimating()
         myTable.register(UINib(nibName: "CellGenre", bundle: nil), forCellReuseIdentifier: "CellOfGenre")
         
-        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+        ManagerData.instance.getAllGenre({ [unowned self] (genres) in
             self.datas = genres
             self.myTable.reloadData()
             if self.datas.count > 0 {
@@ -61,7 +61,7 @@ extension GenreViewController: UITableViewDataSource {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "CellOfGenre", for: indexPath) as! CellGenre
         if let item: Genre = datas[indexPath.row] {
             cell.titleCell.text = item.name
-            cell.imageCell.image = UIImage(named: "type_film_w")
+            cell.imageCell.image = UIImage(named: "type_film")
         }
         cell.selectionStyle = .none
         

@@ -8,13 +8,19 @@
 
 import UIKit
 import Firebase
-class ResetPassword: UIViewController {
+class ResetPassword: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var tfEmail: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        customRadiusTextField()
         // Do any additional setup after loading the view.
+    }
+    func customRadiusTextField(){
+        tfEmail.addIconTextField(tfEmail, stringImage: "user")
+        
+        
+        tfEmail.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {

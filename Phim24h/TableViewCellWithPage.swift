@@ -42,9 +42,9 @@ class TableViewCellWithPage: UITableViewCell {
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1).cgColor
 
-        drawCornerRadius(view: contentView, rectCorner: [.topLeft, .topRight, .bottomLeft, .bottomRight], radius: CGSize(width: 4, height: 4), borderColor: UIColor.red)
+        drawCornerRadius(contentView, rectCorner: [.topLeft, .topRight, .bottomLeft, .bottomRight], radius: CGSize(width: 4, height: 4), borderColor: UIColor.red)
     }
-    func drawCornerRadius(view : UIView, rectCorner : UIRectCorner, radius : CGSize, borderColor : UIColor) {
+    func drawCornerRadius(_ view : UIView, rectCorner : UIRectCorner, radius : CGSize, borderColor : UIColor) {
         
         let maskPath = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: rectCorner, cornerRadii: radius)
         let maskLayer = CAShapeLayer()

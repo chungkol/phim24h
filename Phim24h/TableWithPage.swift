@@ -32,9 +32,9 @@ class TableWithPage: UIViewController {
         myTable.dataSource = self
         myTable.register(UINib(nibName: "TableViewCellWithPage", bundle: nil), forCellReuseIdentifier: "TableCellWithPage")
         self.title = data_title
-        getData(page: 1)
+        getData(1)
         
-        ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
+        ManagerData.instance.getAllGenre({ [unowned self] (genres) in
             self.list_Genre = genres
             self.myTable.reloadData()
             
@@ -58,24 +58,24 @@ class TableWithPage: UIViewController {
         //            getData(page: 1)
         //        }
     }
-    func getData(page: Int ) {
+    func getData(_ page: Int ) {
         if genre_id == 0 {
             switch self.data_key {
             case ManagerData.POPULAR:
-                ManagerData.instance.getPopular(page: page , type: ManagerData.POPULAR) {[unowned self] (films) in
+                ManagerData.instance.getPopular(page , type: ManagerData.POPULAR) {[unowned self] (films) in
                     self.datas = films
                     
                 }
             case ManagerData.TOP_RATED:
-                ManagerData.instance.getTopRated(page: page , type: ManagerData.POPULAR) {[unowned self] (films) in
+                ManagerData.instance.getTopRated(page , type: ManagerData.POPULAR) {[unowned self] (films) in
                     self.datas = films
                 }
             case ManagerData.NOW_PLAYING:
-                ManagerData.instance.getNowPlaying(page: page , type: ManagerData.POPULAR) {[unowned self] (films) in
+                ManagerData.instance.getNowPlaying(page , type: ManagerData.POPULAR) {[unowned self] (films) in
                     self.datas = films
                 }
             case ManagerData.UPCOMING:
-                ManagerData.instance.getUpComing(page: page , type: ManagerData.POPULAR) {[unowned self] (films) in
+                ManagerData.instance.getUpComing(page , type: ManagerData.POPULAR) {[unowned self] (films) in
                     self.datas = films
                 }
                 
@@ -83,7 +83,7 @@ class TableWithPage: UIViewController {
             }
             myTable.reloadData()
         }else{
-            ManagerData.instance.getAllFilmWithGenre(genre_id: genre_id) {[unowned self] (films) in
+            ManagerData.instance.getAllFilmWithGenre(genre_id) {[unowned self] (films) in
                 self.datas = films
                 self.myTable.reloadData()
             }
@@ -95,7 +95,7 @@ class TableWithPage: UIViewController {
         
     }
     
-    func getNameOfGenre(genres: [Int]) -> String {
+    func getNameOfGenre(_ genres: [Int]) -> String {
         var result: String = ""
         for item in self.list_Genre {
             for index in 0..<genres.count {
@@ -147,7 +147,7 @@ extension TableWithPage: UITableViewDataSource {
             
             
             if let _ = list_Genre {
-                if let type: String = self.getNameOfGenre(genres: item.genre_ids as! [Int]) {
+                if let type: String = self.getNameOfGenre(item.genre_ids as! [Int]) {
                     cell.typeCell.text = type
                 }
             }

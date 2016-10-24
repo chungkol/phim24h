@@ -32,11 +32,13 @@ class OverView: UIViewController {
     var heightScroll: CGFloat!
     var movie_id: Int! {
         didSet {
-            ManagerData.instance.getAllVideoWithID(movie_id, completetion: { [unowned self] (trailers) in
-                self.datas = trailers
-                ManagerData.instance.getAllImageWithID(self.movie_id, completetion: { [unowned self] (backdrops) in
-                    self.imageDatas = backdrops
+            
+            ManagerData.instance.getAllImageWithID(self.movie_id, completetion: { [unowned self] (backdrops) in
+                self.imageDatas = backdrops
+                ManagerData.instance.getAllVideoWithID(self.movie_id, completetion: { [unowned self] (trailers) in
+                    self.datas = trailers
                     self.myCollection.reloadData()
+
                     })
                 
                 })
@@ -45,7 +47,7 @@ class OverView: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentDetail.text = movie_content
+            contentDetail.text = movie_content
         myCollection.dataSource = self
         myCollection.delegate = self
         myCollection.register(UINib(nibName: "CellForTrailer", bundle: nil), forCellWithReuseIdentifier: "CelTrailer")
@@ -86,16 +88,9 @@ extension OverView: UICollectionViewDataSource {
                 cell.loading.isHidden = true
                 cell.loading.stopAnimating()
             })
-            
         }
-        
-        
         cell.labelCell.text = datas[indexPath.row].name
-        
-        
-        
         return cell
-        
     }
     
     @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -103,6 +98,7 @@ extension OverView: UICollectionViewDataSource {
         let moviePlay = MoviePlayer(nibName: "MoviePlayer", bundle: nil)
         moviePlay.trailer = datas[indexPath.row]
         moviePlay.img_path = imageDatas[indexPath.row].file_path
+        moviePlay.id_film = self.movie_id
         print("trailer \(datas[indexPath.row])")
         print("path \(imageDatas[indexPath.row].file_path)")
         self.navigationController?.pushViewController(moviePlay, animated: true)

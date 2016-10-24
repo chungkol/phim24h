@@ -67,32 +67,18 @@ extension JSONKeys {
     static let crew = JSONKey<JSON>("crew")
     static let department = JSONKey<String?>("department")
     static let job = JSONKey<String?>("job")
-    
-    //    let backdrop_path: String?
-    //
-    //    let budget: Double?
-    //
-    //    let genres: Genre?
-    //    let homepage: String?
-    //    let id: Int?
-    //
-    //    let overview: String?
-    //    let popularity: Double?
-    //    let poster_path: String?
-    //
-    //
-    //    let release_date: NSDate?
-    //    let revenue: Double?
-    //    let runtime: Double
-    //    let title: String?
-    //    let vote_average: Double?
-    //    let vote_count: Double?
-    
+    static let media_type = JSONKey<String?>("media_type")
+    static let known_for = JSONKey<NSArray?>("known_for")
+
     static let budget = JSONKey<Double?>("budget")
     static let homepage = JSONKey<String?>("homepage")
     static let revenue = JSONKey<Double?>("revenue")
     static let runtime = JSONKey<Double?>("runtime")
     
-    
+       
+    static let success = JSONKey<Bool?>("success")
+    static let guest_session_id = JSONKey<String?>("guest_session_id")
+    static let expires_at = JSONKey<String?>("expires_at")
+
     
 }

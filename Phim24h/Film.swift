@@ -10,21 +10,24 @@ import Foundation
 import JASON
 
 struct Film {
-    let poster_path: String?
-    let adult: Bool?
-    let overview: String?
-    let release_date: String?
-    let genre_ids: NSArray?
-    let id: Int?
-    let original_title: String?
-    let original_language: String?
-    let title: String?
-    let backdrop_path: String?
-    let popularity: Double?
-    let vote_count: Int?
-    let video: Bool?
-    let vote_average: Double?
-    
+    var poster_path: String?
+    var adult: Bool?
+    var overview: String?
+    var release_date: String?
+    var genre_ids: NSArray?
+    var id: Int?
+    var original_title: String?
+    var original_language: String?
+    var title: String?
+    var backdrop_path: String?
+    var popularity: Double?
+    var vote_count: Int?
+    var video: Bool?
+    var vote_average: Double?
+    var media_type: String?
+    init(){
+        
+    }
     init(_ json: JSON) {
         JSON.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         
@@ -42,7 +45,7 @@ struct Film {
         vote_count = json[.vote_count]
         video = json[.video]
         vote_average = json[.vote_average]
-        
+        media_type = json[.media_type]
     }
 }
 

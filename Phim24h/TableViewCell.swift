@@ -28,7 +28,9 @@ class TableViewCell: UITableViewCell {
         collectionCell.delegate = self
         collectionCell.dataSource = self
         collectionCell.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
-        self.collectionCell.reloadData()
+        DispatchQueue.main.async {
+            self.collectionCell.reloadData()
+        }
 
     }
     
@@ -36,20 +38,6 @@ class TableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
-    }
-    
-    func seeMore(_ sender: AnyObject!) {
-        switch titleCell.tag {
-        case 100:
-            print("Up Coming")
-        case 101:
-            print("Top Rated")
-        case 102:
-            print("Popular")
-        case 103:
-            print("Now Playing")
-        default: break
-        }
     }
 }
 extension TableViewCell: UICollectionViewDelegate {

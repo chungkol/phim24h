@@ -8,15 +8,17 @@
 
 import UIKit
 import Kingfisher
-
+import OEANotification
+import HTPullToRefresh
 class TableWithPage: UIViewController {
     
     var data_key: String!
     var data_title: String!
     var list_Genre: [Genre]!
     var genre_id: Int = 0
-    
     var datas: [Film] = []
+    var temp: [Film] = []
+    var type: Int = 0
     
     @IBOutlet weak var myTable: UITableView!
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -36,30 +38,20 @@ class TableWithPage: UIViewController {
         
         ManagerData.instance.getAllGenre({ [unowned self] (genres) in
             self.list_Genre = genres
-            self.myTable.reloadData()
-            
+            DispatchQueue.main.async {
+                self.myTable.reloadData()
+            }
             })
         
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        if let myTable = self.myTable
-        //        {
-        //            myTable.delegate = self
-        //            myTable.dataSource = self
-        //            myTable.register(UINib(nibName: "TableViewCellWithPage", bundle: nil), forCellReuseIdentifier: "TableCellWithPage")
-        //            self.title = data_title
-        //            ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
-        //                self.list_Genre = genres
-        //                self.myTable.reloadData()
-        //                print(self.list_Genre)
-        //                })
-        //            getData(page: 1)
-        //        }
+        
     }
     func getData(_ page: Int ) {
-        if genre_id == 0 {
+        switch type {
+        case 1:
             switch self.data_key {
             case ManagerData.POPULAR:
                 ManagerData.instance.getPopular(page , type: ManagerData.POPULAR) {[unowned self] (films) in
@@ -82,17 +74,32 @@ class TableWithPage: UIViewController {
             default: break
             }
             myTable.reloadData()
-        }else{
+        case 2:
             ManagerData.instance.getAllFilmWithGenre(genre_id) {[unowned self] (films) in
                 self.datas = films
+                DispatchQueue.main.async {
+                    self.myTable.reloadData()
+                }
+            }
+        case 3:
+            do
+            {
+                try ManagerSQLite.shareInstance.connectDatabase()
+                datas = try ManagerSQLite.shareInstance.getAllFavorite(table_name: (UserData.instance.user?.uid)!)
+            }
+            catch
+            {
+                OEANotification.setDefaultViewController(self)
+                OEANotification.notify("Notification", subTitle: "Haven't any film in your favorite", type: NotificationType.warning, isDismissable: true)            }
+        case 4:
+            datas = temp
+            DispatchQueue.main.async {
                 self.myTable.reloadData()
             }
+            
+        default:
+            break
         }
-        
-        
-        
-        
-        
     }
     
     func getNameOfGenre(_ genres: [Int]) -> String {
@@ -107,7 +114,16 @@ class TableWithPage: UIViewController {
         }
         return result
     }
+    func addPullToRefresh() {
+        myTable.addPullToRefresh(actionHandler: {
+            print("Top")
+            }, position: .top)
     
+        myTable.addPullToRefresh(actionHandler: {
+            print("Bot")
+            }, position: .bottom)
+        myTable.pullToRefreshViews
+    }
     
     
     
@@ -117,8 +133,6 @@ extension TableWithPage: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
-    
-    
 }
 
 extension TableWithPage: UITableViewDataSource {
@@ -132,7 +146,6 @@ extension TableWithPage: UITableViewDataSource {
         
         if let item: Film = datas[indexPath.row] {
             cell.loading.startAnimating()
-            
             if let path = item.poster_path {
                 let pathImage = "https://image.tmdb.org/t/p/original\(path)"
                 cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
@@ -140,7 +153,7 @@ extension TableWithPage: UITableViewDataSource {
                     cell.loading.stopAnimating()
                 })
             }
-           
+            
             cell.titleCell.text = item.title
             cell.totalViewCell.text = String(item.popularity!)
             cell.contentCell.text = item.overview
@@ -156,7 +169,7 @@ extension TableWithPage: UITableViewDataSource {
         
     }
     @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detaiMovie = DetailMovieViewController(nibName: "DetailMovieViewController", bundle: nil) as DetailMovieViewController
+        let detaiMovie = DetailMovieVC(nibName: "DetailMovieVC", bundle: nil) as DetailMovieVC
         
         detaiMovie.film = datas[indexPath.row]
         self.navigationController?.pushViewController(detaiMovie, animated: true)
@@ -164,3 +177,4 @@ extension TableWithPage: UITableViewDataSource {
     }
     
 }
+

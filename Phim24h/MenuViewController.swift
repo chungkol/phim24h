@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import Kingfisher
+import Firebase
+import FBSDKLoginKit
+import GoogleSignIn
 
 enum LeftMenu: Int {
     case home = 0
+    case favorite
     case genre
     case upComing
     case topRated
@@ -25,13 +30,15 @@ protocol LeftMenuProtocol : class {
 
 class MenuViewController: BaseViewController , LeftMenuProtocol{
     
+    @IBOutlet weak var header: UIView!
     @IBOutlet weak var myTable: UITableView!
     
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var profileName: UILabel!
-    
+    var userData = UserData.instance
     var homeVC: UIViewController!
+    var favoriteVC: UIViewController!
     var upComing: UIViewController!
     var topRated: UIViewController!
     var popular: UIViewController!
@@ -39,6 +46,7 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
     var genre: UIViewController!
     
     var menus = [DataTableViewCellData(imageUrl: "home", text: "Home"),
+                 DataTableViewCellData(imageUrl: "star_fill", text: "Favorite"),
                  DataTableViewCellData(imageUrl: "film", text: "Genre"),
                  DataTableViewCellData(imageUrl: "film", text: "Up Coming"),
                  DataTableViewCellData(imageUrl: "film", text: "Top Rated"),
@@ -59,8 +67,15 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         self.profileImage.clipsToBounds = true
         self.profileImage.layer.borderWidth = 1
         self.profileImage.layer.borderColor = UIColor.white.cgColor
-        self.profileName.text = "Nguyễn Văn A"
-        self.profileImage.image = UIImage(named: "haha")
+        let user = userData.user
+        profileName.text = user?.email
+        if let url_image = user?.url_image {
+            print(url_image)
+            profileImage.kf.setImage(with: url_image, placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
+        }else {
+            profileImage.image = UIImage(named: "haha")
+        }
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +88,12 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
     func addItemsForMenu(){
         //        let home = HomeViewController(nibName: "HomeViewController", bundle: nil)
         //        self.homeVC = UINavigationController(rootViewController: home)
+        
+        let favoriteVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
+    
+        favoriteVC.data_title = "Favorite"
+        favoriteVC.type = 3
+        self.favoriteVC = favoriteVC
         
         self.genre = GenreViewController(nibName: "GenreViewController", bundle: nil)
         
@@ -102,6 +123,10 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         switch menu {
         case .home:
             self.slideMenuController()?.changeMainViewController(self.homeVC, close: true)
+        case .favorite:
+            self.slideMenuController()?.changeMainViewController(self.favoriteVC, close: true)
+
+        
         case .genre:
             self.slideMenuController()?.changeMainViewController(self.genre, close: true)
         case .upComing:
@@ -113,13 +138,26 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         case .nowPlaying:
             self.slideMenuController()?.changeMainViewController(self.nowPlaying, close: true)
         case .logout:
+            let type = userData.user?.type
+            if type == "firebase" {
+                let userDefault = UserDefaults.standard
+                userDefault.set(nil, forKey: LoginAccount.KEY_USER)
+                userDefault.set(nil, forKey: LoginAccount.KEY_PASS)
+            }
+            if type == "google" {
+                GIDSignIn.sharedInstance().signOut()
+            }
+            if type == "facebook" {
+                FBSDKLoginManager().logOut()
+            }
+            try! FIRAuth.auth()!.signOut()
             self.dismiss(animated: true, completion: nil)
-            let userDefault = UserDefaults.standard
-            userDefault.set(nil, forKey: LoginAccount.KEY_USER)
-            userDefault.set(nil, forKey: LoginAccount.KEY_PASS)
+            userData.user = nil
+            
             
         }
     }
+    
     
     
 }

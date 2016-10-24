@@ -39,17 +39,13 @@ open class BaseViewController: UIViewController {
         
         let leftNav = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(BaseViewController.showMenu))
         self.navigationItem.leftBarButtonItem = leftNav
-        let rightNav = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(BaseViewController.showSearch))
-        self.navigationItem.rightBarButtonItem = rightNav
+        
     }
     func showMenu(){
         slideMenuController()?.toggleLeft()
         print("menu")
     }
-    func showSearch(){
-        print("search")
-        
-    }
+   
     
     
 }

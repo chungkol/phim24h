@@ -15,8 +15,8 @@ class GenreViewController: BaseDetailViewController {
     var datas: [Genre] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.edgesForExtendedLayout = .bottom
-//        self.automaticallyAdjustsScrollViewInsets = false
+        //        self.edgesForExtendedLayout = .bottom
+        //        self.automaticallyAdjustsScrollViewInsets = false
         self.title = "Genre"
         myTable.delegate = self
         myTable.dataSource = self
@@ -35,12 +35,12 @@ class GenreViewController: BaseDetailViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        view.backgroundColor = UIColor.white
-//        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
-//        self.navigationController?.navigationBar.tintColor = UIColor.white
-//        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-//        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
-//        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
+        //        view.backgroundColor = UIColor.white
+        //        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
+        //        self.navigationController?.navigationBar.tintColor = UIColor.white
+        //        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        //        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
+        //        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
         //        self.view.backgroundColor = UIColor.clear
         //        self.myTable.backgroundColor = UIColor.clear
     }
@@ -69,14 +69,10 @@ extension GenreViewController: UITableViewDataSource {
     }
     @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
-    
+        
         detailVC.genre_id = datas[indexPath.row].id
         detailVC.data_title = datas[indexPath.row].name
-        print(datas[indexPath.row].id)
-//        ManagerData.instance.getAllFilmWithGenre(genre_id: datas[indexPath.row].id) {[unowned self] (films) in
-//            
-//            
-//        }
+        detailVC.type = 2
         
         self.navigationController?.pushViewController(detailVC, animated: true)
     }

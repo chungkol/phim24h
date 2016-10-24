@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import OEANotification
 class RegisterAccount: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var tfUser: UITextField!
@@ -16,8 +17,8 @@ class RegisterAccount: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        OEANotification.setDefaultViewController(self)
         customRadiusTextField()
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,6 +29,21 @@ class RegisterAccount: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
         
+    }
+    override func viewDidLayoutSubviews() {
+//        if (tfUser == nil && tfPass == nil){
+//            customRadiusTextField()
+//        }
+    }
+    func signUpSuccess(){
+        
+        OEANotification.notify("Sign Up success !", subTitle: "Welcome to Phim24h .... ", image: nil, type: .success, isDismissable: false, completion: { () -> Void in
+            print("completed")
+            }, touchHandler: nil)
+    }
+    func signUpError(error: String){
+        
+        OEANotification.notify("Sign Up fail", subTitle: error, type: NotificationType.warning, isDismissable: true)
     }
     
     func customRadiusTextField(){
@@ -43,21 +59,20 @@ class RegisterAccount: UIViewController, UITextFieldDelegate {
     @IBAction func btnRegister(_ sender: UIButton) {
         if let mEmail = tfUser.text , let mPass = tfPass.text{
             if mEmail == "" || mPass == "" {
-                showAlert("Tên tài khoản hoặc mật khẩu trống")
-            }else{
+                signUpError(error: "please check your email or password")
+            }else if (mPass.length < 6){
+                signUpError(error: "password too short")
+            } else{
                 FIRAuth.auth()?.createUser(withEmail: mEmail, password: mPass, completion: { (user, error) in
                     if error != nil {
-                        self.showAlert("lỗi đăng ký \(error)")
+                        self.signUpError(error: (error?.localizedDescription)!)
                     }else{
-                        self.showAlert("Đăng ký tài khoảnn \(user?.email) thành công")
+                        self.signUpSuccess()
                     }
                     
                 })
             }
         }
     }
-    func showAlert(_ mess: String) {
-        let alert = UIAlertController(title: "Thông báo", message: mess, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Đóng", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)    }
+    
 }

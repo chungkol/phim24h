@@ -94,7 +94,7 @@ extension People: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellForPeople", for: indexPath) as! CollectionViewPeople
-        print(collectionView.tag)
+        
         if collectionView.tag == 102 {
             if let item: Cast = list_Cast[indexPath.row] {
                 cell.loading.startAnimating()

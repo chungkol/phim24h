@@ -41,20 +41,6 @@ class Similar: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if movie_id != nil {
-//            ManagerData.instance.getAllMovieSimilar(page: 1, movie_ID: movie_id, completetion: {            [unowned self] (films) in
-//                self.datas = films
-//                self.myTable.reloadData()
-//                
-//                })
-//            ManagerData.instance.getAllGenre(completetion: { [unowned self] (genres) in
-//                self.list_Genre = genres
-//                self.myTable.reloadData()
-//                
-//                })
-//            
-//
-//        }
     }
     func getNameOfGenre(_ genres: [Int]) -> String {
         var result: String = ""
@@ -116,7 +102,8 @@ extension Similar: UITableViewDataSource {
         
     }
     @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detaiMovie = DetailMovieViewController(nibName: "DetailMovieViewController", bundle: nil) as DetailMovieViewController
+        
+        let detaiMovie = DetailMovieVC(nibName: "DetailMovieVC", bundle: nil) as DetailMovieVC
         
         detaiMovie.film = datas[indexPath.row]
         self.navigationController?.pushViewController(detaiMovie, animated: true)

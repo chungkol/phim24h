@@ -7,13 +7,32 @@ target 'Phim24h' do
 pod 'Firebase'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
-pod 'DLRadioButton'
-#pod 'FacebookCore'
-#pod 'FacebookLogin'
-#pod 'FacebookShare'
-pod 'Alamofire', '~> 4.0'
-pod 'JASON', '~> 3.0'
-pod 'Kingfisher', '~> 3.0'
-pod 'MobilePlayer', '~> 1.1'
 
+pod 'Firebase/Core'
+pod 'Firebase/AdMob'
+
+pod 'GoogleSignIn'
+
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'FacebookShare'
+
+pod 'Alamofire'
+pod 'JASON'
+pod 'Kingfisher'
+
+pod 'MobilePlayer'
+pod 'HCSStarRatingView'
+
+pod "OEANotification"
+
+pod 'HTPullToRefresh'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
 end

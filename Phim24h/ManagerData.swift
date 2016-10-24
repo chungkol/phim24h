@@ -10,7 +10,10 @@ import Foundation
 import Alamofire
 import JASON
 class ManagerData {
+    
+    
     static let API_KEY = "b7f3fcf9abbb6d309e2a52b55cc8127c"
+    static let SESSION_ID = "b3f02cec306e8d3bb6a272b7e9433640f97b533a"
     static let TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated?language=en-US"
     static let POPULAR = "https://api.themoviedb.org/3/movie/popular?language=en-US"
     static let UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?language=en-US"
@@ -18,7 +21,9 @@ class ManagerData {
     static let GENRE = "https://api.themoviedb.org/3/genre/movie/list?language=en-US"
     static let FILM_WITH_GENRE = "https://api.themoviedb.org/3/genre/"
     static let GET_ALL_INFO_WITH_ID = "https://api.themoviedb.org/3/movie/"
-    
+    static let SEARCH_MOVIE = "https://api.themoviedb.org/3/search/movie?language=en-US"
+    static let SEARCH_PEOPLE = "https://api.themoviedb.org/3/search/person?language=en-US"
+    static let CREATE_GUEST_ID = "https://api.themoviedb.org/3/authentication/guest_session/new"
     
     static let instance = ManagerData()
     
@@ -34,18 +39,64 @@ class ManagerData {
     fileprivate var list_crew: [Crew] = []
     fileprivate var list_similar: [Film] = []
     fileprivate var detail_Movies: MovieDetail!
-    
+    fileprivate var list_Search: [Film] = []
+    fileprivate var list_Cast: [Cast] = []
     var pageTopRated = 1
     var pagePopular = 1
     var pageUpComing = 1
     var pageNowPlaying = 1
+    
+    private var guest: Guest!
     fileprivate init() {
         
     }
     
     
     
+    
     //singleton
+    
+    func rateForMovie(movie_ID: Int, guest_session_id: String,value: Int, completetion:@escaping (Result) -> ())
+    {
+        rateMovie(movie_ID, guest_session_id: guest_session_id,value: value, completetion: { [unowned self] (result) in
+            
+                completetion(result)
+            })
+    }
+    
+    func createAccountGuest(completetion:@escaping (Guest)->())
+    {
+        createGuest(completetion: { [unowned self] result in
+            self.guest = result
+            completetion(result)
+            })
+    }
+    
+    
+    func getListSearchMovie(_ page: Int,query: String,
+                            completetion:@escaping ([Film])->())
+    {
+        
+        searchMovie(page, query: query, completetion: { [unowned self] films in
+            //            self.list_Search = films
+            completetion(films)
+            })
+        
+    }
+    func getListSearchPeople(_ page: Int,query: String,
+                             completetion:@escaping ([Cast])->())
+    {
+        
+        searchPeople(page, query: query, completetion: { [unowned self] casts in
+            //            self.list_Cast = casts
+            completetion(casts)
+            })
+        
+    }
+    
+    
+    
+    
     func getAllMovieDetail(_ movie_ID: Int,
                            completetion:@escaping (MovieDetail)->())
     {
@@ -310,7 +361,6 @@ class ManagerData {
                 if let json = response.result.value {
                     let results = json["results"].map(Film.init)
                     completetion(results)
-                    print(results)
                     
                 }
         }
@@ -326,10 +376,66 @@ class ManagerData {
                 
                 
             }
-
-            })
+            
+        })
         
     }
+    private func searchMovie(_ page: Int, query: String, completetion: @escaping ([Film])->()) {
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY,"query": query,
+                                      "page": page]
+        Alamofire.request(ManagerData.SEARCH_MOVIE, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["results"].map(Film.init)
+                    completetion(results)
+                    
+                }
+        }
+        
+    }
+    private func searchPeople(_ page: Int, query: String, completetion: @escaping ([Cast])->()) {
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY,"query": query,
+                                      "page": page]
+        Alamofire.request(ManagerData.SEARCH_PEOPLE, parameters: parameters).responseJASON
+            {response in
+                
+                if let json = response.result.value {
+                    let results = json["results"].map(Cast.init)
+                    completetion(results)
+                    
+                }
+        }
+        
+    }
+    private func createGuest(completetion: @escaping (Guest)->()) {
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY]
+        Alamofire.request(ManagerData.CREATE_GUEST_ID, parameters: parameters).responseJSON(completionHandler: {response in
+            if let json = response.result.value {
+                let guest = Guest.init(JSon: json as AnyObject)
+                completetion(guest!)
+            }
+            
+        })
+        
+    }
+    fileprivate func rateMovie(_ movie_ID: Int,guest_session_id: String,value: Int, completetion: @escaping (Result)->()) {
+        let path = "\(ManagerData.GET_ALL_INFO_WITH_ID)\(movie_ID)/rating"
+        let parameters: Parameters = ["api_key": ManagerData.API_KEY, "guest_session_id": guest_session_id, "session_id": ManagerData.SESSION_ID, "value" : value]
+        Alamofire.request(path, method: .post, parameters: parameters).responseJSON(completionHandler: { response in
+            
+            
+            if let json = response.result.value {
+                let result = Result.init(JSon: json as AnyObject)
+                completetion(result!)
+            }
+            
+        })
+        
+    }
+    
+    
+    //
     
 }
 

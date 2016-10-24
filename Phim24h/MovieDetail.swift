@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import JASON
+
 struct MovieDetail {
     
     var budget: Double?

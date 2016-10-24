@@ -8,34 +8,50 @@
 
 import UIKit
 import Firebase
+import FBSDKCoreKit
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    
     
     var window: UIWindow?
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        //config firebase
         FIRApp.configure()
+        //config facebook
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        //config google+
+        
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
+        
+        
+        
         
         let loginVC = LoginAccount(nibName: "LoginAccount", bundle: nil)
-//        let homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-//        let menuVC = MenuViewController(nibName: "MenuViewController", bundle: nil)
-//        
-//        let navController = UINavigationController(rootViewController: loginVC)
-//        let slideMenuController = SlideMenuController(mainViewController: homeVC, leftMenuViewController: menuVC)
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = loginVC
         self.window?.makeKeyAndVisible()
-
         return true
     }
+    @available(iOS 9.0, *)
     
-    
-    
-    
-    
-    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                 annotation: options[UIApplicationOpenURLOptionsKey.annotation] as? String) ||
+            FBSDKApplicationDelegate.sharedInstance().application(
+                app,
+                open: url as URL!,
+                sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
+                annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -52,7 +68,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        FBSDKAppEvents.activateApp()
+        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -60,5 +77,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
+}
+extension AppDelegate: GIDSignInDelegate {
+    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        print( "didSignInFor")
+    }
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+                withError error: NSError!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        print( "didSignInForUser")
+    }
+    
+    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
+                withError error: NSError!) {
+        print( "didDisconnectWithUser")
+    }
 }
 

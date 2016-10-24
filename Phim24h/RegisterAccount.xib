@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -69,7 +68,7 @@
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9O-Zj-G3y">
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="WSS-Io-eLs"/>
+                                <constraint firstAttribute="height" constant="55" id="WSS-Io-eLs"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -77,11 +76,11 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0A-q2-t1s">
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="9Dq-pK-Vdm"/>
-                                <constraint firstAttribute="width" constant="15" id="Itg-02-yxz"/>
+                                <constraint firstAttribute="height" constant="30" id="0Nl-eo-S7V"/>
+                                <constraint firstAttribute="width" constant="70" id="J32-7u-ETa"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <state key="normal" backgroundImage="back">
+                            <state key="normal" title="Sign In">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
@@ -96,8 +95,8 @@
                         <constraint firstItem="52A-SA-eHY" firstAttribute="centerY" secondItem="01b-Od-LK1" secondAttribute="centerY" id="9hw-SG-vwX"/>
                         <constraint firstItem="L9O-Zj-G3y" firstAttribute="leading" secondItem="01b-Od-LK1" secondAttribute="leadingMargin" constant="60" id="AbV-ux-waS"/>
                         <constraint firstItem="52A-SA-eHY" firstAttribute="top" secondItem="L9O-Zj-G3y" secondAttribute="bottom" constant="24" id="TZZ-7K-65a"/>
-                        <constraint firstItem="v0A-q2-t1s" firstAttribute="leading" secondItem="01b-Od-LK1" secondAttribute="leading" constant="8" id="bBr-sq-GH4"/>
-                        <constraint firstItem="v0A-q2-t1s" firstAttribute="top" secondItem="01b-Od-LK1" secondAttribute="top" constant="20" id="kLo-Zc-Iyp"/>
+                        <constraint firstItem="v0A-q2-t1s" firstAttribute="centerX" secondItem="01b-Od-LK1" secondAttribute="centerX" id="aII-zR-h6W"/>
+                        <constraint firstAttribute="bottom" secondItem="v0A-q2-t1s" secondAttribute="bottom" constant="8" id="ilV-BB-eMT"/>
                         <constraint firstAttribute="trailing" secondItem="52A-SA-eHY" secondAttribute="trailing" constant="20" id="kgr-bm-y0M"/>
                         <constraint firstItem="52A-SA-eHY" firstAttribute="leading" secondItem="01b-Od-LK1" secondAttribute="leading" constant="20" id="pm0-2C-Zl1"/>
                     </constraints>
@@ -113,7 +112,4 @@
             <point key="canvasLocation" x="25.5" y="52.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="back" width="10" height="19"/>
-    </resources>
 </document>

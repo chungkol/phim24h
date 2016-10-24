@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MenuViewController" customModule="Phim24h" customModuleProvider="target">
             <connections>
+                <outlet property="header" destination="Azs-VF-37I" id="lwf-j5-yzd"/>
                 <outlet property="myTable" destination="y7K-QV-fwS" id="c6B-Wj-hce"/>
                 <outlet property="profileImage" destination="7bo-fZ-rzp" id="3MA-Jh-lrZ"/>
                 <outlet property="profileName" destination="hgZ-XG-afw" id="YtG-Sx-Qtw"/>
@@ -54,15 +54,24 @@
                                 <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEZ-CJ-2hb">
+                                <color key="backgroundColor" red="0.38726528259999998" green="0.88688899050000003" blue="0.71803659659999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Q6S-Nk-FDH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="y7K-QV-fwS" secondAttribute="trailing" id="AX7-WH-hbA"/>
-                            <constraint firstItem="y7K-QV-fwS" firstAttribute="top" secondItem="Azs-VF-37I" secondAttribute="bottom" constant="8" id="S0f-qq-aiL"/>
+                            <constraint firstAttribute="trailing" secondItem="sEZ-CJ-2hb" secondAttribute="trailing" id="ITB-bw-50Z"/>
+                            <constraint firstItem="sEZ-CJ-2hb" firstAttribute="leading" secondItem="B6k-9w-Lc0" secondAttribute="leading" id="Q4c-0q-uXr"/>
                             <constraint firstAttribute="trailing" secondItem="Azs-VF-37I" secondAttribute="trailing" id="UE8-pt-Ib2"/>
-                            <constraint firstAttribute="bottom" secondItem="y7K-QV-fwS" secondAttribute="bottom" id="Upf-ce-Za5"/>
+                            <constraint firstAttribute="trailing" secondItem="y7K-QV-fwS" secondAttribute="trailing" id="VXU-en-FPg"/>
+                            <constraint firstItem="y7K-QV-fwS" firstAttribute="top" secondItem="sEZ-CJ-2hb" secondAttribute="bottom" id="Vmo-rt-eAV"/>
                             <constraint firstItem="Azs-VF-37I" firstAttribute="top" secondItem="B6k-9w-Lc0" secondAttribute="top" id="cBt-EH-2r4"/>
-                            <constraint firstItem="y7K-QV-fwS" firstAttribute="leading" secondItem="B6k-9w-Lc0" secondAttribute="leading" id="gQs-fz-XfP"/>
+                            <constraint firstAttribute="bottom" secondItem="y7K-QV-fwS" secondAttribute="bottom" id="ejB-rx-ZZp"/>
+                            <constraint firstItem="sEZ-CJ-2hb" firstAttribute="top" secondItem="Azs-VF-37I" secondAttribute="bottom" id="hBE-5g-xHy"/>
                             <constraint firstItem="Azs-VF-37I" firstAttribute="leading" secondItem="B6k-9w-Lc0" secondAttribute="leading" id="rOO-H6-lQ7"/>
+                            <constraint firstItem="y7K-QV-fwS" firstAttribute="leading" secondItem="B6k-9w-Lc0" secondAttribute="leading" id="z5w-ud-LC2"/>
                         </constraints>
                     </view>
                     <blurEffect style="light"/>

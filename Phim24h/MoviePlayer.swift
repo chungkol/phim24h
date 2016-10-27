@@ -26,6 +26,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
     var flag: Bool = false
     var ref : FIRDatabaseReference!
     //    var storage: FIRS
+    var layoutTop,layoutLeft,layoutRight,layoutBot: NSLayoutConstraint!
     var trailer: Trailer!
     var img_path: String!
     let video_Path = "https://www.youtube.com/watch?v="
@@ -138,6 +139,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         return dateFormat.string(from: currentDate as Date)
         
     }
+    
     func addTreeTable() {
         if treeView == nil {
             treeView = UITableView(frame: viewForComment.bounds)
@@ -149,13 +151,13 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
             viewForComment.addSubview(treeView)
             treeView.translatesAutoresizingMaskIntoConstraints = false
             
-            let layoutTop = NSLayoutConstraint(item: treeView, attribute: .top, relatedBy: .equal, toItem: self.viewForComment, attribute: .top, multiplier: 1.0, constant: 8)
+            layoutTop = NSLayoutConstraint(item: treeView, attribute: .top, relatedBy: .equal, toItem: self.viewForComment, attribute: .top, multiplier: 1.0, constant: 8)
             
-            let layoutLeft = NSLayoutConstraint(item: treeView, attribute: .leading, relatedBy: .equal, toItem: self.viewForComment, attribute: .leading, multiplier: 1.0, constant: 8)
+            layoutLeft = NSLayoutConstraint(item: treeView, attribute: .leading, relatedBy: .equal, toItem: self.viewForComment, attribute: .leading, multiplier: 1.0, constant: 8)
             
-            let layoutRight = NSLayoutConstraint(item: treeView, attribute: .trailing, relatedBy: .equal, toItem: self.viewForComment, attribute: .trailing, multiplier: 1.0, constant: 8)
+            layoutRight = NSLayoutConstraint(item: treeView, attribute: .trailing, relatedBy: .equal, toItem: self.viewForComment, attribute: .trailing, multiplier: 1.0, constant: 8)
             
-            let layoutBot = NSLayoutConstraint(item: treeView, attribute: .bottom, relatedBy: .equal, toItem: self.viewForComment, attribute: .bottom, multiplier: 1.0, constant: 8)
+            layoutBot = NSLayoutConstraint(item: treeView, attribute: .bottom, relatedBy: .equal, toItem: self.viewForComment, attribute: .bottom, multiplier: 1.0, constant: 8)
             
             NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
         }
@@ -188,10 +190,25 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         let playerVC = MobilePlayerViewController(contentURL: NSURL(string: videoURL) as! URL, pauseOverlayViewController: vc)
         playerVC.delegateCustom = self
         playerVC.title = "\(trailer.name!)"
-        
+        playerVC.fullScreen(isFull: true)
+        playerVC.getViewForElementWithIdentifier("share")?.isHidden = true
         playerVC.activityItems = [NSURL(string: videoURL)!]
-        //        self.viewHeader.addSubview(playerVC.view)
-        presentMoviePlayerViewControllerAnimated(playerVC)
+        self.viewHeader.addSubview(playerVC.view)
+        playerVC.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        layoutTop = NSLayoutConstraint(item: playerVC.view, attribute: .top, relatedBy: .equal, toItem: self.viewHeader, attribute: .top, multiplier: 1.0, constant: 0)
+        
+        layoutLeft = NSLayoutConstraint(item: playerVC.view, attribute: .leading, relatedBy: .equal, toItem: self.viewHeader, attribute: .leading, multiplier: 1.0, constant: 0)
+        
+        layoutRight = NSLayoutConstraint(item: playerVC.view, attribute: .trailing, relatedBy: .equal, toItem: self.viewHeader, attribute: .trailing, multiplier: 1.0, constant: 0)
+        
+        layoutBot = NSLayoutConstraint(item: playerVC.view, attribute: .bottom, relatedBy: .equal, toItem: self.viewHeader, attribute: .bottom, multiplier: 1.0, constant: 0)
+        
+        NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
+        
+        
+        //        presentMoviePlayerViewControllerAnimated(playerVC)
         //        UIView.animate(withDuration: 3, animations: {
         //            self.btnPlay.isHidden = true
         //        })

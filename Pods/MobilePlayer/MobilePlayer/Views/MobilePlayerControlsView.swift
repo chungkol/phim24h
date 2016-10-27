@@ -40,7 +40,7 @@ final class MobilePlayerControlsView: UIView {
         if topBar.elements.count == 0 {
             topBar.addElementUsingConfig(ButtonConfig(dictionary: ["type": "button" as AnyObject, "identifier": "close" as AnyObject]))
             topBar.addElementUsingConfig(LabelConfig(dictionary: ["type": "label" as AnyObject, "identifier": "title" as AnyObject]))
-            topBar.addElementUsingConfig(ButtonConfig(dictionary: ["type": "button" as AnyObject, "identifier": "action" as AnyObject]))
+            topBar.addElementUsingConfig(ButtonConfig(dictionary: ["type": "button" as AnyObject, "identifier": "share" as AnyObject]))
         }
         addSubview(topBar)
         if bottomBar.elements.count == 0 {
@@ -48,6 +48,7 @@ final class MobilePlayerControlsView: UIView {
             bottomBar.addElementUsingConfig(LabelConfig(dictionary: ["type": "label" as AnyObject, "identifier": "currentTime" as AnyObject]))
             bottomBar.addElementUsingConfig(SliderConfig(dictionary: ["type": "slider" as AnyObject, "identifier": "playback" as AnyObject, "marginLeft": 8 as AnyObject, "marginRight": 8 as AnyObject]))
             bottomBar.addElementUsingConfig(LabelConfig(dictionary: ["type": "label" as AnyObject, "identifier": "duration" as AnyObject, "marginRight": 8 as AnyObject]))
+            bottomBar.addElementUsingConfig(ButtonConfig(dictionary: ["type": "button" as AnyObject, "identifier": "fullScreen" as AnyObject]))
         }
         addSubview(bottomBar)
     }

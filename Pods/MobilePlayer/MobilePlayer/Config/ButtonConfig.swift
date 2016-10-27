@@ -42,7 +42,9 @@ open class ButtonConfig: ElementConfig {
             switch identifier {
             case "close":
                 image = UIImage(podResourceNamed: "MLCloseButton.png")?.template
-            case "action":
+            case "share":
+                image = UIImage(podResourceNamed: "MLShareButton")?.template
+            case "fullScreen":
                 image = UIImage(podResourceNamed: "MLShareButton")?.template
             default:
                 image = nil

@@ -351,8 +351,12 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
     open func stop() {
         flag = true
         moviePlayer.stop()
-//        delegateCustom?.pauseorStart(isPause: true)
         
+        
+    }
+    open func fullScreen(isFull: Bool) {
+//        moviePlayer.isFullscreen = isFull
+        moviePlayer.setFullscreen(isFull, animated: true)
     }
     
     // MARK: Video Rendering

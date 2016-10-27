@@ -11,8 +11,9 @@ import MobilePlayer
 import Kingfisher
 import Firebase
 import OEANotification
-class MoviePlayer: BaseDetailViewController {
+class MoviePlayer: BaseDetailViewController, PauseOrStart {
     
+    @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var tvComment: CustomTextView!
     
     @IBOutlet weak var btnPost: CustomButtonWithBoderGray!
@@ -24,7 +25,7 @@ class MoviePlayer: BaseDetailViewController {
     @IBOutlet weak var imBackground: UIImageView!
     var flag: Bool = false
     var ref : FIRDatabaseReference!
-//    var storage: FIRS
+    //    var storage: FIRS
     var trailer: Trailer!
     var img_path: String!
     let video_Path = "https://www.youtube.com/watch?v="
@@ -34,6 +35,8 @@ class MoviePlayer: BaseDetailViewController {
     var treeView : UITableView!
     var data : [MessageDetail] = []
     var messageDetail: [MessageDetail] = []
+    
+    var vc: PauseOverlayViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
         addTreeTable()
@@ -114,14 +117,14 @@ class MoviePlayer: BaseDetailViewController {
                     DispatchQueue.main.async {
                         self.treeView.reloadData()
                         let oldLastCellIndexPath = NSIndexPath(row: self.data.count - 1, section: 0)
-                        self.treeView.scrollToRow(at: oldLastCellIndexPath as IndexPath, at: .bottom, animated: false)
+                        self.treeView.scrollToRow(at: oldLastCellIndexPath as IndexPath, at: .bottom, animated: true)
                     }
                 }
             }
             
             }, withCancel: nil)
         
-    
+        
     }
     func showMess(title: String, mess: String){
         OEANotification.setDefaultViewController(self)
@@ -180,23 +183,32 @@ class MoviePlayer: BaseDetailViewController {
         return UIInterfaceOrientation.landscapeLeft
     }
     @IBAction func btnPlay(_ sender: UIButton) {
-        
+        vc = PauseOverlayViewController()
         btnPlay.setImage(UIImage(named: "play_w"), for: .normal)
-        let playerVC = MobilePlayerViewController(contentURL: NSURL(string: videoURL) as! URL)
+        let playerVC = MobilePlayerViewController(contentURL: NSURL(string: videoURL) as! URL, pauseOverlayViewController: vc)
+        playerVC.delegateCustom = self
         playerVC.title = "\(trailer.name!)"
-        playerVC.activityItems = [NSURL(string: videoURL)!]
-        presentMoviePlayerViewControllerAnimated(playerVC)
-        UIView.animate(withDuration: 3, animations: {
-            self.btnPlay.isHidden = true
-        })
         
+        playerVC.activityItems = [NSURL(string: videoURL)!]
+        //        self.viewHeader.addSubview(playerVC.view)
+        presentMoviePlayerViewControllerAnimated(playerVC)
+        //        UIView.animate(withDuration: 3, animations: {
+        //            self.btnPlay.isHidden = true
+        //        })
+        
+    }
+    
+    func pauseorStart(isPause: Bool){
+        if isPause {
+            vc.presentAd()
+        }else {
+            vc.interstitial = vc.createAdmob()
+        }
     }
     
 }
 extension MoviePlayer: UITableViewDelegate {
-    //    func treeView(_ treeView: RATreeView, heightForRowForItem item: Any) -> CGFloat {
-    //        return 100
-    //    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
@@ -207,28 +219,6 @@ extension MoviePlayer: UITableViewDelegate {
 }
 extension MoviePlayer: UITableViewDataSource {
     
-    //    public func treeView(_ treeView: RATreeView, child index: Int, ofItem item: Any?) -> Any {
-    //        return index
-    //    }
-    //
-    //    func treeView(_ treeView: RATreeView, numberOfChildrenOfItem item: Any?) -> Int {
-    //        return data.count
-    //    }
-    //
-    //    func treeView(_ treeView: RATreeView, cellForItem item: Any?) -> UITableViewCell {
-    //        let cell = treeView.dequeueReusableCell(withIdentifier: "CellMess") as! CellForMessage
-    //        let mess = item as? MessageDetail
-    //        cell.nameCell.text = mess?.name
-    //        cell.contentCell.text = mess?.coment
-    //        cell.timeCell.text = mess?.time
-    //        return cell
-    //    }
-    //
-    //
-    //
-    //    func treeView(_ treeView: RATreeView, didSelectRowForItem item: Any) {
-    //        print(item)
-    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count

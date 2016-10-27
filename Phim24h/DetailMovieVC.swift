@@ -76,8 +76,9 @@ class DetailMovieVC: BaseDetailViewController {
         if bottom == nil {
             addSubviewForSegment()
         }
-        myScrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.header.bounds.size.height + self.bottom.bounds.size.height + 100 )
-        
+        myScrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height + self.bottom.bounds.size.height + 100 )
+//        myScrollView.scrollRectToVisible(self.view.frame, animated: true)
+
         
         
         mySegment.setFontSize(14)
@@ -329,16 +330,20 @@ class DetailMovieVC: BaseDetailViewController {
             overView.view.isHidden = false
             people.view.isHidden = true
             similar.view.isHidden = true
+            myScrollView.isScrollEnabled = true
         case "people":
             people.view.isHidden = false
             similar.view.isHidden = true
             overView.view.isHidden = true
             people.movie_id = film.id
+            myScrollView.isScrollEnabled = true
         case "similar":
             similar.view.isHidden = false
             people.view.isHidden = true
             overView.view.isHidden = true
             similar.movie_id = film.id
+            myScrollView.isScrollEnabled = false
+            
             
         default:
             break
@@ -349,6 +354,7 @@ class DetailMovieVC: BaseDetailViewController {
             myScrollView = UIScrollView(frame: CGRect(x:0, y:0, width: 5, height:5))
             self.view.addSubview(myScrollView)
             
+//            myScrollView.scrollRectToVisible(self.view.frame, animated: true)
             myScrollView.translatesAutoresizingMaskIntoConstraints = false
             
             

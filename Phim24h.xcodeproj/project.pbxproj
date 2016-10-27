@@ -34,6 +34,8 @@
 		543BB7EE1D962FC500B348BF /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543BB7ED1D962FC500B348BF /* Genre.swift */; };
 		543BB7F01D96316F00B348BF /* JSONKEYS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543BB7EF1D96316F00B348BF /* JSONKEYS.swift */; };
 		543DFAB71DBA03580052A423 /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543DFAB61DBA03580052A423 /* Guest.swift */; };
+		543EF6A81DC09E9200D96D54 /* PauseOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543EF6A61DC09E9200D96D54 /* PauseOverlayViewController.swift */; };
+		543EF6A91DC09E9200D96D54 /* PauseOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 543EF6A71DC09E9200D96D54 /* PauseOverlayViewController.xib */; };
 		5443F6E41DB6021A00AE95F3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5443F6E21DB6021A00AE95F3 /* SearchView.swift */; };
 		5443F6E51DB6021A00AE95F3 /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5443F6E31DB6021A00AE95F3 /* SearchView.xib */; };
 		5443F6E91DB628DF00AE95F3 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5443F6E81DB628DF00AE95F3 /* CustomTextView.swift */; };
@@ -136,6 +138,8 @@
 		543BB7ED1D962FC500B348BF /* Genre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		543BB7EF1D96316F00B348BF /* JSONKEYS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONKEYS.swift; sourceTree = "<group>"; };
 		543DFAB61DBA03580052A423 /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
+		543EF6A61DC09E9200D96D54 /* PauseOverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseOverlayViewController.swift; sourceTree = "<group>"; };
+		543EF6A71DC09E9200D96D54 /* PauseOverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PauseOverlayViewController.xib; sourceTree = "<group>"; };
 		5443F6E21DB6021A00AE95F3 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		5443F6E31DB6021A00AE95F3 /* SearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
 		5443F6E81DB628DF00AE95F3 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 		5401D7A41DA4E26000CE54CF /* MoviePlayer */ = {
 			isa = PBXGroup;
 			children = (
+				543EF6A11DC09D1700D96D54 /* Overlay */,
 				5443F6F01DB761C300AE95F3 /* CellForMessage */,
 				54DC0AB71DA64C2800B6DC83 /* MoviePlayer.swift */,
 				54DC0AB81DA64C2800B6DC83 /* MoviePlayer.xib */,
@@ -336,6 +341,15 @@
 				5443F6F91DB7692000AE95F3 /* CustomImageView.swift */,
 			);
 			name = CustomView;
+			sourceTree = "<group>";
+		};
+		543EF6A11DC09D1700D96D54 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				543EF6A61DC09E9200D96D54 /* PauseOverlayViewController.swift */,
+				543EF6A71DC09E9200D96D54 /* PauseOverlayViewController.xib */,
+			);
+			name = Overlay;
 			sourceTree = "<group>";
 		};
 		5443F6E11DB601F000AE95F3 /* SearchView */ = {
@@ -777,6 +791,7 @@
 				545B22F41D917172008CC9C0 /* haha.png in Resources */,
 				54CA7A051D99040B00FC34C2 /* TopRated.xib in Resources */,
 				542899171D9E5100002AF465 /* Similar.xib in Resources */,
+				543EF6A91DC09E9200D96D54 /* PauseOverlayViewController.xib in Resources */,
 				5490407B1D90F57100E7330D /* ResetPassword.xib in Resources */,
 				54DA5BE51D8F9C8800F21F7A /* GoogleService-Info.plist in Resources */,
 				5443F6E51DB6021A00AE95F3 /* SearchView.xib in Resources */,
@@ -885,6 +900,7 @@
 				5443F6FA1DB7692000AE95F3 /* CustomImageView.swift in Sources */,
 				543BB7EE1D962FC500B348BF /* Genre.swift in Sources */,
 				54DC0AB91DA64C2800B6DC83 /* MoviePlayer.swift in Sources */,
+				543EF6A81DC09E9200D96D54 /* PauseOverlayViewController.swift in Sources */,
 				54EDDD961DADE1F100D07714 /* UserData.swift in Sources */,
 				545B23021D9182DD008CC9C0 /* BaseViewController.swift in Sources */,
 				54D9CCDA1DA21B2900B852C1 /* Crew.swift in Sources */,

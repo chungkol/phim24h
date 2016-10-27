@@ -16,6 +16,7 @@
                 <outlet property="tvComment" destination="bcM-AI-4so" id="eqv-vh-wxd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewForComment" destination="miu-IL-xFX" id="6gK-Me-G3d"/>
+                <outlet property="viewHeader" destination="KOz-4L-VDu" id="art-cu-iLL"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -98,21 +98,25 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         self.genre = GenreViewController(nibName: "GenreViewController", bundle: nil)
         
         let upComing = UpComing(nibName: "UpComing", bundle: nil)
+        upComing.type = 1
         upComing.data_key = ManagerData.UPCOMING
         upComing.data_title = "Up Comming"
         self.upComing = upComing
         
         let topRated = TopRated(nibName: "TopRated", bundle: nil)
+        topRated.type = 1
         topRated.data_key = ManagerData.TOP_RATED
         topRated.data_title = "Top Rated"
         self.topRated = topRated
         
         let popular = Popular(nibName: "Popular", bundle: nil)
+        popular.type = 1
         popular.data_key = ManagerData.POPULAR
         popular.data_title = "Popular"
         self.popular = popular
         
         let nowPlaying = NowPlaying(nibName: "NowPlaying", bundle: nil)
+        nowPlaying.type = 1
         nowPlaying.data_key = ManagerData.NOW_PLAYING
         nowPlaying.data_title = "Now Playing"
         self.nowPlaying = nowPlaying

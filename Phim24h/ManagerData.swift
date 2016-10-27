@@ -41,10 +41,7 @@ class ManagerData {
     fileprivate var detail_Movies: MovieDetail!
     fileprivate var list_Search: [Film] = []
     fileprivate var list_Cast: [Cast] = []
-    var pageTopRated = 1
-    var pagePopular = 1
-    var pageUpComing = 1
-    var pageNowPlaying = 1
+    var page: Int!
     
     private var guest: Guest!
     fileprivate init() {
@@ -60,7 +57,7 @@ class ManagerData {
     {
         rateMovie(movie_ID, guest_session_id: guest_session_id,value: value, completetion: { [unowned self] (result) in
             
-                completetion(result)
+            completetion(result)
             })
     }
     
@@ -110,7 +107,7 @@ class ManagerData {
     func getAllMovieSimilar(_ page: Int, movie_ID: Int,
                             completetion:@escaping ([Film])->())
     {
-        
+        self.page = page
         getMovieSimilar(page, movie_ID: movie_ID, completetion: { [unowned self] films in
             self.list_similar = films
             completetion(films)
@@ -135,7 +132,6 @@ class ManagerData {
     
     //lấy list ảnh theo id
     func getAllImageWithID(_ movie_id: Int, completetion: @escaping ([Backdrop])->()) {
-        
         getImageWithID(movie_id, completetion: { [unowned self] backdrops in
             self.list_Image = backdrops
             completetion(backdrops)
@@ -145,19 +141,16 @@ class ManagerData {
     
     // lấy danh sách video theo id
     func getAllVideoWithID(_ movie_id: Int, completetion: @escaping ([Trailer])->()) {
-        
         getVideoWithID(movie_id, completetion: { [unowned self] trailers in
             self.list_Trailer = trailers
             completetion(trailers)
             })
-        
     }
     
     //lấy film theo từng thể loại
     
     func getAllFilmWithGenre(_ genre_id: Int, completetion:@escaping ([Film])->())
     {
-        
         getFilmWithGenre(genre_id, completetion: { [unowned self] films in
             self.list_Film_With_Genre = films
             completetion(films)
@@ -172,7 +165,6 @@ class ManagerData {
             getGenres({ [unowned self] genres in
                 self.list_genres = genres
                 completetion(genres)
-                
                 })
         }else{
             completetion(list_genres)
@@ -180,10 +172,23 @@ class ManagerData {
     }
     
     
-    //get list film top rated
+    
+    //get lish film now playing
+    func getListMovieForPullToRefresh(_ page: Int,type: String,
+                                      completetion:@escaping ([Film])->())
+    {
+        self.page = page
+        getFilms(page, type: type, completetion: { [unowned self] films in
+            completetion(films)
+            })
+        
+    }
+    
+    
     func getTopRated(_ page: Int,type: String,
                      completetion:@escaping ([Film])->())
     {
+        self.page = page
         if (list_Top_Rated.count == 0)
         {
             getFilms(page, type: type, completetion: { [unowned self] films in
@@ -201,6 +206,7 @@ class ManagerData {
     func getPopular(_ page: Int,type: String,
                     completetion:@escaping ([Film])->())
     {
+        self.page = page
         if (list_Popular.count == 0)
         {
             getFilms(page, type: type, completetion: { [unowned self] films in
@@ -218,6 +224,7 @@ class ManagerData {
     func getUpComing(_ page: Int,type: String,
                      completetion:@escaping ([Film])->())
     {
+        self.page = page
         if (list_Up_Coming.count == 0)
         {
             getFilms(page, type: type, completetion: { [unowned self] films in
@@ -235,6 +242,7 @@ class ManagerData {
     func getNowPlaying(_ page: Int,type: String,
                        completetion:@escaping ([Film])->())
     {
+        self.page = page
         if (list_Now_Playing.count == 0)
         {
             getFilms(page, type: type, completetion: { [unowned self] films in
@@ -247,7 +255,6 @@ class ManagerData {
             completetion(list_Now_Playing)
         }
     }
-    
     fileprivate func getFilms(_ page: Int, type: String,
                               completetion:@escaping ([Film])->()){
         let parameters: Parameters = ["api_key": ManagerData.API_KEY,

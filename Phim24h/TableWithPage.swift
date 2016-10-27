@@ -19,7 +19,11 @@ class TableWithPage: UIViewController {
     var datas: [Film] = []
     var temp: [Film] = []
     var type: Int = 0
-    
+    var movie_id: Int! {
+        didSet {
+            getData(1)
+        }
+    }
     @IBOutlet weak var myTable: UITableView!
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "TableWithPage", bundle: nil)
@@ -33,6 +37,9 @@ class TableWithPage: UIViewController {
         myTable.delegate = self
         myTable.dataSource = self
         myTable.register(UINib(nibName: "TableViewCellWithPage", bundle: nil), forCellReuseIdentifier: "TableCellWithPage")
+        if type == 1 || type == 5 {
+            addPullToRefresh()
+        }
         self.title = data_title
         getData(1)
         
@@ -96,6 +103,14 @@ class TableWithPage: UIViewController {
             DispatchQueue.main.async {
                 self.myTable.reloadData()
             }
+        case 5:
+            ManagerData.instance.getAllMovieSimilar(page, movie_ID: movie_id, completetion: {            [unowned self] (films) in
+                self.datas = films
+                DispatchQueue.main.async {
+                    self.myTable.reloadData()
+                }
+                
+                })
             
         default:
             break
@@ -115,14 +130,68 @@ class TableWithPage: UIViewController {
         return result
     }
     func addPullToRefresh() {
+        
         myTable.addPullToRefresh(actionHandler: {
-            print("Top")
+            var page = ManagerData.instance.page
+            if page! > 1 {
+                self.pullToRefreshData(page: page! - 1, position: .top)
+            }
             }, position: .top)
-    
+        
         myTable.addPullToRefresh(actionHandler: {
-            print("Bot")
+            var page = ManagerData.instance.page
+            print(page)
+            self.pullToRefreshData(page: page! + 1, position: .bottom)
+            
             }, position: .bottom)
-        myTable.pullToRefreshViews
+        
+        
+    }
+    
+    
+    func pullToRefreshData(page: Int, position: SVPullToRefreshPosition) {
+        
+        
+        let popTime: DispatchTime = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: popTime, execute: {
+            self.myTable.beginUpdates()
+            if self.type == 1 {
+                ManagerData.instance.getListMovieForPullToRefresh(page, type: self.data_key, completetion: { [unowned self] (films) in
+                    self.datas = films
+                    self.myTable.reloadData()
+                    self.myTable.endUpdates()
+                    self.myTable.pullToRefreshView(at: position).stopAnimating()
+                    if position == .bottom {
+                        self.myTable.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
+                    }else {
+                        self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
+                    }
+                    ManagerData.instance.page = page
+                    print(page)
+                    })
+            } else {
+                ManagerData.instance.getAllMovieSimilar(page, movie_ID: self.movie_id, completetion: { [unowned self] (films) in
+                    self.datas = films
+                    self.myTable.reloadData()
+                    self.myTable.endUpdates()
+                    self.myTable.pullToRefreshView(at: position).stopAnimating()
+                    if position == .bottom {
+                        self.myTable.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
+                    }else {
+                        self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
+                    }
+                    ManagerData.instance.page = page
+                    print(page)
+                    
+                    
+                    })
+                
+            }
+            
+            
+        })
+        
+        
     }
     
     

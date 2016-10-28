@@ -1796,13 +1796,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		58A78443636AEB785CEE5D63CDDE827D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		5C2F2476A044AD670B291743A1E3981F /* FacebookShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -2642,7 +2635,6 @@
 				ACC5F7EF336101FE9BA3DA5CD7210933 /* WatermarkConfig.swift */,
 				625426A6F52EC43C7CB48584717A231E /* WatermarkViewController.swift */,
 				CD03969931E1D61C7F4BDAEB65089935 /* YoutubeParser.swift */,
-				58A78443636AEB785CEE5D63CDDE827D /* Resources */,
 				D6957584B76B642DB8C4823FCF198F6F /* Support Files */,
 			);
 			path = MobilePlayer;

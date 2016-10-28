@@ -40,12 +40,12 @@ open class ButtonConfig: ElementConfig {
             image = UIImage(named: imageName)
         } else if let identifier = dictionary["identifier"] as? String {
             switch identifier {
-            case "close":
-                image = UIImage(podResourceNamed: "MLCloseButton.png")?.template
-            case "share":
-                image = UIImage(podResourceNamed: "MLShareButton")?.template
+//            case "close":
+//                image = UIImage(named: "MLCloseButton.png")?.template
+//            case "share":
+//                image = UIImage(named: "MLShareButton")?.template
             case "fullScreen":
-                image = UIImage(podResourceNamed: "MLShareButton")?.template
+                image = UIImage(named: "full_screen")?.template
             default:
                 image = nil
             }

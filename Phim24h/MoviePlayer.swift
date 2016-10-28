@@ -188,10 +188,8 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         vc = PauseOverlayViewController()
         btnPlay.setImage(UIImage(named: "play_w"), for: .normal)
         let playerVC = MobilePlayerViewController(contentURL: NSURL(string: videoURL) as! URL, pauseOverlayViewController: vc)
-        playerVC.delegateCustom = self
+//        playerVC.delegateCustom = self
         playerVC.title = "\(trailer.name!)"
-        playerVC.fullScreen(isFull: true)
-        playerVC.getViewForElementWithIdentifier("share")?.isHidden = true
         playerVC.activityItems = [NSURL(string: videoURL)!]
         self.viewHeader.addSubview(playerVC.view)
         playerVC.view.translatesAutoresizingMaskIntoConstraints = false
@@ -212,6 +210,8 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         //        UIView.animate(withDuration: 3, animations: {
         //            self.btnPlay.isHidden = true
         //        })
+        imBackground.isHidden = true
+        btnPlay.isHidden = true
         
     }
     

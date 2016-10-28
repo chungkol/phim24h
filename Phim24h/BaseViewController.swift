@@ -29,6 +29,11 @@ open class BaseViewController: UIViewController {
     open override var shouldAutorotate: Bool {
         return false
     }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
     open func setTitForView(_ title: String)
     {
         self.navigationItem.title = title
@@ -45,7 +50,7 @@ open class BaseViewController: UIViewController {
         slideMenuController()?.toggleLeft()
         print("menu")
     }
-   
+    
     
     
 }

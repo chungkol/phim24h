@@ -38,9 +38,9 @@ final class MobilePlayerControlsView: UIView {
         addSubview(activityIndicatorView)
         addSubview(overlayContainerView)
         if topBar.elements.count == 0 {
-            topBar.addElementUsingConfig(ButtonConfig(dictionary: ["type": "button" as AnyObject, "identifier": "close" as AnyObject]))
+            
             topBar.addElementUsingConfig(LabelConfig(dictionary: ["type": "label" as AnyObject, "identifier": "title" as AnyObject]))
-            topBar.addElementUsingConfig(ButtonConfig(dictionary: ["type": "button" as AnyObject, "identifier": "share" as AnyObject]))
+           
         }
         addSubview(topBar)
         if bottomBar.elements.count == 0 {

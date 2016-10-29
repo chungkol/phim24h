@@ -20,13 +20,17 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
     
     @IBOutlet weak var viewForComment: UIView!
     @IBOutlet weak var titleMovie: UILabel!
-    @IBOutlet weak var loading: UIActivityIndicatorView!
+    
     @IBOutlet weak var btnPlay: UIButton!
     @IBOutlet weak var imBackground: UIImageView!
     var flag: Bool = false
     var ref : FIRDatabaseReference!
     //    var storage: FIRS
     var layoutTop,layoutLeft,layoutRight,layoutBot: NSLayoutConstraint!
+    
+    @IBOutlet weak var contraintHeight: NSLayoutConstraint!
+    
+    
     var trailer: Trailer!
     var img_path: String!
     let video_Path = "https://www.youtube.com/watch?v="
@@ -40,24 +44,21 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
     var vc: PauseOverlayViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTreeTable()
-        ref = FIRDatabase.database().reference()
         
-        loading.startAnimating()
+        ref = FIRDatabase.database().reference()
         self.titleMovie.text = trailer.name
         if let path = img_path {
             let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-            imBackground.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                self.loading.isHidden = true
-                self.loading.stopAnimating()
-            })
+            imBackground.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
             
         }
         getdata()
         videoURL = "\(video_Path)\(trailer.key!)"
-        print(videoURL)
         
         
+    }
+    override func viewDidLayoutSubviews() {
+        addTreeTable()
     }
     
     @IBAction func btnPostComment(_ sender: UIButton) {
@@ -166,29 +167,26 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        let value = UIInterfaceOrientation.landscapeLeft.rawValue
-        //        UIDevice.current.setValue(value, forKey: "orientation")
-        
         btnPlay.setImage(UIImage(named: "play_w"), for: .normal)
         self.btnPlay.isHidden = false
         
     }
-    open override var shouldAutorotate: Bool {
-        return true
-    }
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
-    }
+    //    open override var shouldAutorotate: Bool {
+    //        return true
+    //    }
+    //    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    //        return UIInterfaceOrientationMask.all
+    //    }
     
     
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return UIInterfaceOrientation.landscapeLeft
-    }
+    
+    
+    
     @IBAction func btnPlay(_ sender: UIButton) {
         vc = PauseOverlayViewController()
         btnPlay.setImage(UIImage(named: "play_w"), for: .normal)
         let playerVC = MobilePlayerViewController(contentURL: NSURL(string: videoURL) as! URL, pauseOverlayViewController: vc)
-//        playerVC.delegateCustom = self
+        playerVC.delegateCustom = self
         playerVC.title = "\(trailer.name!)"
         playerVC.activityItems = [NSURL(string: videoURL)!]
         self.viewHeader.addSubview(playerVC.view)
@@ -204,23 +202,48 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         layoutBot = NSLayoutConstraint(item: playerVC.view, attribute: .bottom, relatedBy: .equal, toItem: self.viewHeader, attribute: .bottom, multiplier: 1.0, constant: 0)
         
         NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
-        
-        
-        //        presentMoviePlayerViewControllerAnimated(playerVC)
-        //        UIView.animate(withDuration: 3, animations: {
-        //            self.btnPlay.isHidden = true
-        //        })
         imBackground.isHidden = true
         btnPlay.isHidden = true
         
     }
     
     func pauseorStart(isPause: Bool){
-        if isPause {
-            vc.presentAd()
+        print(isPause)
+        //        if isPause {
+        //            vc.presentAd()
+        //        }else {
+        //            vc.interstitial = vc.createAdmob()
+        //        }
+    }
+    func fullScreen(isFull: Bool) {
+        if isFull {
+            setLanscape()
+            
         }else {
-            vc.interstitial = vc.createAdmob()
+            
+            setPortrait()
+            
         }
+    }
+    func setLanscape() {
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = UIColor.clear
+        self.navigationItem.hidesBackButton = true
+        
+    }
+    func setPortrait() {
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.view.backgroundColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
+        self.navigationItem.hidesBackButton = false
+        
     }
     
 }

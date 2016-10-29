@@ -13,7 +13,7 @@ import MediaPlayer
 public protocol PauseOrStart {
     
     func pauseorStart(isPause: Bool)
-//    func fullScreen(isFull: Bool)
+    func fullScreen(isFull: Bool)
 }
 /// A view controller for playing media content.
 open class MobilePlayerViewController: MPMoviePlayerViewController {
@@ -21,6 +21,7 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
     
     open var delegateCustom: PauseOrStart?
     var flag: Bool?
+    var isFull: Bool = false
     /// Playback state.
     public enum State {
         
@@ -179,14 +180,15 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
     fileprivate func initializeControlsView() {
         (getViewForElementWithIdentifier("playback") as? Slider)?.delegate = self
         if let actionButton = getViewForElementWithIdentifier("fullScreen") as? Button {
-//            actionButton.isHidden = true // Initially hidden until 1 or more `activityItems` are set.
+            //            actionButton.isHidden = true // Initially hidden until 1 or more `activityItems` are set.
             actionButton.addCallback(
                 { [weak self] in
                     guard let slf = self else {
                         return
                     }
-                    print("full")
-//                    self?.fullScreen(isFull: false)
+                   self?.isFull = !(self?.isFull)!
+                    self?.delegateCustom?.fullScreen(isFull: (self?.isFull)!)
+                    
                 },
                 forControlEvents: .touchUpInside)
         }
@@ -326,7 +328,7 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
     open func pause() {
         flag = false
         moviePlayer.pause()
-//        delegateCustom?.pauseorStart(isPause: true)
+        delegateCustom?.pauseorStart(isPause: true)
     }
     
     
@@ -342,10 +344,7 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
         
         
     }
-    open func fullScreen(isFull: Bool) {
-//        moviePlayer.isFullscreen = isFull
-        moviePlayer.setFullscreen(isFull, animated: true)
-    }
+   
     
     // MARK: Video Rendering
     
@@ -387,30 +386,30 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
     /// parameters:
     ///   - sourceView: On iPads the activity view controller is presented as a popover and a source view needs to
     ///     provided or a crash will occur.
-//    open func showContentActions(_ sourceView: UIView? = nil) {
-//        guard let activityItems = activityItems , !activityItems.isEmpty else { return }
-//        let wasPlaying = (state == .playing)
-//        moviePlayer.pause()
-//        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-//        activityVC.excludedActivityTypes =  [
-//            UIActivityType.assignToContact,
-//            UIActivityType.saveToCameraRoll,
-//            UIActivityType.postToVimeo,
-//            UIActivityType.airDrop
-//        ]
-//        activityVC.completionWithItemsHandler = { activityType, completed, returnedItems, activityError in
-//            if wasPlaying {
-//                self.moviePlayer.play()
-//            }
-//        }
-//        if let sourceView = sourceView {
-//            activityVC.popoverPresentationController?.sourceView = controlsView
-//            activityVC.popoverPresentationController?.sourceRect = sourceView.convert(
-//                sourceView.bounds,
-//                to: controlsView)
-//        }
-//        present(activityVC, animated: true, completion: nil)
-//    }
+    //    open func showContentActions(_ sourceView: UIView? = nil) {
+    //        guard let activityItems = activityItems , !activityItems.isEmpty else { return }
+    //        let wasPlaying = (state == .playing)
+    //        moviePlayer.pause()
+    //        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    //        activityVC.excludedActivityTypes =  [
+    //            UIActivityType.assignToContact,
+    //            UIActivityType.saveToCameraRoll,
+    //            UIActivityType.postToVimeo,
+    //            UIActivityType.airDrop
+    //        ]
+    //        activityVC.completionWithItemsHandler = { activityType, completed, returnedItems, activityError in
+    //            if wasPlaying {
+    //                self.moviePlayer.play()
+    //            }
+    //        }
+    //        if let sourceView = sourceView {
+    //            activityVC.popoverPresentationController?.sourceView = controlsView
+    //            activityVC.popoverPresentationController?.sourceRect = sourceView.convert(
+    //                sourceView.bounds,
+    //                to: controlsView)
+    //        }
+    //        present(activityVC, animated: true, completion: nil)
+    //    }
     
     // MARK: Controls
     
@@ -562,13 +561,13 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
             durationLabel.superview?.setNeedsLayout()
         }
         
-
+        
         
         if moviePlayer.duration == moviePlayer.currentPlaybackTime{
             delegateCustom?.pauseorStart(isPause: true)
             playbackInterfaceUpdateTimer?.invalidate()
         }
-
+        
         updateShownTimedOverlays()
     }
     

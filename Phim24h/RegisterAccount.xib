@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,7 +43,6 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3n-jX-5yX" customClass="CustomButton" customModule="Phim24h" customModuleProvider="target">
                                     <color key="backgroundColor" white="0.20147421230000001" alpha="0.5" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="200" id="POD-1Y-hfH"/>
                                         <constraint firstAttribute="height" constant="40" id="gLb-5r-dm1"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -55,15 +55,15 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="Lin-Fk-08u" firstAttribute="top" secondItem="52A-SA-eHY" secondAttribute="top" constant="70" id="2Xh-dL-VM1"/>
+                                <constraint firstItem="Lin-Fk-08u" firstAttribute="top" secondItem="52A-SA-eHY" secondAttribute="top" constant="30" id="2Xh-dL-VM1"/>
                                 <constraint firstItem="YOZ-93-6jI" firstAttribute="top" secondItem="Lin-Fk-08u" secondAttribute="bottom" constant="20" id="51t-aa-acn"/>
-                                <constraint firstItem="q3n-jX-5yX" firstAttribute="top" secondItem="YOZ-93-6jI" secondAttribute="bottom" constant="20" id="BiR-jJ-HJF"/>
+                                <constraint firstItem="q3n-jX-5yX" firstAttribute="top" secondItem="YOZ-93-6jI" secondAttribute="bottom" constant="30" id="BiR-jJ-HJF"/>
                                 <constraint firstItem="Lin-Fk-08u" firstAttribute="leading" secondItem="52A-SA-eHY" secondAttribute="leading" constant="8" id="FbG-ZV-NlL"/>
                                 <constraint firstAttribute="trailing" secondItem="Lin-Fk-08u" secondAttribute="trailing" constant="8" id="Qqa-cG-iQO"/>
                                 <constraint firstItem="q3n-jX-5yX" firstAttribute="centerX" secondItem="52A-SA-eHY" secondAttribute="centerX" id="S6G-WJ-nHP"/>
+                                <constraint firstItem="q3n-jX-5yX" firstAttribute="width" secondItem="52A-SA-eHY" secondAttribute="width" multiplier="3/5" id="T7f-3w-3z9"/>
                                 <constraint firstItem="YOZ-93-6jI" firstAttribute="leading" secondItem="52A-SA-eHY" secondAttribute="leading" constant="8" id="fXz-dq-iIo"/>
                                 <constraint firstAttribute="trailing" secondItem="YOZ-93-6jI" secondAttribute="trailing" constant="8" id="hQl-5A-suW"/>
-                                <constraint firstAttribute="height" constant="280" id="lMU-LS-2gy"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9O-Zj-G3y">
@@ -94,7 +94,7 @@
                         <constraint firstItem="52A-SA-eHY" firstAttribute="centerX" secondItem="01b-Od-LK1" secondAttribute="centerX" id="7tB-qR-MTO"/>
                         <constraint firstItem="52A-SA-eHY" firstAttribute="centerY" secondItem="01b-Od-LK1" secondAttribute="centerY" id="9hw-SG-vwX"/>
                         <constraint firstItem="L9O-Zj-G3y" firstAttribute="leading" secondItem="01b-Od-LK1" secondAttribute="leadingMargin" constant="60" id="AbV-ux-waS"/>
-                        <constraint firstItem="52A-SA-eHY" firstAttribute="top" secondItem="L9O-Zj-G3y" secondAttribute="bottom" constant="24" id="TZZ-7K-65a"/>
+                        <constraint firstItem="52A-SA-eHY" firstAttribute="top" secondItem="L9O-Zj-G3y" secondAttribute="bottom" constant="30" id="TZZ-7K-65a"/>
                         <constraint firstItem="v0A-q2-t1s" firstAttribute="centerX" secondItem="01b-Od-LK1" secondAttribute="centerX" id="aII-zR-h6W"/>
                         <constraint firstAttribute="bottom" secondItem="v0A-q2-t1s" secondAttribute="bottom" constant="8" id="ilV-BB-eMT"/>
                         <constraint firstAttribute="trailing" secondItem="52A-SA-eHY" secondAttribute="trailing" constant="20" id="kgr-bm-y0M"/>
@@ -108,6 +108,7 @@
                 <constraint firstItem="01b-Od-LK1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="c5E-bx-nOk"/>
                 <constraint firstAttribute="bottom" secondItem="01b-Od-LK1" secondAttribute="bottom" id="gw6-2m-Wem"/>
                 <constraint firstAttribute="trailing" secondItem="01b-Od-LK1" secondAttribute="trailing" id="hjb-pt-yTP"/>
+                <constraint firstItem="52A-SA-eHY" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="2/5" id="xsB-tm-mGa"/>
             </constraints>
             <point key="canvasLocation" x="25.5" y="52.5"/>
         </view>

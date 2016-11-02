@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import OEANotification
 import HTPullToRefresh
-class TableWithPage: UIViewController {
+class TableWithPage: BaseDetailViewController {
     
     var data_key: String!
     var data_title: String!
@@ -214,15 +214,12 @@ extension TableWithPage: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCellWithPage", for: indexPath) as! TableViewCellWithPage
         
         if let item: Film = datas[indexPath.row] {
-            cell.loading.startAnimating()
+            
             if let path = item.poster_path {
                 let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-                cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                    cell.loading.isHidden = true
-                    cell.loading.stopAnimating()
-                })
+                 super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(item.id!)")
             }
-            
+ 
             cell.titleCell.text = item.title
             cell.totalViewCell.text = String(item.popularity!)
             cell.contentCell.text = item.overview

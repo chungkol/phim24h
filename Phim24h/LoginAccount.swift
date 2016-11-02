@@ -11,6 +11,7 @@ import Firebase
 import FBSDKLoginKit
 import GoogleSignIn
 import OEANotification
+import Kingfisher
 class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     var signInWithGG: GIDSignInButton!
     var signInWithFB: FBSDKLoginButton!
@@ -32,9 +33,7 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
         customRadiusTextField()
         addButtonGG()
         addButtonFb()
-        
         rep = FIRDatabase.database().reference()
-        
         if let mUser = userDefault.object(forKey: LoginAccount.KEY_USER) as? String
             , let mPass = userDefault.object(forKey: LoginAccount.KEY_PASS) as? String {
             checkLogin(mUser, password: mPass)
@@ -43,6 +42,7 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().signInSilently()
 //         GIDSignIn.sharedInstance().signOut()
+        
         if let token = FBSDKAccessToken.current() {
             let credential = FIRFacebookAuthProvider.credential(withAccessToken: token.tokenString)
             
@@ -57,17 +57,11 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
             })        }
         
     }
-    override func viewDidLayoutSubviews() {
-        //        if (tfUser == nil && tfPass == nil){
-        //            customRadiusTextField()
-        //        }
-        //        if signInWithGG == nil {
-        //            addButtonGG()
-        //        }
-        //        if signInWithFB == nil {
-        //            addButtonFb()
-        //
-        //        }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.clearMemoryCache()
     }
     func addButtonGG() {
         signInWithGG = GIDSignInButton()
@@ -126,7 +120,12 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             print(user)
             if  UserData.instance.user == nil {
-                UserData.instance.user = User(email: (user?.displayName)!, url_image: user?.photoURL, type: "google", uid: (user?.uid)!)
+                if let name = user?.displayName {
+                    UserData.instance.user = User(email: name, url_image: user?.photoURL, type: "google", uid: (user?.uid)!)
+                }else {
+                    UserData.instance.user = User(email: (user?.email)!, url_image: user?.photoURL, type: "google", uid: (user?.uid)!)
+                }
+                
             }
             self.loginSuccess()
             
@@ -326,19 +325,23 @@ extension LoginAccount : FBSDKLoginButtonDelegate {
             print("error \(error.localizedDescription)")
             self.loginError()
             return
+        }else if result.isCancelled {
+            self.dismiss(animated: true, completion: nil)
+        }else {
+            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            
+            FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+                
+                if  UserData.instance.user == nil {
+                    
+                    UserData.instance.user = User(email: (user?.displayName)!, url_image: user?.photoURL!, type: "facebook", uid: (user?.uid)!)
+                    
+                }
+                self.loginSuccess()
+                
+            })
         }
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         
-        FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
-          
-            if  UserData.instance.user == nil {
-                
-                UserData.instance.user = User(email: (user?.displayName)!, url_image: user?.photoURL!, type: "facebook", uid: (user?.uid)!)
-                
-            }
-            self.loginSuccess()
-
-        })
     }
 }
 

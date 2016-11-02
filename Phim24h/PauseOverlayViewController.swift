@@ -9,42 +9,41 @@
 import UIKit
 import MobilePlayer
 import GoogleMobileAds
-let AD_UNIT_ID = "ca-app-pub-5462423330690799/2209131460"
-class PauseOverlayViewController: MobilePlayerOverlayViewController,GADInterstitialDelegate{
-    var interstitial: GADInterstitial!
-    var times = 0
+let AD_UNIT_ID = "ca-app-pub-5462423330690799/5782889860"
+
+class PauseOverlayViewController: MobilePlayerOverlayViewController , GADBannerViewDelegate{
+    
+    
+    @IBOutlet weak var viewParent: UIView!
+    
+    var banner : GADBannerView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.interstitial = createAdmob()
-    }
-    
-    func createAdmob() -> GADInterstitial {
-        let request = GADRequest()
-        let interstitial = GADInterstitial(adUnitID: AD_UNIT_ID)
-        interstitial.delegate = self
-        interstitial.load(request)
-        return interstitial
-    }
-    
-    
-    func presentAd()
-    {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            if self.interstitial.isReady {
-                self.interstitial.present(fromRootViewController: self)
-            }else {
-                self.times = self.times + 1
-                if (self.times == 5)
-                {
-                    return
-                }
-                self.presentAd()
-            }
-        }
-    }
-    func interstitialDidDismissScreen(_ ad: GADInterstitial!) {
-        self.interstitial = createAdmob()
         
     }
-    
-}
+    override func viewDidLayoutSubviews() {
+        addBanner()
+    }
+    func addBanner() {
+        if banner == nil {
+            banner = GADBannerView(adSize: kGADAdSizeBanner)
+            banner.delegate = self
+            banner.adUnitID = AD_UNIT_ID
+            banner.rootViewController = self
+            let request = GADRequest()
+            request.testDevices = [ kGADSimulatorID, "5CD77068EE8F436F957652236AD6A777" ]
+            banner.load(request)
+            self.viewParent.addSubview(banner)
+            
+            
+            
+            
+        }
+    }
+    func adViewDidReceiveAd(bannerView: GADBannerView!) {
+            }
+    func adView(bannerView: GADBannerView!,
+                didFailToReceiveAdWithError error: GADRequestError!) {
+        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 open class BaseDetailViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,46 @@ open class BaseDetailViewController: UIViewController {
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
         self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
         
+    }
+    func loadImage(url_image: URL?, imageView: UIImageView, key: String?) {
+        imageView.kf.indicatorType = .activity
+        imageView.kf.indicator?.startAnimatingView()
+        KingfisherManager.shared.cache.retrieveImage(forKey: key!, options: nil) { (Image, CacheType) -> () in
+            imageView.image = UIImage(named: "haha")
+            if Image != nil {
+                imageView.image = Image
+                imageView.kf.indicator?.stopAnimatingView()
+            } else {
+                self.downloadImage(url_image: url_image!, imageView: imageView, key: key)
+                
+            }
+            
+        }}
+    
+    func downloadImage(url_image: URL, imageView: UIImageView, key: String?) {
+        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: nil, completionHandler: { (image) -> () in
+            imageView.image = UIImage(named: "haha")
+            if image.0 != nil {
+                if let resizeImage = (image.0?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))
+                {
+                    if !KingfisherManager.shared.cache.isImageCached(forKey: key!).cached {
+                        KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
+                    }
+                    imageView.image = resizeImage
+                    
+                    imageView.kf.indicator?.stopAnimatingView()
+                }
+            }
+            
+            
+        })
+    }
+
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.clearMemoryCache()
     }
     open override var shouldAutorotate: Bool {
         return false

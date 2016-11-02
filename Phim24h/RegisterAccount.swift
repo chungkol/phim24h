@@ -36,7 +36,6 @@ class RegisterAccount: UIViewController, UITextFieldDelegate {
 //        }
     }
     func signUpSuccess(){
-        
         OEANotification.notify("Sign Up success !", subTitle: "Welcome to Phim24h .... ", image: nil, type: .success, isDismissable: false, completion: { () -> Void in
             print("completed")
             }, touchHandler: nil)

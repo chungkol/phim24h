@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-class OverView: UIViewController {
+class OverView: BaseDetailViewController {
     
     
     @IBOutlet weak var contentDetail: UILabel!
@@ -38,7 +38,7 @@ class OverView: UIViewController {
                 ManagerData.instance.getAllVideoWithID(self.movie_id, completetion: { [unowned self] (trailers) in
                     self.datas = trailers
                     self.myCollection.reloadData()
-
+                    
                     })
                 
                 })
@@ -47,7 +47,7 @@ class OverView: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-            contentDetail.text = movie_content
+        contentDetail.text = movie_content
         myCollection.dataSource = self
         myCollection.delegate = self
         myCollection.register(UINib(nibName: "CellForTrailer", bundle: nil), forCellWithReuseIdentifier: "CelTrailer")
@@ -79,16 +79,15 @@ extension OverView: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CelTrailer", for: indexPath) as! CellForTrailer
-        
-        cell.loading.startAnimating()
-        
-        if let path = imageDatas[indexPath.row].file_path {
-            let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-            cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                cell.loading.isHidden = true
-                cell.loading.stopAnimating()
-            })
+        var pathImage = ""
+        if imageDatas.count > datas.count {
+            if let path = imageDatas[indexPath.row].file_path {
+                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            }
+        }else  {
+            pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"
         }
+        super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(movie_id!)")
         cell.labelCell.text = datas[indexPath.row].name
         return cell
     }

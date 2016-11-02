@@ -13,6 +13,8 @@ import Firebase
 import OEANotification
 class MoviePlayer: BaseDetailViewController, PauseOrStart {
     
+    let heigtNav = 64
+    
     @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var tvComment: CustomTextView!
     
@@ -30,6 +32,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
     
     @IBOutlet weak var contraintHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var myTable: UITableView!
     
     var trailer: Trailer!
     var img_path: String!
@@ -37,14 +40,17 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
     var videoURL: String!
     var id_film : Int!
     let videoID = "1"
-    var treeView : UITableView!
+    
     var data : [MessageDetail] = []
     var messageDetail: [MessageDetail] = []
     
     var vc: PauseOverlayViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        myTable.delegate = self
+        myTable.dataSource = self
+        myTable.register(UINib.init(nibName: "CellForMessage", bundle: nil), forCellReuseIdentifier: "CellMess")
         ref = FIRDatabase.database().reference()
         self.titleMovie.text = trailer.name
         if let path = img_path {
@@ -58,7 +64,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         
     }
     override func viewDidLayoutSubviews() {
-        addTreeTable()
+//        addTreeTable()
     }
     
     @IBAction func btnPostComment(_ sender: UIButton) {
@@ -117,9 +123,9 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
                     messDetail.setValuesForKeys(value)
                     self.data.append(messDetail)
                     DispatchQueue.main.async {
-                        self.treeView.reloadData()
+                        self.myTable.reloadData()
                         let oldLastCellIndexPath = NSIndexPath(row: self.data.count - 1, section: 0)
-                        self.treeView.scrollToRow(at: oldLastCellIndexPath as IndexPath, at: .bottom, animated: true)
+                        self.myTable.scrollToRow(at: oldLastCellIndexPath as IndexPath, at: .bottom, animated: true)
                     }
                 }
             }
@@ -141,29 +147,29 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         
     }
     
-    func addTreeTable() {
-        if treeView == nil {
-            treeView = UITableView(frame: viewForComment.bounds)
-            treeView.register(UINib.init(nibName: "CellForMessage", bundle: nil), forCellReuseIdentifier: "CellMess")
-            treeView.delegate = self;
-            treeView.dataSource = self;
-            treeView.separatorColor = UIColor.clear
-            treeView.backgroundColor = UIColor.clear
-            viewForComment.addSubview(treeView)
-            treeView.translatesAutoresizingMaskIntoConstraints = false
-            
-            layoutTop = NSLayoutConstraint(item: treeView, attribute: .top, relatedBy: .equal, toItem: self.viewForComment, attribute: .top, multiplier: 1.0, constant: 8)
-            
-            layoutLeft = NSLayoutConstraint(item: treeView, attribute: .leading, relatedBy: .equal, toItem: self.viewForComment, attribute: .leading, multiplier: 1.0, constant: 8)
-            
-            layoutRight = NSLayoutConstraint(item: treeView, attribute: .trailing, relatedBy: .equal, toItem: self.viewForComment, attribute: .trailing, multiplier: 1.0, constant: 8)
-            
-            layoutBot = NSLayoutConstraint(item: treeView, attribute: .bottom, relatedBy: .equal, toItem: self.viewForComment, attribute: .bottom, multiplier: 1.0, constant: 8)
-            
-            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
-        }
-        
-    }
+//    func addTreeTable() {
+//        if treeView == nil {
+//            treeView = UITableView(frame: viewForComment.bounds)
+//            treeView.register(UINib.init(nibName: "CellForMessage", bundle: nil), forCellReuseIdentifier: "CellMess")
+//            treeView.delegate = self;
+//            treeView.dataSource = self;
+//            treeView.separatorColor = UIColor.clear
+//            treeView.backgroundColor = UIColor.clear
+//            viewForComment.addSubview(treeView)
+//            treeView.translatesAutoresizingMaskIntoConstraints = false
+//            
+//            layoutTop = NSLayoutConstraint(item: treeView, attribute: .top, relatedBy: .equal, toItem: self.viewForComment, attribute: .top, multiplier: 1.0, constant: 8)
+//            
+//            layoutLeft = NSLayoutConstraint(item: treeView, attribute: .leading, relatedBy: .equal, toItem: self.viewForComment, attribute: .leading, multiplier: 1.0, constant: 8)
+//            
+//            layoutRight = NSLayoutConstraint(item: treeView, attribute: .trailing, relatedBy: .equal, toItem: self.viewForComment, attribute: .trailing, multiplier: 1.0, constant: 8)
+//            
+//            layoutBot = NSLayoutConstraint(item: treeView, attribute: .bottom, relatedBy: .equal, toItem: self.viewForComment, attribute: .bottom, multiplier: 1.0, constant: 8)
+//            
+//            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
+//        }
+//        
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -233,6 +239,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
+        self.navigationController?.navigationBar.frame =  CGRect(x: 0, y: 0, width: 0, height: 0)
         self.navigationItem.hidesBackButton = true
         
     }
@@ -264,7 +271,7 @@ extension MoviePlayer: UITableViewDataSource {
         return data.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = treeView.dequeueReusableCell(withIdentifier: "CellMess") as! CellForMessage
+        let cell = myTable.dequeueReusableCell(withIdentifier: "CellMess") as! CellForMessage
         if let mess: MessageDetail =  data[indexPath.row] {
             cell.nameCell.text = mess.name
             cell.contentCell.text = mess.coment

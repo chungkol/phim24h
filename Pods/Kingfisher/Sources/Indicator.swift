@@ -129,6 +129,9 @@ struct ActivityIndicator: Indicator {
             #endif
             activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle:indicatorStyle)
             activityIndicatorView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleTopMargin]
+            activityIndicatorView.color = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
+
+            
         #endif
     }
 }

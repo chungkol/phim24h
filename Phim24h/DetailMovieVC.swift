@@ -22,7 +22,6 @@ class DetailMovieVC: BaseDetailViewController {
     var headerLeft: UIView!
     var headerRight: UIView!
     var imageDetail: UIImageView!
-    var loading: UIActivityIndicatorView!
     var saperator: UIView!
     
     var titleDetail: UILabel!
@@ -77,10 +76,7 @@ class DetailMovieVC: BaseDetailViewController {
             addSubviewForSegment()
         }
         myScrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height + self.bottom.bounds.size.height + 100 )
-//        myScrollView.scrollRectToVisible(self.view.frame, animated: true)
 
-        
-        
         mySegment.setFontSize(14)
         let leftButton = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self
             , action: #selector(actionAdd))
@@ -100,7 +96,9 @@ class DetailMovieVC: BaseDetailViewController {
         self.addAlertViewAdd()
         
     }
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
     
     func actionShare() {
         self.addAlertViewVote()
@@ -271,11 +269,7 @@ class DetailMovieVC: BaseDetailViewController {
     func setData(){
         if let path = film.poster_path {
             let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-            loading.startAnimating()
-            imageDetail.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                self.loading.isHidden = true
-                self.loading.stopAnimating()
-            })
+            super.loadImage(url_image: URL(string: pathImage), imageView: imageDetail, key: "\(film.id!)")
         }
         
         titleDetail.text = film.title
@@ -426,26 +420,6 @@ class DetailMovieVC: BaseDetailViewController {
             
             NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
         }
-        if  loading == nil {
-            loading = UIActivityIndicatorView(frame: CGRect(x:0, y:0, width: 30, height: 30))
-            
-            loading.color = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
-            
-            self.headerLeft.addSubview(loading)
-            
-            loading.translatesAutoresizingMaskIntoConstraints = false
-            
-            layoutHeight = NSLayoutConstraint(item: loading
-                , attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
-            layoutWidth = NSLayoutConstraint(item: loading
-                , attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
-            
-            layoutCenterX = NSLayoutConstraint(item: loading, attribute: .centerX, relatedBy: .equal, toItem: self.headerLeft, attribute: .centerX, multiplier: 1, constant: 0)
-            
-            layoutCenterY = NSLayoutConstraint(item: loading, attribute: .centerY, relatedBy: .equal, toItem: self.headerLeft, attribute: .centerY, multiplier: 1, constant: 0)
-            
-            NSLayoutConstraint.activate([layoutHeight, layoutWidth, layoutCenterX, layoutCenterY])
-        }
         
         //---------------------------------------
         
@@ -474,7 +448,7 @@ class DetailMovieVC: BaseDetailViewController {
             
             titleDetail.translatesAutoresizingMaskIntoConstraints = false
             
-            layoutTop = NSLayoutConstraint(item: titleDetail, attribute: .top, relatedBy: .equal, toItem: self.headerRight, attribute: .top, multiplier: 1.0, constant: 8)
+            layoutTop = NSLayoutConstraint(item: titleDetail, attribute: .top, relatedBy: .equal, toItem: self.headerRight, attribute: .top, multiplier: 1.0, constant: 0)
             
             layoutLeft = NSLayoutConstraint(item: titleDetail, attribute: .leading, relatedBy: .equal, toItem: self.headerRight, attribute: .leading, multiplier: 1.0, constant: 0)
             
@@ -587,7 +561,7 @@ class DetailMovieVC: BaseDetailViewController {
             
             mySegment.translatesAutoresizingMaskIntoConstraints = false
             
-            layoutTop = NSLayoutConstraint(item: mySegment, attribute: .top, relatedBy: .equal, toItem: self.imageVote, attribute: .bottom, multiplier: 1.0, constant: 20)
+            layoutTop = NSLayoutConstraint(item: mySegment, attribute: .top, relatedBy: .equal, toItem: self.imageVote, attribute: .bottom, multiplier: 1.0, constant: 8)
             
             layoutLeft = NSLayoutConstraint(item: mySegment, attribute: .leading, relatedBy: .equal, toItem: self.headerRight, attribute: .leading, multiplier: 1.0, constant: 0)
             

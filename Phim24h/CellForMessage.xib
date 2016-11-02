@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="375" height="99.5"/>
+                <frame key="frameInset" width="375" height="99"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7BR-Zs-cjY">
@@ -44,6 +44,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="LP9-gn-c5p" secondAttribute="trailing" constant="8" id="8Gf-F6-kQE"/>
                             <constraint firstItem="oZb-vT-iQf" firstAttribute="top" secondItem="LP9-gn-c5p" secondAttribute="bottom" constant="5" id="CYA-RI-xAx"/>
@@ -58,6 +59,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Q2u-VW-74a" secondAttribute="bottom" constant="8" id="IAV-p6-Zot"/>
                     <constraint firstItem="7BR-Zs-cjY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="X8Y-gi-gOA"/>
@@ -67,6 +69,7 @@
                     <constraint firstItem="Q2u-VW-74a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="xi1-q0-xXB"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="contentCell" destination="oZb-vT-iQf" id="lXM-Vj-ihs"/>
                 <outlet property="imageCell" destination="7BR-Zs-cjY" id="lvY-Wq-uRP"/>

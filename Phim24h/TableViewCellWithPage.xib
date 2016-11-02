@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -83,19 +82,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpg-cl-7TU">
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AFb-eI-akp"/>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="KE7-m4-NTC">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="7ud-EE-t73"/>
-                                    <constraint firstAttribute="width" constant="30" id="Qy2-9K-lD4"/>
-                                </constraints>
-                                <color key="color" red="0.38726528259999998" green="0.88688899050000003" blue="0.71803659659999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KE7-m4-NTC" firstAttribute="centerY" secondItem="gpg-cl-7TU" secondAttribute="centerY" id="8Ox-mx-MJJ"/>
                             <constraint firstAttribute="trailing" secondItem="AFb-eI-akp" secondAttribute="trailing" id="9cg-Ph-EAo"/>
-                            <constraint firstItem="KE7-m4-NTC" firstAttribute="centerX" secondItem="gpg-cl-7TU" secondAttribute="centerX" id="GE5-sP-sLd"/>
                             <constraint firstAttribute="height" constant="160" id="IC9-pm-7zF"/>
                             <constraint firstItem="AFb-eI-akp" firstAttribute="leading" secondItem="gpg-cl-7TU" secondAttribute="leading" id="fei-b8-V7Y"/>
                             <constraint firstAttribute="bottom" secondItem="AFb-eI-akp" secondAttribute="bottom" id="keJ-bB-SZf"/>
@@ -119,7 +109,6 @@
                 <outlet property="imPlay" destination="T56-kB-Bgg" id="EHu-Qd-iRU"/>
                 <outlet property="imType" destination="pe9-u3-N5j" id="6NI-go-yuw"/>
                 <outlet property="imageCell" destination="AFb-eI-akp" id="hGE-AX-jnX"/>
-                <outlet property="loading" destination="KE7-m4-NTC" id="kIE-dD-aBz"/>
                 <outlet property="titleCell" destination="cEm-Nt-e33" id="IGb-9W-M2g"/>
                 <outlet property="totalViewCell" destination="Dln-G7-owO" id="Bw4-j3-CN2"/>
                 <outlet property="typeCell" destination="hcp-nd-KFn" id="0WH-9w-S2T"/>

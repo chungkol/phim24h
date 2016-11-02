@@ -10,7 +10,7 @@ import UIKit
 
 class CellForTrailer: UICollectionViewCell {
 
-    @IBOutlet weak var loading: UIActivityIndicatorView!
+
     @IBOutlet weak var labelCell: UILabel!
     @IBOutlet weak var imageCell: UIImageView!
     override func awakeFromNib() {

@@ -22,7 +22,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
     
     var pageSilde: UIPageControl!
     
-    var first = false
+    var first:Bool = false
     var currentPage = 0
     
     var datas: [DataModel] = []
@@ -37,26 +37,25 @@ class HomeViewController: BaseViewController, pushViewDelegate {
     var timer = Timer()
     
     var iCa: iCarousel!
+    var subView: FXImageView!
     
+    var layouTop, layoutBot, layoutRight, layoutLeft, horizontalConstraint, heightContraint, widthContraint, verticalConstraint : NSLayoutConstraint!
     
-    var layouTop : NSLayoutConstraint!
-    var layoutBot : NSLayoutConstraint!
-    var layoutRight : NSLayoutConstraint!
-    var layoutLeft : NSLayoutConstraint!
-    var horizontalConstraint : NSLayoutConstraint!
-    var heightContraint : NSLayoutConstraint!
-    var widthContraint : NSLayoutConstraint!
-    var verticalConstraint : NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addIcarousel()
         let rightNav = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(HomeViewController.actionSearch))
         self.navigationItem.rightBarButtonItem = rightNav
+        
         myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
         myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
         initData()
         
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        timer.invalidate()
     }
     func actionSearch(){
         let searchView  = SearchView(nibName: "SearchView", bundle: nil)
@@ -200,7 +199,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
         case 100:
             goToTableWithPage(ManagerData.UPCOMING, titleCell: "Up Coming")
         case 101:
-            goToTableWithPage(ManagerData.TOP_RATED, titleCell: "Top Rated") 
+            goToTableWithPage(ManagerData.TOP_RATED, titleCell: "Top Rated")
         case 102:
             goToTableWithPage(ManagerData.POPULAR, titleCell: "Popular")
         case 103:
@@ -249,6 +248,7 @@ extension HomeViewController: UITableViewDelegate {
 
 
 extension HomeViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return datas.count
@@ -261,8 +261,6 @@ extension HomeViewController: UITableViewDataSource {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! TableViewCell
         cell.delegate = self
         let dataModel: DataModel = datas[indexPath.row]
-        
-        
         if let myData = dataModel.datas
         {
             cell.btnMore.addTarget(self, action: #selector(HomeViewController.seeMore(_:)), for: .touchUpInside)
@@ -292,6 +290,9 @@ extension HomeViewController: iCarouselDelegate{
 }
 
 extension HomeViewController: iCarouselDataSource{
+    @objc(tableView:didEndDisplayingCell:forRowAtIndexPath:) func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        subView.kf.cancelDownloadTask()
+    }
     
     func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
         pageSilde.currentPage = carousel.currentItemIndex
@@ -304,54 +305,24 @@ extension HomeViewController: iCarouselDataSource{
         }
     }
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        var subView: FXImageView!
-        var loading: UIActivityIndicatorView!
-        
-        
         subView = FXImageView(frame: CGRect(x: 0, y: 0, width: self.headerView.bounds.width - 50, height: self.headerView.bounds.height - 50))
         subView.contentMode = .scaleAspectFill
         subView.isAsynchronous = true
         subView.reflectionScale = 0.5
-        //        subView.reflectionAlpha = 0.25
         subView.reflectionGap = 10.0
         subView.shadowOffset = CGSize(width: 0.0, height: 2.0)
         subView.shadowBlur = 5.0;
         subView.cornerRadius = 10.0;
         
-        
-        loading = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        loading.color = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
-        
-        subView.addSubview(loading)
-        loading.startAnimating()
-        
-        loading.translatesAutoresizingMaskIntoConstraints = false
-        //add constraints
-        
-        verticalConstraint = NSLayoutConstraint(item: loading, attribute: .centerY, relatedBy: .equal, toItem: subView, attribute: .centerY, multiplier: 1, constant: 0)
-        
-        horizontalConstraint = NSLayoutConstraint(item: loading, attribute: .centerX, relatedBy: .equal, toItem: subView, attribute: .centerX, multiplier: 1, constant: 0)
-        
-        heightContraint = NSLayoutConstraint(item: loading, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
-        
-        widthContraint = NSLayoutConstraint(item: loading, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
-        
-        NSLayoutConstraint.activate([verticalConstraint, horizontalConstraint, widthContraint, heightContraint])
-        
-        
+        subView.kf.indicatorType = .activity
+        subView.kf.indicator?.startAnimatingView()
         if let item: Film = dataForSlide[index]  {
+            
             if let path = item.backdrop_path {
                 let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-                subView.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                    loading.isHidden = true
-                    loading.stopAnimating()
-                })
+                super.loadImage(url_image: URL(string: pathImage), imageView: subView, key: "\(item.id!)")
             }
         }
-        
-        
-        
-        
         return subView!
     }
     

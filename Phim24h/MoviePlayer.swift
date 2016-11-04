@@ -55,7 +55,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         self.titleMovie.text = trailer.name
         if let path = img_path {
             let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-            imBackground.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
+             super.loadImage(url_image: URL(string: pathImage), imageView: imBackground, key: "background\(id_film!)")
             
         }
         getdata()
@@ -277,8 +277,8 @@ extension MoviePlayer: UITableViewDataSource {
             cell.contentCell.text = mess.coment
             cell.timeCell.text = mess.time
             if let path = data[indexPath.row].image_path {
-                cell.imageCell.kf.setImage(with: URL(string: path.fromBase64()!), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
-                
+//                cell.imageCell.kf.setImage(with: URL(string: path.fromBase64()!), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
+                super.loadImage(url_image: URL(string: path.fromBase64()!), imageView: cell.imageCell, key: "\(mess.uid!)")
             }
         }
         cell.selectionStyle = .none

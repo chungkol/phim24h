@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-class People: UIViewController {
+class People: BaseDetailViewController {
     
     @IBOutlet weak var btnMoreCrew: UIButton!
     @IBOutlet weak var btnMoreCast: UIButton!
@@ -22,11 +22,16 @@ class People: UIViewController {
         didSet {
             ManagerData.instance.getAllCast(movie_id, completetion: { [unowned self] (results) in
                 self.list_Cast = results
-                self.collectionCast.reloadData()
+                DispatchQueue.main.async {
+                     self.collectionCast.reloadData()
+                }
+               
                 })
             ManagerData.instance.getAllCrew(self.movie_id, completetion: { [unowned self] (results) in
                 self.list_Crew = results
-                self.collectionCrew.reloadData()
+                DispatchQueue.main.async {
+                    self.collectionCrew.reloadData()
+                }
                 })
 
         }
@@ -47,16 +52,6 @@ class People: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if movie_id != nil {
-//            ManagerData.instance.getAllCast(movie_id: movie_id, completetion: { [unowned self] (results) in
-//                self.list_Cast = results
-//                self.collectionCast.reloadData()
-//                })
-//            ManagerData.instance.getAllCrew(movie_id: self.movie_id, completetion: { [unowned self] (results) in
-//                self.list_Crew = results
-//                self.collectionCrew.reloadData()
-//                })
-//        }
     }
     
     
@@ -68,12 +63,6 @@ extension People: UICollectionViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
-    //    override func viewDidLayoutSubviews() {
-    //        super.viewDidLayoutSubviews()
-    //        print(self.view.bounds.size.width)
-    //    }
-    
-    
 }
 
 
@@ -97,15 +86,10 @@ extension People: UICollectionViewDataSource {
         
         if collectionView.tag == 102 {
             if let item: Cast = list_Cast[indexPath.row] {
-                cell.loading.startAnimating()
+                
                 if let path = item.profile_path {
                     let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-                    cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                        cell.loading.isHidden = true
-                        cell.loading.stopAnimating()
-                    })
-                }else {
-                    cell.loading.startAnimating()
+                    super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(item.id!)")
                 }
                 cell.lbChar.text = item.character
                 cell.lbName.text = item.name
@@ -114,15 +98,9 @@ extension People: UICollectionViewDataSource {
         }
         else if collectionView.tag == 101 {
             if let item: Crew = list_Crew[indexPath.row] {
-                cell.loading.startAnimating()
                 if let path = item.profile_path {
                     let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-                    cell.imageCell.kf.setImage(with: URL(string: pathImage), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { error in
-                        cell.loading.isHidden = true
-                        cell.loading.stopAnimating()
-                    })
-                }else {
-                    cell.loading.startAnimating()
+                   super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(item.id!)")
                 }
                 cell.lbChar.text = item.department
                 cell.lbName.text = item.name

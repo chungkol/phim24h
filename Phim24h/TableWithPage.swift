@@ -91,8 +91,7 @@ class TableWithPage: BaseDetailViewController {
         case 3:
             do
             {
-                try ManagerSQLite.shareInstance.connectDatabase()
-                datas = try ManagerSQLite.shareInstance.getAllFavorite(table_name: (UserData.instance.user?.uid)!)
+                datas = try ManagerSQLite.shareInstance.getAllData(table_name: (UserData.instance.user?.uid)!)
             }
             catch
             {

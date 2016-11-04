@@ -70,8 +70,8 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         let user = userData.user
         profileName.text = user?.email
         if let url_image = user?.url_image {
-            print(url_image)
-            profileImage.kf.setImage(with: url_image, placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
+//            profileImage.kf.setImage(with: url_image, placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
+            super.loadImage(url_image: url_image, imageView: profileImage, key: "\(user?.uid!)")
         }else {
             profileImage.image = UIImage(named: "haha")
         }
@@ -86,9 +86,6 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         
     }
     func addItemsForMenu(){
-        //        let home = HomeViewController(nibName: "HomeViewController", bundle: nil)
-        //        self.homeVC = UINavigationController(rootViewController: home)
-        
         let favoriteVC = TableWithPage(nibName: "TableWithPage", bundle: nil)
     
         favoriteVC.data_title = "Favorite"

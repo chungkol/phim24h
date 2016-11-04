@@ -37,7 +37,9 @@ class OverView: BaseDetailViewController {
                 self.imageDatas = backdrops
                 ManagerData.instance.getAllVideoWithID(self.movie_id, completetion: { [unowned self] (trailers) in
                     self.datas = trailers
-                    self.myCollection.reloadData()
+                    DispatchQueue.main.async {
+                        self.myCollection.reloadData()
+                    }
                     
                     })
                 
@@ -87,7 +89,7 @@ extension OverView: UICollectionViewDataSource {
         }else  {
             pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"
         }
-        super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(movie_id!)")
+        super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "overview\(movie_id!)")
         cell.labelCell.text = datas[indexPath.row].name
         return cell
     }

@@ -303,6 +303,7 @@ extension HomeViewController: iCarouselDataSource{
         }else {
             return 0
         }
+        
     }
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         subView = FXImageView(frame: CGRect(x: 0, y: 0, width: self.headerView.bounds.width - 50, height: self.headerView.bounds.height - 50))
@@ -320,7 +321,7 @@ extension HomeViewController: iCarouselDataSource{
             
             if let path = item.backdrop_path {
                 let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-                super.loadImage(url_image: URL(string: pathImage), imageView: subView, key: "\(item.id!)")
+                super.loadImage(url_image: URL(string: pathImage), imageView: subView, key: "slide\(item.id!)")
             }
         }
         return subView!

@@ -14,6 +14,7 @@ open class BaseDetailViewController: UIViewController {
         super.viewDidLoad()
         self.edgesForExtendedLayout = .bottom
         self.automaticallyAdjustsScrollViewInsets = false
+        KingfisherManager.shared.downloader.downloadTimeout = 30
         
     }
     open override func viewWillAppear(_ animated: Bool) {
@@ -27,32 +28,39 @@ open class BaseDetailViewController: UIViewController {
         
     }
     func loadImage(url_image: URL?, imageView: UIImageView, key: String?) {
-        imageView.kf.indicatorType = .activity
-        imageView.kf.indicator?.startAnimatingView()
+        
         KingfisherManager.shared.cache.retrieveImage(forKey: key!, options: nil) { (Image, CacheType) -> () in
-            imageView.image = UIImage(named: "haha")
+            //            imageView.image = UIImage(named: "haha")
             if Image != nil {
                 imageView.image = Image
-                imageView.kf.indicator?.stopAnimatingView()
             } else {
-                self.downloadImage(url_image: url_image!, imageView: imageView, key: key)
+                imageView.kf.indicatorType = .activity
+                imageView.kf.indicator?.startAnimatingView()
+                imageView.image = UIImage(named: "haha")
+                
+                self.downloadImage(url_image: url_image!, imageView: imageView, key: key )
                 
             }
             
         }}
     
     func downloadImage(url_image: URL, imageView: UIImageView, key: String?) {
-        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: nil, completionHandler: { (image) -> () in
-            imageView.image = UIImage(named: "haha")
-            if image.0 != nil {
-                if let resizeImage = (image.0?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))
+        
+        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: nil, completionHandler: { (image, error, url, data) -> () in
+            //            DispatchQueue.main.async {
+            //                        self.collectionCell.reloadData()
+            imageView.kf.indicator?.stopAnimatingView()
+            //            }
+            if image != nil {
+                if let resizeImage = (image?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))
                 {
-                    if !KingfisherManager.shared.cache.isImageCached(forKey: key!).cached {
-                        KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
-                    }
+                    print(key)
+                    KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
                     imageView.image = resizeImage
                     
-                    imageView.kf.indicator?.stopAnimatingView()
+                    
+                    
+                    
                 }
             }
             

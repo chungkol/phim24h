@@ -11,7 +11,6 @@ import UIKit
 class CollectionViewPeople: UICollectionViewCell {
     @IBOutlet weak var imageCell: UIImageView!
 
-    @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbChar: UILabel!
     override func awakeFromNib() {

@@ -119,8 +119,9 @@ class DetailMovieVC: BaseDetailViewController {
                 let user = UserData.instance.user
                 do
                 {
-                    try ManagerSQLite.shareInstance.connectDatabase()
-                    try ManagerSQLite.shareInstance.insertValues(film: self.film, table_name: (user?.uid)!)
+                    
+                   
+                    try ManagerSQLite.shareInstance.insertData(table_name: (user?.uid)!, film: self.film)
                     self.showMess(title: "Notification", content: "Add success", type: .success)
                 }
                 catch

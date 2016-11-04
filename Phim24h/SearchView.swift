@@ -30,7 +30,9 @@ class SearchView: BaseDetailViewController {
         searchBar.text = ""
         list_Search_People.removeAll()
         list_Search_Movie.removeAll()
-        self.table_Search.reloadData()
+        DispatchQueue.main.async {
+             self.table_Search.reloadData()
+        }
     }
     
 
@@ -52,13 +54,17 @@ class SearchView: BaseDetailViewController {
         if scope == "movies"{
             ManagerData.instance.getListSearchMovie(1, query: searchText, completetion: { [unowned self] (films) in
                 self.list_Search_Movie = films
-                self.table_Search.reloadData()
-                })
+                DispatchQueue.main.async {
+                    self.table_Search.reloadData()
+                }
+                                })
         }
         if scope == "people"{
             ManagerData.instance.getListSearchPeople(1, query: searchText, completetion: { [unowned self] (casts) in
                 self.list_Search_People = casts
-                self.table_Search.reloadData()
+                DispatchQueue.main.async {
+                    self.table_Search.reloadData()
+                }
                 })
         }
     }
@@ -68,13 +74,17 @@ class SearchView: BaseDetailViewController {
             filterContentForSearch(searchText: temp, page: 1, scope: "movies")
             list_Search_People.removeAll()
             
-            table_Search.reloadData()
+            DispatchQueue.main.async {
+                self.table_Search.reloadData()
+            }
             
         case 1:
             filterContentForSearch(searchText: temp, page: 1, scope: "people")
             
             list_Search_Movie.removeAll()
-            table_Search.reloadData()
+            DispatchQueue.main.async {
+                self.table_Search.reloadData()
+            }
             
             
         default:
@@ -143,7 +153,9 @@ extension SearchView: UISearchBarDelegate{
         
         list_Search_People.removeAll()
         list_Search_Movie.removeAll()
-        table_Search.reloadData()
+        DispatchQueue.main.async {
+            self.table_Search.reloadData()
+        }
         
         
     }

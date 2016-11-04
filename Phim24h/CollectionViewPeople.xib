@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,20 +17,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzK-Cc-rVg">
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nKY-mt-KAB"/>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jww-b6-GEQ">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="efM-sK-5gT"/>
-                                    <constraint firstAttribute="width" constant="30" id="vqN-9A-Wtq"/>
-                                </constraints>
-                                <color key="color" red="0.38823529410000002" green="0.8862745098" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nKY-mt-KAB" secondAttribute="trailing" id="PLJ-aB-bHp"/>
                             <constraint firstItem="nKY-mt-KAB" firstAttribute="top" secondItem="zzK-Cc-rVg" secondAttribute="top" id="UAK-wo-7b4"/>
-                            <constraint firstItem="Jww-b6-GEQ" firstAttribute="centerX" secondItem="zzK-Cc-rVg" secondAttribute="centerX" id="Zju-4q-ebF"/>
                             <constraint firstAttribute="bottom" secondItem="nKY-mt-KAB" secondAttribute="bottom" id="lfN-yt-FYM"/>
-                            <constraint firstItem="Jww-b6-GEQ" firstAttribute="centerY" secondItem="zzK-Cc-rVg" secondAttribute="centerY" id="rtk-TZ-HgQ"/>
                             <constraint firstItem="nKY-mt-KAB" firstAttribute="leading" secondItem="zzK-Cc-rVg" secondAttribute="leading" id="tDx-zQ-DLY"/>
                             <constraint firstAttribute="height" constant="130" id="vWp-Xj-MRa"/>
                         </constraints>
@@ -70,7 +60,6 @@
                 <outlet property="imageCell" destination="nKY-mt-KAB" id="HPl-Lb-10t"/>
                 <outlet property="lbChar" destination="07o-gR-tkf" id="1LU-eP-Xb0"/>
                 <outlet property="lbName" destination="I22-Jf-wee" id="CJf-0i-ff1"/>
-                <outlet property="loading" destination="Jww-b6-GEQ" id="CJL-HI-ZYX"/>
             </connections>
         </collectionViewCell>
     </objects>

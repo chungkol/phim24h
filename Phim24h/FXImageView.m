@@ -325,9 +325,9 @@
                 (shadowBlur || !CGSizeEqualToSize(shadowOffset, CGSizeZero)))
             {
                 reflectionGap -= 2.0f * (fabsf(shadowOffset.height) + shadowBlur);
-                processedImage = [processedImage imageWithShadowColor:shadowColor
-                                                               offset:shadowOffset
-                                                                 blur:shadowBlur];
+//                processedImage = [processedImage imageWithShadowColor:shadowColor
+//                                                               offset:shadowOffset
+//                                                                 blur:shadowBlur];
             }
             
             //apply reflection

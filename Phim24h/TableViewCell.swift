@@ -28,9 +28,7 @@ class TableViewCell: UITableViewCell {
         collectionCell.delegate = self
         collectionCell.dataSource = self
         collectionCell.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
-        DispatchQueue.main.async {
-            self.collectionCell.reloadData()
-        }
+       KingfisherManager.shared.downloader.downloadTimeout = 30
         
     }
     
@@ -40,14 +38,16 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func loadImage(url_image: URL?, imageView: UIImageView, key: String?) {
-        imageView.kf.indicatorType = .activity
-        imageView.kf.indicator?.startAnimatingView()
+        
         KingfisherManager.shared.cache.retrieveImage(forKey: key!, options: nil) { (Image, CacheType) -> () in
-            imageView.image = UIImage(named: "haha")
+            //            imageView.image = UIImage(named: "haha")
             if Image != nil {
                 imageView.image = Image
-                imageView.kf.indicator?.stopAnimatingView()
             } else {
+                imageView.kf.indicatorType = .activity
+                imageView.kf.indicator?.startAnimatingView()
+                imageView.image = UIImage(named: "haha")
+                
                 self.downloadImage(url_image: url_image!, imageView: imageView, key: key )
                 
             }
@@ -55,29 +55,41 @@ class TableViewCell: UITableViewCell {
         }}
     
     func downloadImage(url_image: URL, imageView: UIImageView, key: String?) {
-        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: nil, completionHandler: { (image) -> () in
-            imageView.image = UIImage(named: "haha")
-            if image.0 != nil {
-                if let resizeImage = (image.0?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))
+        
+        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: nil, completionHandler: { (image, error, url, data) -> () in
+//            DispatchQueue.main.async {
+                //                        self.collectionCell.reloadData()
+                imageView.kf.indicator?.stopAnimatingView()
+//            }
+            if image != nil {
+                if let resizeImage = (image?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))
                 {
-                    if !KingfisherManager.shared.cache.isImageCached(forKey: key!).cached {
-                        KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
-                    }
+                    print(key)
+                    KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
                     imageView.image = resizeImage
                     
-                    imageView.kf.indicator?.stopAnimatingView()
+                    
+                    
+                    
                 }
             }
             
             
         })
     }
-
+    
+    
     
 }
 extension TableViewCell: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         (cell as! CollectionViewCell).imageCell.kf.cancelDownloadTask()
+        DispatchQueue.main.async {
+            //                        collectionView.reloadData()
+        }
+        
+        
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //
@@ -89,14 +101,14 @@ extension TableViewCell: UICollectionViewDelegate {
 extension TableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 10
+        return datas.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         titleCell.text = title
-        let item: Film = datas[(indexPath as NSIndexPath).row]
-        cell.imageCell.kf.indicatorType = .activity
-        cell.imageCell.kf.indicator?.startAnimatingView()
+        //        print("\(indexPath.item)-\(indexPath.row)")
+        
+        let item: Film = datas[indexPath.item]
         
         if let path = item.poster_path {
             let pathImage = "https://image.tmdb.org/t/p/original\(path)"

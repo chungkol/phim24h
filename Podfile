@@ -27,6 +27,10 @@ pod 'HCSStarRatingView'
 pod "OEANotification"
 
 pod 'HTPullToRefresh'
+
+pod 'GRDB.swift'
+
+
 end
 
 post_install do |installer|

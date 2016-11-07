@@ -315,8 +315,7 @@ extension HomeViewController: iCarouselDataSource{
         subView.shadowBlur = 5.0;
         subView.cornerRadius = 10.0;
         
-        subView.kf.indicatorType = .activity
-        subView.kf.indicator?.startAnimatingView()
+        
         if let item: Film = dataForSlide[index]  {
             
             if let path = item.backdrop_path {

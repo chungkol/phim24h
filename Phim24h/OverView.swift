@@ -81,16 +81,23 @@ extension OverView: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CelTrailer", for: indexPath) as! CellForTrailer
+        cell.labelCell.text = datas[indexPath.row].name
         var pathImage = ""
         if imageDatas.count > datas.count {
             if let path = imageDatas[indexPath.row].file_path {
                 pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            } else {
+                cell.imageCell.image = UIImage(named: "haha")
             }
         }else  {
-            pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"
+            if let path = imageDatas[indexPath.row].file_path {
+                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            } else {
+                pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"            }
+            
         }
         super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "overview\(movie_id!)")
-        cell.labelCell.text = datas[indexPath.row].name
+        
         return cell
     }
     

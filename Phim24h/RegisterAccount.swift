@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import OEANotification
-class RegisterAccount: UIViewController, UITextFieldDelegate {
+class RegisterAccount: UIViewController {
     
     @IBOutlet weak var tfUser: UITextField!
     
@@ -17,6 +17,8 @@ class RegisterAccount: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tfUser.delegate = self
+        tfPass.delegate = self
         OEANotification.setDefaultViewController(self)
         customRadiusTextField()
     }
@@ -74,4 +76,21 @@ class RegisterAccount: UIViewController, UITextFieldDelegate {
         }
     }
     
+}
+extension RegisterAccount: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 101 {
+            tfUser.backgroundColor = UIColor.white
+        }else {
+            tfPass.backgroundColor = UIColor.white
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 101 {
+            tfUser.backgroundColor = UIColor(hex: "#cccccc")
+        }else {
+            tfPass.backgroundColor = UIColor(hex: "#cccccc")
+        }
+    }
 }

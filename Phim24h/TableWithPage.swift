@@ -19,6 +19,9 @@ class TableWithPage: BaseDetailViewController {
     var datas: [Film] = []
     var temp: [Film] = []
     var type: Int = 0
+    var page: Int = 0
+    var position: SVPullToRefreshPosition!
+    var checkPull = false
     var movie_id: Int! {
         didSet {
             getData(1)
@@ -131,16 +134,15 @@ class TableWithPage: BaseDetailViewController {
     func addPullToRefresh() {
         
         myTable.addPullToRefresh(actionHandler: {
-            var page = ManagerData.instance.page
-            if page! > 1 {
-                self.pullToRefreshData(page: page! - 1, position: .top)
+            self.page = ManagerData.instance.page
+            if self.page > 1 {
+                self.pullToRefreshData(page: self.page - 1, position: .top)
             }
             }, position: .top)
         
         myTable.addPullToRefresh(actionHandler: {
-            var page = ManagerData.instance.page
-            print(page)
-            self.pullToRefreshData(page: page! + 1, position: .bottom)
+            self.page = ManagerData.instance.page
+            self.pullToRefreshData(page: self.page + 1, position: .bottom)
             
             }, position: .bottom)
         
@@ -150,42 +152,19 @@ class TableWithPage: BaseDetailViewController {
     
     func pullToRefreshData(page: Int, position: SVPullToRefreshPosition) {
         
-        
+        self.position = position
+        self.page = page
+        checkPull = true
         let popTime: DispatchTime = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: popTime, execute: {
             self.myTable.beginUpdates()
-            if self.type == 1 {
-                ManagerData.instance.getListMovieForPullToRefresh(page, type: self.data_key, completetion: { [unowned self] (films) in
-                    self.datas = films
-                    self.myTable.reloadData()
-                    self.myTable.endUpdates()
-                    self.myTable.pullToRefreshView(at: position).stopAnimating()
-                    if position == .bottom {
-                        self.myTable.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
-                    }else {
-                        self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
-                    }
-                    ManagerData.instance.page = page
-                    print(page)
-                    })
-            } else {
-                ManagerData.instance.getAllMovieSimilar(page, movie_ID: self.movie_id, completetion: { [unowned self] (films) in
-                    self.datas = films
-                    self.myTable.reloadData()
-                    self.myTable.endUpdates()
-                    self.myTable.pullToRefreshView(at: position).stopAnimating()
-                    if position == .bottom {
-                        self.myTable.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
-                    }else {
-                        self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
-                    }
-                    ManagerData.instance.page = page
-                    print(page)
-                    
-                    
-                    })
-                
+            if position == .bottom {
+                self.myTable.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
+            }else {
+                self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
             }
+            
+
             
             
         })
@@ -198,6 +177,33 @@ class TableWithPage: BaseDetailViewController {
 }
 
 extension TableWithPage: UITableViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if (position == nil || checkPull == false)
+        {
+            return
+        }
+        
+        if self.type == 1 {
+            ManagerData.instance.getListMovieForPullToRefresh(page, type: self.data_key, completetion: { [unowned self] (films) in
+                self.datas = films
+                self.myTable.reloadData()
+                self.myTable.endUpdates()
+                self.myTable.pullToRefreshView(at: self.position).stopAnimating()
+                
+                ManagerData.instance.page = self.page
+
+                })
+        } else {
+            ManagerData.instance.getAllMovieSimilar(page, movie_ID: self.movie_id, completetion: { [unowned self] (films) in
+                self.datas = films
+                self.myTable.reloadData()
+                self.myTable.endUpdates()
+                self.myTable.pullToRefreshView(at: self.position).stopAnimating()
+                ManagerData.instance.page = self.page
+                })
+        }
+        checkPull = false
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }

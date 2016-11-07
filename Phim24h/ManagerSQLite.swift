@@ -98,6 +98,12 @@ class ManagerSQLite : NSObject {
         return arr
     }
     
+    func deleteData(table_name: String, film_id: Int) throws {
+        let query = "DELETE FROM \(table_name) where id=\(film_id)"
+        try! database.inDatabase { db in
+           try! db.execute(query)
+        }
+    }
     
     func convertArrToString(arr: [Int]) -> String {
         var result = ""

@@ -9,17 +9,19 @@
 import UIKit
 import Firebase
 import OEANotification
-class ResetPassword: UIViewController,UITextFieldDelegate {
-
+class ResetPassword: UIViewController {
+    
     @IBOutlet weak var result: UILabel!
     @IBOutlet weak var lbComfirm: UILabel!
     
     @IBOutlet weak var tfComfirm: UITextField!
-
+    
     
     @IBOutlet weak var tfEmail: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tfEmail.delegate = self
+        tfComfirm.delegate = self
         customRadiusTextField()
         OEANotification.setDefaultViewController(self)
         lbComfirm.text = randomText()
@@ -28,9 +30,9 @@ class ResetPassword: UIViewController,UITextFieldDelegate {
         lbComfirm.text = randomText()
     }
     override func viewDidLayoutSubviews() {
-//        if (tfEmail == nil){
-//            customRadiusTextField()
-//        }
+        //        if (tfEmail == nil){
+        //            customRadiusTextField()
+        //        }
     }
     
     func resetSuccess(){
@@ -45,11 +47,8 @@ class ResetPassword: UIViewController,UITextFieldDelegate {
     }
     func customRadiusTextField(){
         tfEmail.addIconTextField(tfEmail, stringImage: "user")
-        
-        
-        tfEmail.delegate = self
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -63,20 +62,20 @@ class ResetPassword: UIViewController,UITextFieldDelegate {
     @IBAction func dimissToLogin(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction func btnResetPass(_ sender: UIButton) {
         if let mEmail = tfEmail.text {
             if mEmail == "" || tfComfirm.text != lbComfirm.text{
                 self.resetError(error: "email or string comfirm is empty")
-
+                
             }
             if (mEmail != "" && tfComfirm.text == lbComfirm.text){
                 FIRAuth.auth()?.sendPasswordReset(withEmail: mEmail, completion: { error in
                     if let error = error {
-                       self.resetError(error: error.localizedDescription)
+                        self.resetError(error: error.localizedDescription)
                     }
                     else{
-                       self.resetSuccess()
+                        self.resetSuccess()
                     }
                     
                 })
@@ -88,21 +87,33 @@ class ResetPassword: UIViewController,UITextFieldDelegate {
     func randomText() -> String {
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         
-        var randomString : NSMutableString = NSMutableString(capacity: 6)
+        let randomString : NSMutableString = NSMutableString(capacity: 6)
         
-        for index in 0...5{
-            var length = UInt32 (letters.length)
-            var rand = arc4random_uniform(length)
+        for _ in 0...5{
+            let length = UInt32 (letters.length)
+            let rand = arc4random_uniform(length)
             randomString.appendFormat("%C", letters.character(at: Int(rand)))
         }
         
         return randomString as String
     }
     
-//    func showAlert(_ mess: String) {
-//        let alert = UIAlertController(title: "Thông báo", message: mess, preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "Đóng", style: UIAlertActionStyle.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)    }
-
-   
+    
+    
 }
+extension ResetPassword : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 101 {
+            tfEmail.backgroundColor = UIColor.white
+        }else {
+            tfComfirm.backgroundColor = UIColor.white
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 101 {
+            tfEmail.backgroundColor = UIColor(hex: "#cccccc")
+        }else {
+            tfComfirm.backgroundColor = UIColor(hex: "#cccccc")
+        }
+    }}

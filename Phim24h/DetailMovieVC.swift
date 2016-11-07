@@ -29,7 +29,7 @@ class DetailMovieVC: BaseDetailViewController {
     var typeDetail: UILabel!
     var imageVote: HCSStarRatingView!
     var imageForRate: HCSStarRatingView!
-
+    
     var totalVote: UILabel!
     var mySegment: UISegmentedControl!
     var bottom: UIView!
@@ -75,12 +75,12 @@ class DetailMovieVC: BaseDetailViewController {
         if bottom == nil {
             addSubviewForSegment()
         }
-        myScrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height + self.bottom.bounds.size.height + 100 )
-
+                myScrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height + 200 )
+        
         mySegment.setFontSize(14)
         let leftButton = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self
             , action: #selector(actionAdd))
-        let leftButton2 = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target: self
+        let leftButton2 = UIBarButtonItem(image: UIImage(named: "vote"), style: .plain, target: self
             , action: #selector(actionShare))
         
         navigationItem.rightBarButtonItems = [leftButton,leftButton2]
@@ -120,7 +120,7 @@ class DetailMovieVC: BaseDetailViewController {
                 do
                 {
                     
-                   
+                    
                     try ManagerSQLite.shareInstance.insertData(table_name: (user?.uid)!, film: self.film)
                     self.showMess(title: "Notification", content: "Add success", type: .success)
                 }
@@ -163,7 +163,7 @@ class DetailMovieVC: BaseDetailViewController {
                 imageForRate.maximumValue = 10
                 imageForRate.minimumValue = 0
                 imageForRate.tintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
-
+                
                 imageForRate.backgroundColor = UIColor.clear
                 imageForRate.addTarget(self, action: #selector(voteChange(_:)), for: .valueChanged)
                 alertVote.view.addSubview(imageForRate)
@@ -349,7 +349,7 @@ class DetailMovieVC: BaseDetailViewController {
             myScrollView = UIScrollView(frame: CGRect(x:0, y:0, width: 5, height:5))
             self.view.addSubview(myScrollView)
             
-//            myScrollView.scrollRectToVisible(self.view.frame, animated: true)
+            //            myScrollView.scrollRectToVisible(self.view.frame, animated: true)
             myScrollView.translatesAutoresizingMaskIntoConstraints = false
             
             
@@ -505,7 +505,7 @@ class DetailMovieVC: BaseDetailViewController {
             imageVote.minimumValue = 0
             
             imageVote.tintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
-
+            
             imageVote.backgroundColor = UIColor.clear
             self.headerRight.addSubview(imageVote)
             
@@ -608,14 +608,16 @@ class DetailMovieVC: BaseDetailViewController {
             self.myScrollView.addSubview(bottom)
             bottom.translatesAutoresizingMaskIntoConstraints = false
             
-            let layoutTop = NSLayoutConstraint(item: bottom, attribute: .top, relatedBy: .equal, toItem: self.header, attribute: .bottom, multiplier: 1.0, constant: 0)
+            layoutTop = NSLayoutConstraint(item: bottom, attribute: .top, relatedBy: .equal, toItem: self.header, attribute: .bottom, multiplier: 1.0, constant: 0)
             
-            let layoutBot = NSLayoutConstraint(item: bottom, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0)
-            
-            let layoutRight = NSLayoutConstraint(item: bottom, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0)
+            layoutBot = NSLayoutConstraint(item: bottom, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0)
             
             
-            let layoutLeft = NSLayoutConstraint(item: bottom, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0)
+            
+            layoutRight = NSLayoutConstraint(item: bottom, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0)
+            
+            
+            layoutLeft = NSLayoutConstraint(item: bottom, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0)
             
             NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
         }

@@ -79,7 +79,8 @@
                                         </mask>
                                     </variation>
                                 </textView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwD-x3-3Uv" customClass="CustomButtonWithBoderGray" customModule="Phim24h" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwD-x3-3Uv" customClass="CustomButtonWithBoderGray" customModule="Phim24h" customModuleProvider="target">
+                                    <frame key="frameInset" minX="586" minY="8" width="65" height="30"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="4u9-w5-r3K"/>
@@ -119,9 +120,11 @@
                                 </mask>
                             </variation>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="miu-IL-xFX">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="miu-IL-xFX">
+                            <frame key="frameInset" minY="91.5" width="375" height="342"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mmt-bG-9Ol">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mmt-bG-9Ol">
+                                    <frame key="frameInset" width="375" height="342"/>
                                     <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </tableView>
                             </subviews>
@@ -138,6 +141,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Pea-s1-tFB" secondAttribute="trailing" id="3HS-IM-JNY"/>
                         <constraint firstAttribute="trailing" secondItem="miu-IL-xFX" secondAttribute="trailing" id="DrI-IM-xVh"/>
+                        <constraint firstAttribute="width" id="Fag-Sd-nXW"/>
                         <constraint firstAttribute="bottom" secondItem="miu-IL-xFX" secondAttribute="bottom" id="IeQ-ng-RmI"/>
                         <constraint firstItem="gtU-b2-XCG" firstAttribute="leading" secondItem="FKI-cf-QWw" secondAttribute="leading" constant="8" id="Is5-pD-2fL"/>
                         <constraint firstAttribute="height" id="NZE-ht-QV8"/>
@@ -151,18 +155,20 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="NZE-ht-QV8"/>
+                            <exclude reference="Fag-Sd-nXW"/>
                             <exclude reference="tJ6-tW-cie"/>
                         </mask>
                     </variation>
                     <variation key="heightClass=compact-widthClass=compact">
                         <mask key="constraints">
+                            <include reference="Fag-Sd-nXW"/>
                             <include reference="NZE-ht-QV8"/>
                         </mask>
                     </variation>
                     <variation key="heightClass=regular-widthClass=compact">
                         <mask key="constraints">
                             <exclude reference="tJ6-tW-cie"/>
+                            <include reference="Is5-pD-2fL"/>
                         </mask>
                     </variation>
                 </view>
@@ -181,8 +187,8 @@
             </constraints>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="xJ7-Fx-UAt"/>
                     <exclude reference="oyF-7X-7AW"/>
+                    <exclude reference="xJ7-Fx-UAt"/>
                 </mask>
             </variation>
             <variation key="heightClass=compact-widthClass=compact">

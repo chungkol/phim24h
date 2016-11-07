@@ -55,7 +55,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         self.titleMovie.text = trailer.name
         if let path = img_path {
             let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-             super.loadImage(url_image: URL(string: pathImage), imageView: imBackground, key: "background\(id_film!)")
+             super.loadImage(url_image: URL(string: pathImage), imageView: imBackground, key: "slide\(id_film!)")
             
         }
         getdata()

@@ -25,6 +25,11 @@ class TableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.clearMemoryCache()
+        
+        
         collectionCell.delegate = self
         collectionCell.dataSource = self
         collectionCell.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
@@ -57,6 +62,7 @@ class TableViewCell: UITableViewCell {
     func downloadImage(url_image: URL, imageView: UIImageView, key: String?) {
         
         KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: nil, completionHandler: { (image, error, url, data) -> () in
+
 //            DispatchQueue.main.async {
                 //                        self.collectionCell.reloadData()
                 imageView.kf.indicator?.stopAnimatingView()

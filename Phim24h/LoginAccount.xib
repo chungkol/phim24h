@@ -32,7 +32,8 @@
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zxp-DJ-QIH">
                             <subviews>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="ChP-s5-Rt3">
+                                <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="ChP-s5-Rt3">
+                                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="2qq-lK-ExJ"/>
                                     </constraints>
@@ -40,7 +41,8 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Login" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="tNk-Ks-Xjh">
+                                <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" restorationIdentifier="Login" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="tNk-Ks-Xjh">
+                                    <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="4Pu-Ek-COn"/>
@@ -125,7 +127,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.38726528259999998" green="0.88688899050000003" blue="0.71803659659999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.38823529411764707" green="0.88627450980392153" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="6xC-Cv-eeM" firstAttribute="centerX" secondItem="4dU-cy-XOA" secondAttribute="centerX" id="9XJ-Kb-xb7"/>
                         <constraint firstAttribute="trailingMargin" secondItem="Zxp-DJ-QIH" secondAttribute="trailing" constant="10" id="Cen-8f-Sh8"/>

@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 import OEANotification
 import Kingfisher
-class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
+class LoginAccount: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     var signInWithGG: GIDSignInButton!
     var signInWithFB: FBSDKLoginButton!
     
@@ -27,9 +27,10 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.gray
+        tfPass.delegate = self
+        tfUser.delegate = self
         customRadiusTextField()
         addButtonGG()
         addButtonFb()
@@ -41,7 +42,6 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().signInSilently()
-//         GIDSignIn.sharedInstance().signOut()
         
         if let token = FBSDKAccessToken.current() {
             let credential = FIRFacebookAuthProvider.credential(withAccessToken: token.tokenString)
@@ -104,7 +104,7 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
             }, touchHandler: nil)
     }
     func loginError(){
-       OEANotification.setDefaultViewController(self)
+        OEANotification.setDefaultViewController(self)
         OEANotification.notify("Sign In fail", subTitle: "please, check your username and password", type: NotificationType.warning, isDismissable: true)
     }
     //delegate google+
@@ -196,7 +196,7 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
                     UserData.instance.user = User(email: username, url_image: nil, type: "firebase", uid: (user?.uid)!)
                 }
                 self.loginSuccess()
-
+                
                 
             }
             
@@ -217,8 +217,8 @@ class LoginAccount: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, 
         let navigation = UINavigationController(rootViewController: homeVC)
         menuVC.homeVC = navigation
         let slideMenuController = SlideMenuController(mainViewController: navigation, leftMenuViewController: menuVC)
-//        slideMenuController.edgesForExtendedLayout = .bottom
-//        slideMenuController.automaticallyAdjustsScrollViewInsets = false
+        //        slideMenuController.edgesForExtendedLayout = .bottom
+        //        slideMenuController.automaticallyAdjustsScrollViewInsets = false
         self.present(slideMenuController, animated: true, completion: nil)
     }
     
@@ -343,5 +343,23 @@ extension LoginAccount : FBSDKLoginButtonDelegate {
         }
         
     }
+}
+extension LoginAccount : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 101 {
+            tfUser.backgroundColor = UIColor.white
+        }else {
+            tfPass.backgroundColor = UIColor.white
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 101 {
+            tfUser.backgroundColor = UIColor(hex: "#cccccc")
+        }else {
+            tfPass.backgroundColor = UIColor(hex: "#cccccc")
+        }
+    }
+    
 }
 

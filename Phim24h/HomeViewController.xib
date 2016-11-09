@@ -21,10 +21,10 @@
                 </tableView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="yRd-rR-HhL" secondAttribute="bottom" id="Rbs-jB-mnD"/>
-                <constraint firstItem="yRd-rR-HhL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vfq-lo-kP0"/>
-                <constraint firstItem="yRd-rR-HhL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vnV-mz-SnT"/>
-                <constraint firstAttribute="trailing" secondItem="yRd-rR-HhL" secondAttribute="trailing" id="xOU-9m-DRt"/>
+                <constraint firstItem="yRd-rR-HhL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ne8-os-YgC"/>
+                <constraint firstItem="yRd-rR-HhL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Oea-q0-MG0"/>
+                <constraint firstAttribute="trailing" secondItem="yRd-rR-HhL" secondAttribute="trailing" id="Tfx-x1-QU8"/>
+                <constraint firstAttribute="bottom" secondItem="yRd-rR-HhL" secondAttribute="bottom" id="gVp-ct-Aox"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="145.5"/>
         </view>

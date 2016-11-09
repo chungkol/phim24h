@@ -625,6 +625,7 @@ class DetailMovieVC: BaseDetailViewController {
         overView = OverView(nibName: "OverView", bundle: nil)
         overView.movie_id = film.id
         overView.movie_content = film.overview
+        overView.movie_title = film.title
         overView.willMove(toParentViewController: self)
         bottom.addSubview(overView.view)
         self.addChildViewController(overView)

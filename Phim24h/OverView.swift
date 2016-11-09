@@ -24,12 +24,11 @@ class OverView: BaseDetailViewController {
     @IBOutlet weak var movie_budget: UILabel!
     
     @IBOutlet weak var movie_revenue: UILabel!
-    
+    var movie_title: String!
     var movie: MovieDetail!
     var movie_content : String!
     var datas: [Trailer] = []
     var imageDatas: [Backdrop] = []
-    var heightScroll: CGFloat!
     var movie_id: Int! {
         didSet {
             
@@ -38,7 +37,7 @@ class OverView: BaseDetailViewController {
                 ManagerData.instance.getAllVideoWithID(self.movie_id, completetion: { [unowned self] (trailers) in
                     self.datas = trailers
                     DispatchQueue.main.async {
-                        self.myCollection.reloadData()
+                       self.myCollection.reloadData()
                     }
                     
                     })
@@ -83,30 +82,36 @@ extension OverView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CelTrailer", for: indexPath) as! CellForTrailer
         cell.labelCell.text = datas[indexPath.row].name
         var pathImage = ""
-        if imageDatas.count > datas.count {
-            if let path = imageDatas[indexPath.row].file_path {
-                pathImage = "https://image.tmdb.org/t/p/original\(path)"
-            } else {
-                cell.imageCell.image = UIImage(named: "haha")
-            }
-        }else  {
-            if let path = imageDatas[indexPath.row].file_path {
-                pathImage = "https://image.tmdb.org/t/p/original\(path)"
-            } else {
-                pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"            }
-            
+//        if imageDatas.count > datas.count {
+//            if let path = imageDatas[indexPath.row].file_path {
+//                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+//            } else {
+//                cell.imageCell.image = UIImage(named: "haha")
+//            }
+//        }else  {
+//            if let path = imageDatas[indexPath.row].file_path {
+//                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+//            } else {
+//                pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"            }
+//            
+//        }
+        if let path = imageDatas[indexPath.row].file_path {
+            pathImage = "https://image.tmdb.org/t/p/original\(path)"
+        } else {
+            pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"
         }
-        super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "overview\(movie_id!)")
+        super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(movie_id!)-\(indexPath.row)")
         
         return cell
     }
     
     @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(datas[indexPath.row].key as AnyObject)
-        let moviePlay = MoviePlayer(nibName: "MoviePlayer", bundle: nil)
+        let moviePlay = MoviePlayer(nibName: "MoviePlayer", bundle: nil) as MoviePlayer
         moviePlay.trailer = datas[indexPath.row]
         moviePlay.img_path = imageDatas[indexPath.row].file_path
         moviePlay.id_film = self.movie_id
+        moviePlay.movie_Title = self.movie_title
         print("trailer \(datas[indexPath.row])")
         print("path \(imageDatas[indexPath.row].file_path)")
         self.navigationController?.pushViewController(moviePlay, animated: true)

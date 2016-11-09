@@ -40,6 +40,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
     var videoURL: String!
     var id_film : Int!
     let videoID = "1"
+    var movie_Title: String!
     
     var data : [MessageDetail] = []
     var messageDetail: [MessageDetail] = []
@@ -52,7 +53,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         myTable.dataSource = self
         myTable.register(UINib.init(nibName: "CellForMessage", bundle: nil), forCellReuseIdentifier: "CellMess")
         ref = FIRDatabase.database().reference()
-        self.titleMovie.text = trailer.name
+        self.titleMovie.text = "\(movie_Title!): \(trailer.name!)"
         if let path = img_path {
             let pathImage = "https://image.tmdb.org/t/p/original\(path)"
              super.loadImage(url_image: URL(string: pathImage), imageView: imBackground, key: "slide\(id_film!)")
@@ -63,8 +64,9 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         
         
     }
-    override func viewDidLayoutSubviews() {
-//        addTreeTable()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
     }
     
     @IBAction func btnPostComment(_ sender: UIButton) {
@@ -277,7 +279,6 @@ extension MoviePlayer: UITableViewDataSource {
             cell.contentCell.text = mess.coment
             cell.timeCell.text = mess.time
             if let path = data[indexPath.row].image_path {
-//                cell.imageCell.kf.setImage(with: URL(string: path.fromBase64()!), placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil, completionHandler: nil)
                 super.loadImage(url_image: URL(string: path.fromBase64()!), imageView: cell.imageCell, key: "\(mess.uid!)")
             }
         }

@@ -343,6 +343,7 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
         moviePlayer.stop()
         
         
+        
     }
    
     

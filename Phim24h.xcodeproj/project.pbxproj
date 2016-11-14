@@ -1066,7 +1066,7 @@
 					"$(PROJECT_DIR)/Phim24h",
 				);
 				INFOPLIST_FILE = Phim24h/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techmaster.Phim24h;
@@ -1093,7 +1093,7 @@
 					"$(PROJECT_DIR)/Phim24h",
 				);
 				INFOPLIST_FILE = Phim24h/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techmaster.Phim24h;

@@ -116,19 +116,12 @@ class DetailMovieVC: BaseDetailViewController {
                 print("Cancel")
             }
             let actionAdd = UIAlertAction(title: "Add", style: .default){ (action) -> Void in
-                let user = UserData.instance.user
-                do
-                {
-                    
-                    
-                    try ManagerSQLite.shareInstance.insertData(table_name: (user?.uid)!, film: self.film)
-                    self.showMess(title: "Notification", content: "Add success", type: .success)
+                print("add")
+                if let user = UserData.instance.user {
+                    var mess = ManagerSQLite.shareInstance.insertData(table_name: (user.uid)!, film: self.film)
+                    self.showMess(title: "Notification", content: mess, type: .success)
                 }
-                catch
-                {
-                    self.showMess(title: "Notification", content: "This film exist in your Favorite", type: .warning)
-                }
-                
+
             }
             
             alertController?.addAction(actionCancel)

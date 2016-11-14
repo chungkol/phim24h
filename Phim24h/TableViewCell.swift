@@ -41,7 +41,7 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func loadImage(url_image: URL?, imageView: UIImageView, key: String?) {
-         imageView.image = UIImage(named: "haha")
+        imageView.image = UIImage(named: "haha")
         if KingfisherManager.shared.cache.isImageCached(forKey: key!).cached {
             KingfisherManager.shared.cache.retrieveImage(forKey: key!, options: nil) { (Image, CacheType) -> () in
                 if Image != nil {
@@ -53,7 +53,7 @@ class TableViewCell: UITableViewCell {
         }else {
             imageView.kf.indicatorType = .activity
             imageView.kf.indicator?.startAnimatingView()
-                        self.downloadImage(url_image: url_image!, imageView: imageView, key: key! )
+            self.downloadImage(url_image: url_image!, imageView: imageView, key: key! )
         }
         
     }
@@ -69,12 +69,13 @@ class TableViewCell: UITableViewCell {
                     KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
                     imageView.image = resizeImage
                     imageView.kf.indicator?.stopAnimatingView()
-
-                                    }
+                    
+                    
+                }
             }else {
                 imageView.image = UIImage(named: "haha")
                 imageView.kf.indicator?.stopAnimatingView()
-
+                
             }
         })
     }
@@ -84,14 +85,9 @@ class TableViewCell: UITableViewCell {
 }
 extension TableViewCell: UICollectionViewDelegate {
     
-    //    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    //        (cell as! CollectionViewCell).imageCell.kf.cancelDownloadTask()
-    //        DispatchQueue.main.async {
-    //            //                        collectionView.reloadData()
-    //        }
-    //
-    //
-    //    }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        (cell as! CollectionViewCell).imageCell.kf.cancelDownloadTask()
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //
         delegate.setData(datas[indexPath.row])
@@ -102,7 +98,11 @@ extension TableViewCell: UICollectionViewDelegate {
 extension TableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return datas.count
+        if datas.count >= 10 {
+            return 10
+        }else {
+            return 0
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell

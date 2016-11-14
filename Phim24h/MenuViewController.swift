@@ -159,8 +159,6 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
         }
     }
     
-    
-    
 }
 
 extension MenuViewController: UITableViewDelegate {

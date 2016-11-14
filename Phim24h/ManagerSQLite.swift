@@ -44,7 +44,7 @@ class ManagerSQLite : NSObject {
     
     func creatDB(table_name: String) throws {
         try! database.inDatabase { db in
-            try db.create(table: table_name, temporary: false, ifNotExists: true){ t in
+            try! db.create(table: table_name, temporary: false, ifNotExists: true){ t in
                 t.column("id", .integer).primaryKey()
                 t.column("poster_path", .text)
                 t.column("adult", .boolean).defaults(to: false)
@@ -63,13 +63,19 @@ class ManagerSQLite : NSObject {
         }
         
     }
-    func insertData(table_name: String, film: Film) throws {
-        try! creatDB(table_name: table_name)
-        try! database.inDatabase { db in
-            try db.execute("INSERT INTO \(table_name) (id, poster_path, adult, overview, release_date, genre_ids, original_title, original_language, title, backdrop_path, popularity, vote_count, video,vote_average) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", arguments: [film.id, film.poster_path , film.adult , film.overview, film.release_date, self.convertArrToString(arr: film.genre_ids as! [Int]), film.original_title, film.original_language, film.title, film.backdrop_path, film.popularity, film.vote_count, film.video, film.vote_average])
+    func insertData(table_name: String, film: Film) -> String {
+        do {
+            try creatDB(table_name: table_name)
+            try database.inDatabase { db in
+                try db.execute("INSERT INTO \(table_name) (id, poster_path, adult, overview, release_date, genre_ids, original_title, original_language, title, backdrop_path, popularity, vote_count, video,vote_average) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", arguments: [film.id, film.poster_path , film.adult , film.overview, film.release_date, self.convertArrToString(arr: film.genre_ids as! [Int]), film.original_title, film.original_language, film.title, film.backdrop_path, film.popularity, film.vote_count, film.video, film.vote_average])
+            }
+            return "add success"
+        }catch{
+             return "This film exist in your Favorite"
         }
         
     }
+    
     func getAllData(table_name: String) throws -> [Film] {
         var arr: [Film] = []
         try! creatDB(table_name: table_name)

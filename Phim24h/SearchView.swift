@@ -141,7 +141,7 @@ extension SearchView: UITableViewDataSource{
     }
     func setData(_ film: Film) {
     
-        let detaiMovie = DetailMovieVC(nibName: "DetailMovieVC", bundle: nil) as! DetailMovieVC
+        let detaiMovie = DetailMovieVC(nibName: "DetailMovieVC", bundle: nil) 
         detaiMovie.film = film
         self.navigationController?.pushViewController(detaiMovie, animated: true)
     }

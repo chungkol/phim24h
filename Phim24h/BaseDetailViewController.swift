@@ -15,7 +15,7 @@ open class BaseDetailViewController: UIViewController {
         self.edgesForExtendedLayout = .bottom
         self.automaticallyAdjustsScrollViewInsets = false
         KingfisherManager.shared.downloader.downloadTimeout = 30
-        
+       
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -52,7 +52,6 @@ open class BaseDetailViewController: UIViewController {
             if image != nil {
                 if let resizeImage = (image?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))
                 {
-                    print(key!)
                     KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
                     imageView.image = resizeImage
                     imageView.kf.indicator?.stopAnimatingView()

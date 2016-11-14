@@ -161,6 +161,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.setTitForView("Phim24h")
+         self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
         
     }
     
@@ -314,10 +315,7 @@ extension HomeViewController: iCarouselDataSource{
         subView.shadowOffset = CGSize(width: 0.0, height: 2.0)
         subView.shadowBlur = 5.0;
         subView.cornerRadius = 10.0;
-        
-        
         if let item: Film = dataForSlide[index]  {
-            
             if let path = item.backdrop_path {
                 let pathImage = "https://image.tmdb.org/t/p/original\(path)"
                 super.loadImage(url_image: URL(string: pathImage), imageView: subView, key: "slide\(item.id!)")

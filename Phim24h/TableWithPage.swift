@@ -19,12 +19,12 @@ class TableWithPage: BaseDetailViewController {
     var datas: [Film] = []
     var temp: [Film] = []
     var type: Int = 0
-    var page: Int = 0
+    var page: Int = 2
     var position: SVPullToRefreshPosition!
     var checkPull = false
     var movie_id: Int! {
         didSet {
-            getData(1)
+            getData(page)
         }
     }
     @IBOutlet weak var myTable: UITableView!
@@ -44,7 +44,7 @@ class TableWithPage: BaseDetailViewController {
             addPullToRefresh()
         }
         self.title = data_title
-        getData(1)
+        getData(page)
         
         ManagerData.instance.getAllGenre({ [unowned self] (genres) in
             self.list_Genre = genres
@@ -143,65 +143,57 @@ class TableWithPage: BaseDetailViewController {
         myTable.addPullToRefresh(actionHandler: {
             self.page = ManagerData.instance.page
             self.pullToRefreshData(page: self.page + 1, position: .bottom)
-            
             }, position: .bottom)
-        
-        
     }
-    
-    
     func pullToRefreshData(page: Int, position: SVPullToRefreshPosition) {
-        
         self.position = position
         self.page = page
-        checkPull = true
+        self.checkPull = true
         let popTime: DispatchTime = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: popTime, execute: {
             self.myTable.beginUpdates()
-            if position == .bottom {
-                self.myTable.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .top, animated: true)
-            }else {
-                self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
+            if self.datas.count >= 20 {
+                if position == .bottom {
+                    self.myTable.setContentOffset(CGPoint.zero, animated: true)
+                }else {
+                    self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
+                }
             }
-            
-
-            
-            
         })
-        
-        
     }
-    
-    
-    
 }
-
 extension TableWithPage: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        (cell as! TableViewCellWithPage).imageCell.kf.cancelDownloadTask()
+    }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if (position == nil || checkPull == false)
         {
             return
         }
-        
         if self.type == 1 {
             ManagerData.instance.getListMovieForPullToRefresh(page, type: self.data_key, completetion: { [unowned self] (films) in
                 self.datas = films
-                self.myTable.reloadData()
-                self.myTable.endUpdates()
                 self.myTable.pullToRefreshView(at: self.position).stopAnimating()
-                
+                DispatchQueue.main.async {
+                    self.myTable.endUpdates()
+                    self.myTable.reloadData()
+                }
+               
                 ManagerData.instance.page = self.page
-
                 })
         } else {
             ManagerData.instance.getAllMovieSimilar(page, movie_ID: self.movie_id, completetion: { [unowned self] (films) in
                 self.datas = films
-                self.myTable.reloadData()
-                self.myTable.endUpdates()
+                DispatchQueue.main.async {
+                    self.myTable.reloadData()
+                    self.myTable.endUpdates()
+                }
                 self.myTable.pullToRefreshView(at: self.position).stopAnimating()
                 ManagerData.instance.page = self.page
                 })
         }
+        
         checkPull = false
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -222,9 +214,9 @@ extension TableWithPage: UITableViewDataSource {
             
             if let path = item.poster_path {
                 let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-                 super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(item.id!)")
+                super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(item.id!)")
             }
- 
+            
             cell.titleCell.text = item.title
             cell.totalViewCell.text = String(item.popularity!)
             cell.contentCell.text = item.overview

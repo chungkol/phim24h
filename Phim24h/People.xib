@@ -19,22 +19,23 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rC0-DJ-pBF">
                     <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUL-US-gXP">
-                            <frame key="frameInset" width="375" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUL-US-gXP">
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woX-LJ-jhs">
-                                    <frame key="frameInset" minX="8" width="120" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woX-LJ-jhs">
                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="8RW-WL-xpy"/>
+                                <constraint firstAttribute="bottom" secondItem="woX-LJ-jhs" secondAttribute="bottom" id="JpU-jH-OSz"/>
+                                <constraint firstItem="woX-LJ-jhs" firstAttribute="leading" secondItem="CUL-US-gXP" secondAttribute="leading" constant="8" id="Q39-FA-sRD"/>
+                                <constraint firstItem="woX-LJ-jhs" firstAttribute="top" secondItem="CUL-US-gXP" secondAttribute="top" id="m6U-9S-kVy"/>
+                                <constraint firstAttribute="trailing" secondItem="woX-LJ-jhs" secondAttribute="trailing" constant="8" id="yIC-H8-QZS"/>
+                            </constraints>
                         </view>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="102" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="CollectionViewCast" bounces="NO" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7bV-VY-2bp">
-                            <frame key="frameInset" minX="8" minY="30" width="359" height="180"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="102" contentMode="scaleToFill" restorationIdentifier="CollectionViewCast" bounces="NO" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7bV-VY-2bp">
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sRC-Oy-S9y">
                                 <size key="itemSize" width="100" height="160"/>
@@ -45,27 +46,35 @@
                         </collectionView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="7bV-VY-2bp" firstAttribute="leading" secondItem="rC0-DJ-pBF" secondAttribute="leading" constant="8" id="K5w-X1-mO7"/>
                         <constraint firstAttribute="height" constant="210" id="MIZ-ep-4mi"/>
+                        <constraint firstItem="7bV-VY-2bp" firstAttribute="top" secondItem="CUL-US-gXP" secondAttribute="bottom" id="Qq0-7D-fAB"/>
+                        <constraint firstItem="CUL-US-gXP" firstAttribute="top" secondItem="rC0-DJ-pBF" secondAttribute="top" id="Y5h-qV-GF1"/>
+                        <constraint firstAttribute="trailing" secondItem="CUL-US-gXP" secondAttribute="trailing" id="bX1-Ax-URC"/>
+                        <constraint firstAttribute="bottom" secondItem="7bV-VY-2bp" secondAttribute="bottom" id="dvE-2d-5KK"/>
+                        <constraint firstItem="CUL-US-gXP" firstAttribute="leading" secondItem="rC0-DJ-pBF" secondAttribute="leading" id="lOh-Oh-jAT"/>
+                        <constraint firstAttribute="trailing" secondItem="7bV-VY-2bp" secondAttribute="trailing" constant="8" id="pgf-8W-0MO"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihj-nH-m8Q">
                     <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KCx-QL-Tw8">
-                            <frame key="frameInset" width="375" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KCx-QL-Tw8">
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Crew" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSY-b1-4iT">
-                                    <frame key="frameInset" minX="8" width="120" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crew" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSY-b1-4iT">
                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="2NF-RH-hCY"/>
+                                <constraint firstAttribute="trailing" secondItem="mSY-b1-4iT" secondAttribute="trailing" constant="8" id="44I-oF-CTE"/>
+                                <constraint firstItem="mSY-b1-4iT" firstAttribute="top" secondItem="KCx-QL-Tw8" secondAttribute="top" id="FrC-aY-dRf"/>
+                                <constraint firstAttribute="bottom" secondItem="mSY-b1-4iT" secondAttribute="bottom" id="H6e-Tz-lwI"/>
+                                <constraint firstItem="mSY-b1-4iT" firstAttribute="leading" secondItem="KCx-QL-Tw8" secondAttribute="leading" constant="8" id="bOV-i5-NcT"/>
+                            </constraints>
                         </view>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="CollectionViewCrew" bounces="NO" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="FCx-Hj-4ZH">
-                            <frame key="frameInset" minX="8" minY="30" width="359" height="180"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" restorationIdentifier="CollectionViewCrew" bounces="NO" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="FCx-Hj-4ZH">
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HFr-7b-dxS">
                                 <size key="itemSize" width="100" height="160"/>
@@ -76,6 +85,13 @@
                         </collectionView>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="bottom" secondItem="FCx-Hj-4ZH" secondAttribute="bottom" id="1KZ-cB-8Ia"/>
+                        <constraint firstItem="FCx-Hj-4ZH" firstAttribute="leading" secondItem="ihj-nH-m8Q" secondAttribute="leading" constant="8" id="5rH-4R-11H"/>
+                        <constraint firstAttribute="trailing" secondItem="KCx-QL-Tw8" secondAttribute="trailing" id="QM3-IW-vVT"/>
+                        <constraint firstAttribute="trailing" secondItem="FCx-Hj-4ZH" secondAttribute="trailing" constant="8" id="SWH-Ux-dMW"/>
+                        <constraint firstItem="FCx-Hj-4ZH" firstAttribute="top" secondItem="KCx-QL-Tw8" secondAttribute="bottom" id="VRv-zt-PVc"/>
+                        <constraint firstItem="KCx-QL-Tw8" firstAttribute="top" secondItem="ihj-nH-m8Q" secondAttribute="top" id="awC-hN-owE"/>
+                        <constraint firstItem="KCx-QL-Tw8" firstAttribute="leading" secondItem="ihj-nH-m8Q" secondAttribute="leading" id="dQN-oD-CLz"/>
                         <constraint firstAttribute="height" constant="210" id="y8S-Ed-0fl"/>
                     </constraints>
                 </view>
@@ -86,7 +102,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="BX5-uW-45D" secondAttribute="trailing" id="2S8-I8-phL"/>
                 <constraint firstItem="rC0-DJ-pBF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="38I-kU-DgX"/>

@@ -56,7 +56,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         self.titleMovie.text = "\(movie_Title!): \(trailer.name!)"
         if let path = img_path {
             let pathImage = "https://image.tmdb.org/t/p/original\(path)"
-             super.loadImage(url_image: URL(string: pathImage), imageView: imBackground, key: "slide\(id_film!)")
+            super.loadImage(url_image: URL(string: pathImage), imageView: imBackground, key: "slide\(id_film!)")
             
         }
         getdata()
@@ -149,42 +149,16 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         
     }
     
-//    func addTreeTable() {
-//        if treeView == nil {
-//            treeView = UITableView(frame: viewForComment.bounds)
-//            treeView.register(UINib.init(nibName: "CellForMessage", bundle: nil), forCellReuseIdentifier: "CellMess")
-//            treeView.delegate = self;
-//            treeView.dataSource = self;
-//            treeView.separatorColor = UIColor.clear
-//            treeView.backgroundColor = UIColor.clear
-//            viewForComment.addSubview(treeView)
-//            treeView.translatesAutoresizingMaskIntoConstraints = false
-//            
-//            layoutTop = NSLayoutConstraint(item: treeView, attribute: .top, relatedBy: .equal, toItem: self.viewForComment, attribute: .top, multiplier: 1.0, constant: 8)
-//            
-//            layoutLeft = NSLayoutConstraint(item: treeView, attribute: .leading, relatedBy: .equal, toItem: self.viewForComment, attribute: .leading, multiplier: 1.0, constant: 8)
-//            
-//            layoutRight = NSLayoutConstraint(item: treeView, attribute: .trailing, relatedBy: .equal, toItem: self.viewForComment, attribute: .trailing, multiplier: 1.0, constant: 8)
-//            
-//            layoutBot = NSLayoutConstraint(item: treeView, attribute: .bottom, relatedBy: .equal, toItem: self.viewForComment, attribute: .bottom, multiplier: 1.0, constant: 8)
-//            
-//            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutBot])
-//        }
-//        
-//    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         btnPlay.setImage(UIImage(named: "play_w"), for: .normal)
         self.btnPlay.isHidden = false
         
     }
-    //    open override var shouldAutorotate: Bool {
-    //        return true
-    //    }
-    //    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    //        return UIInterfaceOrientationMask.all
-    //    }
+//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        return UIInterfaceOrientationMask.all
+//    }
+    
     
     
     
@@ -301,3 +275,4 @@ extension String {
     
     
 }
+

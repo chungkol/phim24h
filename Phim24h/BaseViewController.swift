@@ -13,13 +13,16 @@ open class BaseViewController: UIViewController {
     var current = 0
     open override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = .bottom
-        self.automaticallyAdjustsScrollViewInsets = false
+        
+       
         addLeftButton()
         KingfisherManager.shared.downloader.downloadTimeout = 30
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.edgesForExtendedLayout = []
+        self.extendedLayoutIncludesOpaqueBars = false
         view.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -29,13 +32,7 @@ open class BaseViewController: UIViewController {
         
     }
     
-    open override var shouldAutorotate: Bool {
-        return false
-    }
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
-    }
     
     open func setTitForView(_ title: String)
     {
@@ -60,7 +57,7 @@ open class BaseViewController: UIViewController {
         KingfisherManager.shared.cache.clearMemoryCache()
     }
     open func loadImage(url_image: URL?, imageView: UIImageView, key: String?) {
-         imageView.image = UIImage(named: "haha")
+        imageView.image = UIImage(named: "haha")
         if KingfisherManager.shared.cache.isImageCached(forKey: key!).cached {
             KingfisherManager.shared.cache.retrieveImage(forKey: key!, options: nil) { (Image, CacheType) -> () in
                 if Image != nil {
@@ -96,4 +93,21 @@ open class BaseViewController: UIViewController {
             }
         })
     }
+    
 }
+
+extension UINavigationController {
+    override open var shouldAutorotate: Bool{
+        if visibleViewController is MoviePlayer {
+                return true
+        } else {
+                return false
+        }
+       
+    }
+
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.all
+    }
+}
+

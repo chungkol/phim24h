@@ -37,7 +37,7 @@ class OverView: BaseDetailViewController {
                 ManagerData.instance.getAllVideoWithID(self.movie_id, completetion: { [unowned self] (trailers) in
                     self.datas = trailers
                     DispatchQueue.main.async {
-                       self.myCollection.reloadData()
+                        self.myCollection.reloadData()
                     }
                     
                     })
@@ -82,29 +82,39 @@ extension OverView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CelTrailer", for: indexPath) as! CellForTrailer
         cell.labelCell.text = datas[indexPath.row].name
         var pathImage = ""
-//        if imageDatas.count > datas.count {
-//            if let path = imageDatas[indexPath.row].file_path {
-//                pathImage = "https://image.tmdb.org/t/p/original\(path)"
-//            } else {
-//                cell.imageCell.image = UIImage(named: "haha")
-//            }
-//        }else  {
-//            if let path = imageDatas[indexPath.row].file_path {
-//                pathImage = "https://image.tmdb.org/t/p/original\(path)"
-//            } else {
-//                pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"            }
-//            
-//        }
-        if let path = imageDatas[indexPath.row].file_path {
-            pathImage = "https://image.tmdb.org/t/p/original\(path)"
+        //        if imageDatas.count > datas.count {
+        //            if let path = imageDatas[indexPath.row].file_path {
+        //                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+        //            } else {
+        //                cell.imageCell.image = UIImage(named: "haha")
+        //            }
+        //        }else  {
+        //            if let path = imageDatas[indexPath.row].file_path {
+        //                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+        //            } else {
+        //                pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"            }
+        //
+        //        }
+        if imageDatas.count >= datas.count {
+            if let path = imageDatas[indexPath.row].file_path {
+                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            } else if let path = imageDatas[0].file_path {
+                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            }
         } else {
-            pathImage = "https://image.tmdb.org/t/p/original\(imageDatas[0].file_path)"
+            if indexPath.row < imageDatas.count {
+                if let path = imageDatas[indexPath.row].file_path {
+                    pathImage = "https://image.tmdb.org/t/p/original\(path)"
+                }
+            } else if let path = imageDatas[0].file_path {
+                pathImage = "https://image.tmdb.org/t/p/original\(path)"
+            }
         }
+        
         super.loadImage(url_image: URL(string: pathImage), imageView: cell.imageCell, key: "\(movie_id!)-\(indexPath.row)")
         
         return cell
     }
-    
     @objc(collectionView:didSelectItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(datas[indexPath.row].key as AnyObject)
         let moviePlay = MoviePlayer(nibName: "MoviePlayer", bundle: nil) as MoviePlayer

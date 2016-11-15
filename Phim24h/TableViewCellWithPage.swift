@@ -15,6 +15,7 @@ class TableViewCellWithPage: UITableViewCell {
     
     @IBOutlet weak var imType: UIImageView!
 
+    @IBOutlet weak var parentView: UIView!
     
     @IBOutlet weak var contentCell: UITextView!
    
@@ -38,11 +39,11 @@ class TableViewCellWithPage: UITableViewCell {
         // Configure the view for the selected state
     }
     func settingCell() {
-        contentView.layer.cornerRadius = 4.0
-        contentView.layer.borderWidth = 1.0
-        contentView.layer.borderColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1).cgColor
+        parentView.layer.cornerRadius = 8.0
+        parentView.layer.borderWidth = 1.0
+        parentView.layer.borderColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1).cgColor
 
-        drawCornerRadius(contentView, rectCorner: [.topLeft, .topRight, .bottomLeft, .bottomRight], radius: CGSize(width: 4, height: 4), borderColor: UIColor.red)
+        drawCornerRadius(parentView, rectCorner: [.topLeft, .topRight, .bottomLeft, .bottomRight], radius: CGSize(width: 4, height: 4), borderColor: UIColor.red)
     }
     func drawCornerRadius(_ view : UIView, rectCorner : UIRectCorner, radius : CGSize, borderColor : UIColor) {
         

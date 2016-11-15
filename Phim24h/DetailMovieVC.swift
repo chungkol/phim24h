@@ -118,7 +118,7 @@ class DetailMovieVC: BaseDetailViewController {
             let actionAdd = UIAlertAction(title: "Add", style: .default){ (action) -> Void in
                 print("add")
                 if let user = UserData.instance.user {
-                    var mess = ManagerSQLite.shareInstance.insertData(table_name: (user.uid)!, film: self.film)
+                    let mess = ManagerSQLite.shareInstance.insertData(table_name: (user.uid)!, film: self.film)
                     self.showMess(title: "Notification", content: mess, type: .success)
                 }
 

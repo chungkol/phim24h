@@ -51,7 +51,7 @@ class LoginAccount: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                 if  UserData.instance.user == nil {
                     
                     UserData.instance.user = User(email: (user?.displayName)!, url_image: user?.photoURL!, type: "facebook", uid: (user?.uid)!)
-                    //                self.rep.child("users").setValue(user?.displayName)
+                    
                 }
                 self.addNav()
             })        }

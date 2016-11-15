@@ -12,6 +12,8 @@
 		5401D7A61DA4EAFB00CE54CF /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5401D7A51DA4EAFB00CE54CF /* CustomButton.swift */; };
 		541305FA1D94CCCB0055B180 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541305F81D94CCCB0055B180 /* TableViewCell.swift */; };
 		541305FB1D94CCCB0055B180 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541305F91D94CCCB0055B180 /* TableViewCell.xib */; };
+		541986FD1DD96F8300ACB73A /* CheckConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541986FC1DD96F8300ACB73A /* CheckConnection.swift */; };
+		541986FF1DD9A93C00ACB73A /* CustomIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541986FE1DD9A93C00ACB73A /* CustomIM.swift */; };
 		5421BC351DAE1D4D005E9121 /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5421BC331DAE1D4D005E9121 /* FavoriteVC.swift */; };
 		5421BC361DAE1D4D005E9121 /* FavoriteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5421BC341DAE1D4D005E9121 /* FavoriteVC.xib */; };
 		5421BC381DAE2FC8005E9121 /* ManagerSQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5421BC371DAE2FC8005E9121 /* ManagerSQLite.swift */; };
@@ -127,6 +129,8 @@
 		54021BB61DCB4AF90039F365 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
 		541305F81D94CCCB0055B180 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		541305F91D94CCCB0055B180 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		541986FC1DD96F8300ACB73A /* CheckConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckConnection.swift; sourceTree = "<group>"; };
+		541986FE1DD9A93C00ACB73A /* CustomIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIM.swift; sourceTree = "<group>"; };
 		5421BC331DAE1D4D005E9121 /* FavoriteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 		5421BC341DAE1D4D005E9121 /* FavoriteVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoriteVC.xib; sourceTree = "<group>"; };
 		5421BC371DAE2FC8005E9121 /* ManagerSQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerSQLite.swift; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				5443F6E81DB628DF00AE95F3 /* CustomTextView.swift */,
 				5443F6EA1DB62A1800AE95F3 /* CustomButtonWithBoderGray.swift */,
 				5443F6F91DB7692000AE95F3 /* CustomImageView.swift */,
+				541986FE1DD9A93C00ACB73A /* CustomIM.swift */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -535,6 +540,7 @@
 				5443F6EC1DB725A800AE95F3 /* MessageDetail.swift */,
 				543DFAB61DBA03580052A423 /* Guest.swift */,
 				543778531DBDEB8D00B224AF /* Result.swift */,
+				541986FC1DD96F8300ACB73A /* CheckConnection.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -932,8 +938,10 @@
 				54CA7A041D99040B00FC34C2 /* TopRated.swift in Sources */,
 				542899111D9E3256002AF465 /* People.swift in Sources */,
 				5443F6ED1DB725A800AE95F3 /* MessageDetail.swift in Sources */,
+				541986FF1DD9A93C00ACB73A /* CustomIM.swift in Sources */,
 				5443F6F71DB7676800AE95F3 /* CellForMessage.swift in Sources */,
 				549F7FA51D9375A1005B922A /* ManagerData.swift in Sources */,
+				541986FD1DD96F8300ACB73A /* CheckConnection.swift in Sources */,
 				54DCF3ED1D9A181100D23742 /* UITableViewExtension.swift in Sources */,
 				54D9CCD61DA2044300B852C1 /* Trailer.swift in Sources */,
 			);
@@ -1074,6 +1082,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Phim24h/Phim24h-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1100,6 +1109,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Phim24h/Phim24h-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

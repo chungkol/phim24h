@@ -39,6 +39,7 @@ class TableWithPage: BaseDetailViewController {
         super.viewDidLoad()
         myTable.delegate = self
         myTable.dataSource = self
+        OEANotification.setDefaultViewController(self)
         myTable.register(UINib(nibName: "TableViewCellWithPage", bundle: nil), forCellReuseIdentifier: "TableCellWithPage")
         if type == 1 || type == 5 {
             addPullToRefresh()
@@ -94,11 +95,15 @@ class TableWithPage: BaseDetailViewController {
         case 3:
             do
             {
-                datas = try ManagerSQLite.shareInstance.getAllData(table_name: (UserData.instance.user?.uid)!)
+                if let uid = UserData.instance.user?.uid {
+                     datas = try ManagerSQLite.shareInstance.getAllData(table_name: uid)
+                }else {
+                     OEANotification.notify("Notification", subTitle: "Haven't any film in your favorite", type: NotificationType.warning, isDismissable: true)
+                }
+               
             }
             catch
             {
-                OEANotification.setDefaultViewController(self)
                 OEANotification.notify("Notification", subTitle: "Haven't any film in your favorite", type: NotificationType.warning, isDismissable: true)            }
         case 4:
             datas = temp
@@ -137,11 +142,14 @@ class TableWithPage: BaseDetailViewController {
             self.page = ManagerData.instance.page
             if self.page > 1 {
                 self.pullToRefreshData(page: self.page - 1, position: .top)
+            }else {
+                return
             }
             }, position: .top)
         
         myTable.addPullToRefresh(actionHandler: {
             self.page = ManagerData.instance.page
+           
             self.pullToRefreshData(page: self.page + 1, position: .bottom)
             }, position: .bottom)
     }
@@ -152,13 +160,13 @@ class TableWithPage: BaseDetailViewController {
         let popTime: DispatchTime = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: popTime, execute: {
             self.myTable.beginUpdates()
-            if self.datas.count >= 20 {
-                if position == .bottom {
-                    self.myTable.setContentOffset(CGPoint.zero, animated: true)
-                }else {
-                    self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
-                }
-            }
+                        if self.datas.count >= 20 {
+                            if position == .bottom {
+                                self.myTable.setContentOffset(CGPoint.zero, animated: true)
+                            }else {
+                                self.myTable.scrollToRow(at: NSIndexPath(row: 19, section: 0) as IndexPath, at: .bottom, animated: true)
+                            }
+                        }
         })
     }
 }
@@ -175,30 +183,34 @@ extension TableWithPage: UITableViewDelegate {
             ManagerData.instance.getListMovieForPullToRefresh(page, type: self.data_key, completetion: { [unowned self] (films) in
                 self.datas = films
                 self.myTable.pullToRefreshView(at: self.position).stopAnimating()
+                ManagerData.instance.page = self.page
                 DispatchQueue.main.async {
                     self.myTable.endUpdates()
                     self.myTable.reloadData()
                 }
-               
-                ManagerData.instance.page = self.page
                 })
         } else {
             ManagerData.instance.getAllMovieSimilar(page, movie_ID: self.movie_id, completetion: { [unowned self] (films) in
                 self.datas = films
+                
+                self.myTable.pullToRefreshView(at: self.position).stopAnimating()
+                ManagerData.instance.page = self.page
                 DispatchQueue.main.async {
                     self.myTable.reloadData()
                     self.myTable.endUpdates()
                 }
-                self.myTable.pullToRefreshView(at: self.position).stopAnimating()
-                ManagerData.instance.page = self.page
                 })
         }
         
         checkPull = false
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
+        return 176
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 4
+    }
+
 }
 
 extension TableWithPage: UITableViewDataSource {
@@ -206,6 +218,7 @@ extension TableWithPage: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datas.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCellWithPage", for: indexPath) as! TableViewCellWithPage

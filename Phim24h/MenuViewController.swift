@@ -56,6 +56,7 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
         self.myTable.delegate = self
         self.myTable.dataSource = self
         self.myTable.register(UINib(nibName: "DataTableViewCell", bundle: nil),
@@ -80,6 +81,7 @@ class MenuViewController: BaseViewController , LeftMenuProtocol{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.clear
         self.myTable.backgroundColor = UIColor.clear
         addItemsForMenu()

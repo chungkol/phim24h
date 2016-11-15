@@ -45,16 +45,20 @@ class HomeViewController: BaseViewController, pushViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         addIcarousel()
+    
+        
+        
         let rightNav = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(HomeViewController.actionSearch))
         self.navigationItem.rightBarButtonItem = rightNav
         
-        myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
+//        myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
         myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
         initData()
         
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        print(myTable.contentInset)
         timer.invalidate()
     }
     func actionSearch(){
@@ -218,6 +222,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
         self.navigationController?.pushViewController(tableWithpage, animated: true)
         
     }
+    
     
 }
 

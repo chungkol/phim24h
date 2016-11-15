@@ -51,7 +51,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
         let rightNav = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(HomeViewController.actionSearch))
         self.navigationItem.rightBarButtonItem = rightNav
         
-//        myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
+        myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
         myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
         initData()
         

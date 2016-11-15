@@ -41,13 +41,13 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func loadImage(url_image: URL?, imageView: UIImageView, key: String?) {
-        imageView.image = UIImage(named: "haha")
+//        imageView.image = UIImage(named: "haha")
         if KingfisherManager.shared.cache.isImageCached(forKey: key!).cached {
             KingfisherManager.shared.cache.retrieveImage(forKey: key!, options: nil) { (Image, CacheType) -> () in
                 if Image != nil {
                     imageView.image = Image
                 }else {
-                    imageView.image = UIImage(named: "haha")
+//                    imageView.image = UIImage(named: "haha")
                 }
             }
         }else {
@@ -65,7 +65,6 @@ class TableViewCell: UITableViewCell {
             if image != nil {
                 if let resizeImage = (image?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))
                 {
-                    print(key!)
                     KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
                     imageView.image = resizeImage
                     imageView.kf.indicator?.stopAnimatingView()
@@ -73,7 +72,7 @@ class TableViewCell: UITableViewCell {
                     
                 }
             }else {
-                imageView.image = UIImage(named: "haha")
+//                imageView.image = UIImage(named: "haha")
                 imageView.kf.indicator?.stopAnimatingView()
                 
             }

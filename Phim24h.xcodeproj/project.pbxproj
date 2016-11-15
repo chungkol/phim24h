@@ -61,7 +61,6 @@
 		549040801D91257A00E7330D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5490407E1D91257A00E7330D /* HomeViewController.swift */; };
 		549040811D91257A00E7330D /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5490407F1D91257A00E7330D /* HomeViewController.xib */; };
 		549040841D912A0500E7330D /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 549040821D912A0500E7330D /* menu.png */; };
-		549040921D91351F00E7330D /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 549040911D91351F00E7330D /* background.jpg */; };
 		549040A81D9144F700E7330D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549040A61D9144F700E7330D /* MenuViewController.swift */; };
 		549040A91D9144F700E7330D /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 549040A71D9144F700E7330D /* MenuViewController.xib */; };
 		549F7FA01D928F99005B922A /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549F7F9F1D928F99005B922A /* Film.swift */; };
@@ -180,7 +179,6 @@
 		5490407E1D91257A00E7330D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5490407F1D91257A00E7330D /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		549040821D912A0500E7330D /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
-		549040911D91351F00E7330D /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		549040A61D9144F700E7330D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		549040A71D9144F700E7330D /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		549F7F9F1D928F99005B922A /* Film.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
@@ -480,7 +478,6 @@
 			isa = PBXGroup;
 			children = (
 				545B22F31D917172008CC9C0 /* haha.png */,
-				549040911D91351F00E7330D /* background.jpg */,
 				549040821D912A0500E7330D /* menu.png */,
 			);
 			name = Resource;
@@ -791,7 +788,6 @@
 			files = (
 				54B5FD861DBDB9B60027E3D9 /* DetailMovieVC.xib in Resources */,
 				549040841D912A0500E7330D /* menu.png in Resources */,
-				549040921D91351F00E7330D /* background.jpg in Resources */,
 				549040761D90F53000E7330D /* RegisterAccount.xib in Resources */,
 				543BB7E71D962AE700B348BF /* TableWithPage.xib in Resources */,
 				543BB7EC1D962C3900B348BF /* TableViewCellWithPage.xib in Resources */,

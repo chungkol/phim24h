@@ -14,15 +14,16 @@ open class BaseViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        self.edgesForExtendedLayout = .bottom
+        self.automaticallyAdjustsScrollViewInsets = false
         addLeftButton()
         KingfisherManager.shared.downloader.downloadTimeout = 30
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.edgesForExtendedLayout = []
-        self.extendedLayoutIncludesOpaqueBars = false
+//        self.automaticallyAdjustsScrollViewInsets = false
+//        self.edgesForExtendedLayout = .bottom
+//        self.extendedLayoutIncludesOpaqueBars = false
         view.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1)
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -57,13 +58,10 @@ open class BaseViewController: UIViewController {
         KingfisherManager.shared.cache.clearMemoryCache()
     }
     open func loadImage(url_image: URL?, imageView: UIImageView, key: String?) {
-        imageView.image = UIImage(named: "haha")
         if KingfisherManager.shared.cache.isImageCached(forKey: key!).cached {
             KingfisherManager.shared.cache.retrieveImage(forKey: key!, options: nil) { (Image, CacheType) -> () in
                 if Image != nil {
                     imageView.image = Image
-                }else {
-                    imageView.image = UIImage(named: "haha")
                 }
             }
         }else {

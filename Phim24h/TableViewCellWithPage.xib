@@ -21,6 +21,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AFb-eI-akp" customClass="CustomIM" customModule="Phim24h" customModuleProvider="target"/>
                                 </subviews>
+                                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="AFb-eI-akp" secondAttribute="trailing" id="9cg-Ph-EAo"/>
                                     <constraint firstAttribute="height" constant="160" id="IC9-pm-7zF"/>
@@ -115,6 +116,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="ViewOfImage" destination="gpg-cl-7TU" id="aDh-or-tzO"/>
                 <outlet property="bgCell" destination="WxB-Tx-W13" id="jdI-nb-EbD"/>
                 <outlet property="contentCell" destination="mwm-vP-4ca" id="X9e-AU-wcH"/>
                 <outlet property="imPlay" destination="T56-kB-Bgg" id="EHu-Qd-iRU"/>

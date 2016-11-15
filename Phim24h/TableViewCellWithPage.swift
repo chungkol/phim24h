@@ -25,6 +25,7 @@ class TableViewCellWithPage: UITableViewCell {
     
     @IBOutlet weak var totalViewCell: UILabel!
     
+    @IBOutlet weak var ViewOfImage: UIView!
     
     @IBOutlet weak var typeCell: UILabel!
 
@@ -39,6 +40,10 @@ class TableViewCellWithPage: UITableViewCell {
         // Configure the view for the selected state
     }
     func settingCell() {
+        ViewOfImage.layer.cornerRadius = 5.0
+        ViewOfImage.layer.borderWidth = 1.0
+        ViewOfImage.layer.borderColor = UIColor.clear.cgColor
+        
         parentView.layer.cornerRadius = 8.0
         parentView.layer.borderWidth = 1.0
         parentView.layer.borderColor = UIColor.init(red: 99/255, green: 226/255, blue: 183/255, alpha: 1).cgColor

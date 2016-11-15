@@ -77,7 +77,7 @@ class DetailMovieVC: BaseDetailViewController {
         }
                 myScrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height + 200 )
         
-        mySegment.setFontSize(14)
+        mySegment.setFontSize(12)
         let leftButton = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self
             , action: #selector(actionAdd))
         let leftButton2 = UIBarButtonItem(image: UIImage(named: "vote"), style: .plain, target: self
@@ -113,10 +113,8 @@ class DetailMovieVC: BaseDetailViewController {
         if alertController == nil {
             alertController = UIAlertController(title: "Notification", message: "Would you like to add favorite?", preferredStyle: .alert)
             let actionCancel = UIAlertAction(title: "Cancel", style: .default){ (action) -> Void in
-                print("Cancel")
             }
             let actionAdd = UIAlertAction(title: "Add", style: .default){ (action) -> Void in
-                print("add")
                 if let user = UserData.instance.user {
                     let mess = ManagerSQLite.shareInstance.insertData(table_name: (user.uid)!, film: self.film)
                     self.showMess(title: "Notification", content: mess, type: .success)
@@ -138,9 +136,6 @@ class DetailMovieVC: BaseDetailViewController {
             if !getAmountBeetweenTwoDateTime(date_save: date_save , current_date: getDateAndTimeNow()) {
                 self.guest_id = guest_Id
                 self.time_save = date_save
-                print(self.guest_id!)
-                print(self.time_save!)
-                
             }else {
                 createGuestID()
             }
@@ -268,7 +263,6 @@ class DetailMovieVC: BaseDetailViewController {
         
         titleDetail.text = film.title
         dateDetail.text = film.release_date
-        //        typeDetail.text = name_genre
         let ceilVote = ceil(film.vote_average!)
         totalVote.text = "(\(ceilVote))"
         imageVote.value = CGFloat(Int(ceilVote))
@@ -559,12 +553,13 @@ class DetailMovieVC: BaseDetailViewController {
             
             layoutLeft = NSLayoutConstraint(item: mySegment, attribute: .leading, relatedBy: .equal, toItem: self.headerRight, attribute: .leading, multiplier: 1.0, constant: 0)
             
-            layoutRight = NSLayoutConstraint(item: mySegment, attribute: .trailing, relatedBy: .equal, toItem: self.headerRight, attribute: .trailing, multiplier: 1.0, constant: -40)
+            layoutWidth = NSLayoutConstraint(item: mySegment
+                , attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200)
             
             layoutHeight = NSLayoutConstraint(item: mySegment
                 , attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 28)
             
-            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutRight, layoutHeight])
+            NSLayoutConstraint.activate([layoutTop, layoutLeft, layoutWidth, layoutHeight])
         }
         if saperator == nil {
             saperator = UIView(frame: CGRect(x:0, y:0, width: 100, height: 1))

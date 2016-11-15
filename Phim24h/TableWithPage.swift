@@ -19,7 +19,7 @@ class TableWithPage: BaseDetailViewController {
     var datas: [Film] = []
     var temp: [Film] = []
     var type: Int = 0
-    var page: Int = 2
+    var page: Int = 1
     var position: SVPullToRefreshPosition!
     var checkPull = false
     var movie_id: Int! {
@@ -222,7 +222,7 @@ extension TableWithPage: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCellWithPage", for: indexPath) as! TableViewCellWithPage
-        
+        cell.selectionStyle = .none
         if let item: Film = datas[indexPath.row] {
             
             if let path = item.poster_path {

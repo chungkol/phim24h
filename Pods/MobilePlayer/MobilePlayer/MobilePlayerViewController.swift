@@ -341,6 +341,7 @@ open class MobilePlayerViewController: MPMoviePlayerViewController {
     open func stop() {
         flag = true
         moviePlayer.stop()
+        moviePlayer.cancelAllThumbnailImageRequests()
         
         
         

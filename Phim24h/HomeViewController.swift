@@ -146,7 +146,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
                         DispatchQueue.main.async {
                             self.iCa.reloadData()
                         }
-                        self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
+                        self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
                         RunLoop.main.add(self.timer, forMode: .commonModes)
                         self.myTable.delegate = self
                         self.myTable.dataSource = self
@@ -165,7 +165,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.setTitForView("Phim24h")
-         self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
+         self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(HomeViewController.updateSlide(_:)), userInfo: nil, repeats: true)
         
     }
     

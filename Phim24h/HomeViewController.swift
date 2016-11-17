@@ -51,7 +51,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
         let rightNav = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(HomeViewController.actionSearch))
         self.navigationItem.rightBarButtonItem = rightNav
         
-        myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
+//        myTable.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
         myTable.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableCell")
         initData()
         
@@ -71,6 +71,7 @@ class HomeViewController: BaseViewController, pushViewDelegate {
         if headerView == nil {
             headerView = UIView(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height:(self.view.bounds.size.width * 0.6) + 25))
             headerView.backgroundColor = UIColor.gray
+            self.myTable.tableHeaderView = headerView
         }
         if iCa == nil {
             iCa = iCarousel(frame: CGRect(x:0, y:0, width: self.view.bounds.size.width, height: (self.view.bounds.size.width * 0.6)))
@@ -230,11 +231,11 @@ class HomeViewController: BaseViewController, pushViewDelegate {
 
 extension HomeViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        return headerView
-        
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//        return headerView
+//        
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -245,8 +246,8 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         
-        return (self.view.bounds.size.width * 0.6) + 25
-        
+//        return (self.view.bounds.size.width * 0.6) + 25
+            return 0
     }
     
 }
@@ -296,9 +297,9 @@ extension HomeViewController: iCarouselDelegate{
 }
 
 extension HomeViewController: iCarouselDataSource{
-    @objc(tableView:didEndDisplayingCell:forRowAtIndexPath:) func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        subView.kf.cancelDownloadTask()
-    }
+//    @objc(tableView:didEndDisplayingCell:forRowAtIndexPath:) func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        subView.kf.cancelDownloadTask()
+//    }
     
     func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
         pageSilde.currentPage = carousel.currentItemIndex

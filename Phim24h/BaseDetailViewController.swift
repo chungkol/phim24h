@@ -50,7 +50,7 @@ open class BaseDetailViewController: UIViewController {
     
     open func downloadImage(url_image: URL, imageView: UIImageView, key: String?) {
         imageView.image = UIImage()
-        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: [KingfisherOptionsInfoItem.cacheMemoryOnly], progressBlock: {receivedSize, totalSize in
+        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: {receivedSize, totalSize in
             print("\(key!): \(receivedSize)/\(totalSize)")
             }, completionHandler: { (image, error, url, data) -> () in
             if image != nil && url != nil {

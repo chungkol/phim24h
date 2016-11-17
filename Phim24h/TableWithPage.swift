@@ -171,9 +171,11 @@ class TableWithPage: BaseDetailViewController {
     }
 }
 extension TableWithPage: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        (cell as! TableViewCellWithPage).imageCell.kf.cancelDownloadTask()
-    }
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        (cell as! TableViewCellWithPage).imageCell.kf.cancelDownloadTask()
+//    }
+    
+    //bug o day
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if (position == nil || checkPull == false)
         {

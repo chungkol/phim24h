@@ -74,7 +74,7 @@ open class BaseViewController: UIViewController {
     
     open func downloadImage(url_image: URL, imageView: UIImageView, key: String?) {
         imageView.image = UIImage()
-        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: [KingfisherOptionsInfoItem.cacheMemoryOnly], progressBlock: nil, completionHandler: { (image, error, url, data) -> () in
+        KingfisherManager.shared.downloader.downloadImage(with: url_image, options: nil, progressBlock: nil, completionHandler: { (image, error, url, data) -> () in
             
             if image != nil {
                 if let resizeImage = (image?.kf.resize(to: CGSize(width: imageView.frame.size.width + 50, height: imageView.frame.size.height + 50)))

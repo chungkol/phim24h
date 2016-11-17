@@ -59,7 +59,6 @@
 		5490407B1D90F57100E7330D /* ResetPassword.xib in Resources */ = {isa = PBXBuildFile; fileRef = 549040791D90F57100E7330D /* ResetPassword.xib */; };
 		549040801D91257A00E7330D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5490407E1D91257A00E7330D /* HomeViewController.swift */; };
 		549040811D91257A00E7330D /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5490407F1D91257A00E7330D /* HomeViewController.xib */; };
-		549040841D912A0500E7330D /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 549040821D912A0500E7330D /* menu.png */; };
 		549040A81D9144F700E7330D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549040A61D9144F700E7330D /* MenuViewController.swift */; };
 		549040A91D9144F700E7330D /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 549040A71D9144F700E7330D /* MenuViewController.xib */; };
 		549F7FA01D928F99005B922A /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549F7F9F1D928F99005B922A /* Film.swift */; };
@@ -77,6 +76,7 @@
 		54CA7A131D99047300FC34C2 /* Popular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CA7A111D99047300FC34C2 /* Popular.swift */; };
 		54CA7A141D99047300FC34C2 /* Popular.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CA7A121D99047300FC34C2 /* Popular.xib */; };
 		54CC79921D8FCB1D0013139B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CC79911D8FCB1D0013139B /* User.swift */; };
+		54CCBBE31DDC618300814200 /* haha.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CCBBE21DDC618300814200 /* haha.png */; };
 		54D9CCD11DA1FD8F00B852C1 /* CellForTrailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CCCF1DA1FD8F00B852C1 /* CellForTrailer.swift */; };
 		54D9CCD21DA1FD8F00B852C1 /* CellForTrailer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D9CCD01DA1FD8F00B852C1 /* CellForTrailer.xib */; };
 		54D9CCD41DA201AB00B852C1 /* Backdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CCD31DA201AB00B852C1 /* Backdrop.swift */; };
@@ -176,7 +176,6 @@
 		549040791D90F57100E7330D /* ResetPassword.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPassword.xib; sourceTree = "<group>"; };
 		5490407E1D91257A00E7330D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5490407F1D91257A00E7330D /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
-		549040821D912A0500E7330D /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		549040A61D9144F700E7330D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		549040A71D9144F700E7330D /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		549F7F9F1D928F99005B922A /* Film.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
@@ -194,6 +193,7 @@
 		54CA7A111D99047300FC34C2 /* Popular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popular.swift; sourceTree = "<group>"; };
 		54CA7A121D99047300FC34C2 /* Popular.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Popular.xib; sourceTree = "<group>"; };
 		54CC79911D8FCB1D0013139B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		54CCBBE21DDC618300814200 /* haha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haha.png; sourceTree = "<group>"; };
 		54D9CCCF1DA1FD8F00B852C1 /* CellForTrailer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellForTrailer.swift; sourceTree = "<group>"; };
 		54D9CCD01DA1FD8F00B852C1 /* CellForTrailer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellForTrailer.xib; sourceTree = "<group>"; };
 		54D9CCD31DA201AB00B852C1 /* Backdrop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backdrop.swift; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 				54021BA21DCB48B60039F365 /* Lib */,
 				54F248641DAB9B840048D04F /* Phim24h.entitlements */,
 				54292AF11D9D2DC0002EF93D /* Assets.xcassets */,
-				549040821D912A0500E7330D /* menu.png */,
+				54CCBBE21DDC618300814200 /* haha.png */,
 				543BB7F11D96859000B348BF /* CustomView */,
 				5490406C1D90F41800E7330D /* ManagerAccount */,
 				549F7FA31D93758E005B922A /* ManagerData */,
@@ -776,7 +776,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				54B5FD861DBDB9B60027E3D9 /* DetailMovieVC.xib in Resources */,
-				549040841D912A0500E7330D /* menu.png in Resources */,
 				549040761D90F53000E7330D /* RegisterAccount.xib in Resources */,
 				543BB7E71D962AE700B348BF /* TableWithPage.xib in Resources */,
 				543BB7EC1D962C3900B348BF /* TableViewCellWithPage.xib in Resources */,
@@ -788,6 +787,7 @@
 				54CA7A051D99040B00FC34C2 /* TopRated.xib in Resources */,
 				542899171D9E5100002AF465 /* Similar.xib in Resources */,
 				543EF6A91DC09E9200D96D54 /* PauseOverlayViewController.xib in Resources */,
+				54CCBBE31DDC618300814200 /* haha.png in Resources */,
 				5490407B1D90F57100E7330D /* ResetPassword.xib in Resources */,
 				54DA5BE51D8F9C8800F21F7A /* GoogleService-Info.plist in Resources */,
 				5443F6E51DB6021A00AE95F3 /* SearchView.xib in Resources */,

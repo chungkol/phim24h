@@ -36,7 +36,6 @@ class ResetPassword: UIViewController {
     }
     
     func resetSuccess(){
-        
         OEANotification.notify("Reset password success !", subTitle: "password returned your email ", image: nil, type: .success, isDismissable: false, completion: { () -> Void in
             self.result.text = "password returned your email"
             }, touchHandler: nil)
@@ -116,4 +115,11 @@ extension ResetPassword : UITextFieldDelegate {
         }else {
             tfComfirm.backgroundColor = UIColor(hex: "#cccccc")
         }
-    }}
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        tfEmail.resignFirstResponder()
+        tfComfirm.resignFirstResponder()
+        return true
+    }
+
+}

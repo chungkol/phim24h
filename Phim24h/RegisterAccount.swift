@@ -73,6 +73,8 @@ class RegisterAccount: UIViewController {
                     
                 })
             }
+            tfUser.resignFirstResponder()
+            tfPass.resignFirstResponder()
         }
     }
     
@@ -92,5 +94,11 @@ extension RegisterAccount: UITextFieldDelegate {
         }else {
             tfPass.backgroundColor = UIColor(hex: "#cccccc")
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        tfUser.resignFirstResponder()
+        tfPass.resignFirstResponder()
+        return true
     }
 }

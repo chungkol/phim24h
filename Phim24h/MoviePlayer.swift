@@ -51,6 +51,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         super.viewDidLoad()
         myTable.delegate = self
         myTable.dataSource = self
+        tvComment.delegate = self
         myTable.register(UINib.init(nibName: "CellForMessage", bundle: nil), forCellReuseIdentifier: "CellMess")
         ref = FIRDatabase.database().reference()
         self.titleMovie.text = "\(movie_Title!): \(trailer.name!)"
@@ -95,6 +96,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
             mess.coment = comment
             mess.state = state
             writeData(mess: mess)
+            tvComment.endEditing(true)
             
         }else{
             showMess(title: "Post Coment", mess: "Enter your coment")
@@ -132,7 +134,7 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
                 }
             }
             
-            }, withCancel: nil)
+        }, withCancel: nil)
         
         
     }
@@ -155,9 +157,9 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         self.btnPlay.isHidden = false
         
     }
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        return UIInterfaceOrientationMask.all
-//    }
+    //    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    //        return UIInterfaceOrientationMask.all
+    //    }
     
     
     
@@ -274,5 +276,14 @@ extension String {
     }
     
     
+}
+extension MoviePlayer: UITextViewDelegate {
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+////        if tvComment.isEqual("/n") || text == "\n"{
+////            tvComment.resignFirstResponder()
+////            return false
+////        }
+//        return true
+//    }
 }
 

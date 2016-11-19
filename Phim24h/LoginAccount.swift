@@ -182,6 +182,8 @@ class LoginAccount: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             }else{
                 checkLogin(mUser, password: mPass)
             }
+            tfUser.resignFirstResponder()
+            tfPass.resignFirstResponder()
         }
     }
     func checkLogin(_ username : String, password : String){
@@ -359,6 +361,11 @@ extension LoginAccount : UITextFieldDelegate {
         }else {
             tfPass.backgroundColor = UIColor(hex: "#cccccc")
         }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        tfUser.resignFirstResponder()
+        tfPass.resignFirstResponder()
+        return true
     }
     
 }

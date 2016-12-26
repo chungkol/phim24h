@@ -558,6 +558,13 @@
 			name = "My Favorite";
 			sourceTree = "<group>";
 		};
+		54C195C31DE29FD300156FF8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
 		54CA7A011D9903DA00FC34C2 /* TopRated */ = {
 			isa = PBXGroup;
 			children = (
@@ -606,6 +613,7 @@
 		54CC79941D8FCE610013139B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				54C195C31DE29FD300156FF8 /* Extension */,
 				5443F6E11DB601F000AE95F3 /* SearchView */,
 				54AB90971DAB421200A4BB23 /* My Favorite */,
 				5401D7A41DA4E26000CE54CF /* MoviePlayer */,

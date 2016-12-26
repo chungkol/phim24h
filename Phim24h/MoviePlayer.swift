@@ -146,7 +146,6 @@ class MoviePlayer: BaseDetailViewController, PauseOrStart {
         let currentDate = NSDate()
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "HH:mm:ss dd/MM/yyyy"
-        
         return dateFormat.string(from: currentDate as Date)
         
     }

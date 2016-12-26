@@ -81,15 +81,19 @@ class DetailMovieVC: BaseDetailViewController {
         let leftButton = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self
             , action: #selector(actionAdd))
         let leftButton2 = UIBarButtonItem(image: UIImage(named: "vote"), style: .plain, target: self
-            , action: #selector(actionShare))
+            , action: #selector(actionVote))
+        let leftButton3 = UIBarButtonItem(image: UIImage(named: "share"), style: .plain, target:self, action: #selector(actionShare))
         
-        navigationItem.rightBarButtonItems = [leftButton,leftButton2]
+        navigationItem.rightBarButtonItems = [leftButton,leftButton2, leftButton3]
         
         ManagerData.instance.getAllGenre({ [unowned self] (genres) in
             self.list_Genre = genres
             self.typeDetail.text = self.getNameOfGenre(self.film.genre_ids as! [Int])
             })
         setData()
+        
+    }
+    func actionShare() {
         
     }
     func actionAdd() {
@@ -100,7 +104,7 @@ class DetailMovieVC: BaseDetailViewController {
         super.viewDidDisappear(animated)
     }
     
-    func actionShare() {
+    func actionVote() {
         self.addAlertViewVote()
         
     }

@@ -65,7 +65,7 @@ class TableViewCell: UITableViewCell {
                     KingfisherManager.shared.cache.store(resizeImage, forKey: key!)
                     imageView.image = resizeImage
                     imageView.kf.indicator?.stopAnimatingView()
-
+                    
                 }
             }else {
                 imageView.kf.indicator?.stopAnimatingView()
@@ -79,9 +79,9 @@ class TableViewCell: UITableViewCell {
 }
 extension TableViewCell: UICollectionViewDelegate {
     
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        (cell as! CollectionViewCell).imageCell.kf.cancelDownloadTask()
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    //        (cell as! CollectionViewCell).imageCell.kf.cancelDownloadTask()
+    //    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //
         delegate.setData(datas[indexPath.row])
